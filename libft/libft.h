@@ -6,14 +6,14 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 21:05:30 by emurky            #+#    #+#             */
-/*   Updated: 2021/03/23 23:41:56 by emurky           ###   ########.fr       */
+/*   Updated: 2021/03/24 00:20:25 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # define FDS 1
-# define BUFFER_SIZE 21
+# define BUFFER_SIZE 42
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>

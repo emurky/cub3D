@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/03/24 00:12:57 by emurky           ###   ########.fr        #
+#    Updated: 2021/03/24 00:26:29 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ libft_re:
 # ******************************************** #
 
 superclean:
-					rm -r *.o *.a */*.o */*.a cub3d* !(cub3d.*)
+					rm -r *.o *.a */*.o */*.a
 
 .PHONY:				all clean fclean re bonus \
 					libft libft_clean libft_fclean libft_re \
