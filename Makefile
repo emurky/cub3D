@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/03/24 00:26:29 by emurky           ###   ########.fr        #
+#    Updated: 2021/03/24 16:33:23 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,14 @@ SRCS				= \
 
 OBJS				= $(SRCS:.c=.o)
 
-INCS				= \
-						-I./libft \
-						-I./mlx \
-						-I.
+DEPS				= $(SRCS:.c=.d)
 
 NAME				= cub3d
 
 CC 					= gcc
 RM 					= rm -f
 CFLAGS				= -Wall -Wextra -Werror
+CPPFLAGS			= -MMD
 MLX_FLAGS			= -framework OpenGL -framework AppKit
 
 LIBS				= \
@@ -36,14 +34,16 @@ all:				$(NAME)
 $(NAME):			$(OBJS)
 					$(MAKE) -C ./libft -j 8
 					$(MAKE) -C ./mlx -j 8
-					$(CC) $(CFLAGS) $(INC) $(OBJS) $(LIBS) -o $(NAME)
+					$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+
+-include			$(DEPS)
 
 bonus:				all
 
 clean:
 					$(MAKE) clean -C ./libft
 					$(MAKE) clean -C ./mlx
-					$(RM) $(OBJS)
+					$(RM) $(OBJS) $(DEPS)
 
 fclean:				clean
 					$(RM) ./libft/libft.a
@@ -68,7 +68,7 @@ libft_re:
 # ******************************************** #
 
 superclean:
-					rm -r *.o *.a */*.o */*.a
+					rm -r *.o *.a */*.o */*.a 'cub3d '*
 
 .PHONY:				all clean fclean re bonus \
 					libft libft_clean libft_fclean libft_re \

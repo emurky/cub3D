@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 18:08:11 by emurky            #+#    #+#              #
-#    Updated: 2021/03/24 00:29:21 by emurky           ###   ########.fr        #
+#    Updated: 2021/03/24 16:46:09 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,11 +47,7 @@ SRCS			= \
 				ft_putstr_fd.c \
 				ft_putendl_fd.c \
 				ft_putnbr_fd.c \
-				get_next_line.c
-
-OBJS 			= $(SRCS:.c=.o)
-
-B_SRCS			= \
+				\
 				ft_lstnew.c \
 				ft_lstadd_front.c \
 				ft_lstsize.c \
@@ -69,9 +65,12 @@ B_SRCS			= \
 				ft_putendl_bonus.c \
 				ft_putnbr_bonus.c \
 				ft_nbrlen_bonus.c \
-				ft_charin_bonus.c
+				ft_charin_bonus.c \
+				get_next_line.c
 
-B_OBJS			= $(B_SRCS:.c=.o)
+OBJS 			= $(SRCS:.c=.o)
+
+DEPS			= $(SRCS:.c=.d)
 
 NAME 			= libft.a
 
@@ -79,20 +78,19 @@ CC				= gcc
 RM				= rm -f
 AR				= ar rcs
 CFLAGS			= -Wall -Wextra -Werror
+CPPFLAGS		= -MMD
 
-all:			bonus
-
+all:			$(NAME)
 
 $(NAME):		$(OBJS)
 				$(AR) $(NAME) $(OBJS)
 
-bonus:			$(NAME) $(B_OBJS)
-				$(AR) $(NAME) $(B_OBJS)
+-include		$(DEPS)
+
+bonus:			all
 
 clean:
-				$(RM) $(OBJS) $(B_OBJS)
-
-
+				$(RM) $(OBJS) $(DEPS)
 
 fclean:			clean
 				$(RM) $(NAME)
@@ -100,4 +98,4 @@ fclean:			clean
 re:				fclean all
 
 .PHONY:			all clean fclean re
-.SILENT:
+#.SILENT:
