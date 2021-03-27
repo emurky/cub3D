@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/03/24 16:33:23 by emurky           ###   ########.fr        #
+#    Updated: 2021/03/27 18:24:25 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,8 +67,8 @@ libft_re:
 					$(MAKE) re -C ./libft
 # ******************************************** #
 
-superclean:
-					rm -r *.o *.a */*.o */*.a 'cub3d '*
+sc:
+					rm -rf *.o *.a */*.o */*.a */*.d *.d 'cub3d '* cub3d
 
 .PHONY:				all clean fclean re bonus \
 					libft libft_clean libft_fclean libft_re \
