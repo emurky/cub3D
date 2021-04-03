@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/03/27 18:24:25 by emurky           ###   ########.fr        #
+#    Updated: 2021/03/27 20:19:44 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ NAME				= cub3d
 
 CC 					= gcc
 RM 					= rm -f
-CFLAGS				= -Wall -Wextra -Werror
+CFLAGS				= -Wall -Wextra -Werror -I. -I./includes
 CPPFLAGS			= -MMD
 MLX_FLAGS			= -framework OpenGL -framework AppKit
 
@@ -68,7 +68,7 @@ libft_re:
 # ******************************************** #
 
 sc:
-					rm -rf *.o *.a */*.o */*.a */*.d *.d 'cub3d '* cub3d
+					rm -rf *.o *.a */*.o */*.a */*.d *.d 'cub3d '* cub3d a.out
 
 .PHONY:				all clean fclean re bonus \
 					libft libft_clean libft_fclean libft_re \

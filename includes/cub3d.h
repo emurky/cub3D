@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/03/27 18:10:43 by emurky           ###   ########.fr       */
+/*   Updated: 2021/03/28 00:28:11 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
 
-# define TY "aleykum"
 
 #endif
