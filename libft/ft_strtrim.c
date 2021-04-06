@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurky <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 21:35:12 by emurky            #+#    #+#             */
-/*   Updated: 2020/11/16 21:35:13 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/05 22:49:06 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_static_charin(char c, const char *str)
+static int	ft_static_charin(char c, const char *str)
 {
 	int		i;
 	size_t	slen;
@@ -28,7 +28,7 @@ static int		ft_static_charin(char c, const char *str)
 	return (-1);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char		*trimmed;
 	char		*trptr;
@@ -45,7 +45,8 @@ char			*ft_strtrim(char const *s1, char const *set)
 		return (ft_strdup(""));
 	while (ft_static_charin(*end, set) >= 0)
 		end--;
-	if (!(trimmed = malloc(sizeof(char) * (++end - s1 + 1))))
+	trimmed = malloc(sizeof(char) * (++end - s1 + 1));
+	if (!trimmed)
 		return (NULL);
 	trptr = trimmed;
 	while (s1 != end)

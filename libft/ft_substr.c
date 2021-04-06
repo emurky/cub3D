@@ -3,36 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurky <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 00:28:18 by emurky            #+#    #+#             */
-/*   Updated: 2020/11/16 00:28:22 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/05 23:25:28 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_substr(char const *s, unsigned int start, size_t len)
+static int	substr_length_malloc(char **sub, unsigned int strlen,
+								unsigned int start, size_t len)
+{
+	if (len > strlen - start)
+	{
+		*sub = malloc(sizeof(char) * (strlen - start + 1));
+		if (!(*sub))
+			return (0);
+	}
+	else if (len <= strlen - start)
+	{
+		*sub = malloc(sizeof(char) * (len + 1));
+		if (!(*sub))
+			return (0);
+	}
+	return (1);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char			*sub;
 	unsigned int	i;
-	unsigned int	string_length;
+	unsigned int	strlen;
 
 	if (!s)
 		return (NULL);
-	string_length = ft_strlen(s);
-	if (start >= string_length)
+	strlen = ft_strlen(s);
+	if (start >= strlen)
 		return (ft_strdup(""));
-	if (len > string_length - start)
-	{
-		if (!(sub = malloc(sizeof(char) * (string_length - start + 1))))
-			return (NULL);
-	}
-	else if (len <= string_length - start)
-	{
-		if (!(sub = malloc(sizeof(char) * (len + 1))))
-			return (NULL);
-	}
+	if (!substr_length_malloc(&sub, strlen, start, len))
+		return (NULL);
 	i = 0;
 	while (s[start] && len--)
 		sub[i++] = s[start++];

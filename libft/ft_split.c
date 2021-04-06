@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurky <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 02:03:08 by emurky            #+#    #+#             */
-/*   Updated: 2020/11/18 02:03:10 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/06 02:42:49 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_count_words(char const *s, char c, size_t *i)
+static size_t	ft_count_words(char const *s, char c)
 {
 	size_t		counter;
 
 	counter = 0;
-	*i = 0;
 	while (*s)
 	{
 		while (*s && *s == c)
@@ -32,7 +31,7 @@ static size_t	ft_count_words(char const *s, char c, size_t *i)
 	return (counter);
 }
 
-static char		**ft_free_splitted(char **splitted)
+static char	**ft_free_splitted(char **splitted)
 {
 	while (*splitted)
 		free(*splitted++);
@@ -40,7 +39,17 @@ static char		**ft_free_splitted(char **splitted)
 	return (NULL);
 }
 
-char			**ft_split(char const *s, char c)
+static int	malloc_splitted(char ***splitted, size_t words_count, size_t *i)
+{
+	*i = 0;
+	*splitted = (char **)malloc(sizeof(char *) * (words_count + 1));
+	if (!(*splitted))
+		return (0);
+	(*splitted)[words_count] = NULL;
+	return (1);
+}
+
+char	**ft_split(char const *s, char c)
 {
 	size_t		words_count;
 	size_t		word_len;
@@ -49,10 +58,9 @@ char			**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	words_count = ft_count_words(s, c, &i);
-	if (!(splitted = (char **)malloc(sizeof(char *) * (words_count + 1))))
+	words_count = ft_count_words(s, c);
+	if (!malloc_splitted(&splitted, words_count, &i))
 		return (NULL);
-	splitted[words_count] = NULL;
 	while (*s && i < words_count)
 	{
 		word_len = 0;
@@ -60,7 +68,8 @@ char			**ft_split(char const *s, char c)
 			s++;
 		while (*s && s[word_len] != c)
 			word_len++;
-		if (!(splitted[i] = ft_substr(s, 0, word_len)))
+		splitted[i] = ft_substr(s, 0, word_len);
+		if (!splitted[i])
 			return (ft_free_splitted(splitted));
 		if (*s)
 			s += word_len;

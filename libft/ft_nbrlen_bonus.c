@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nbrlen.c                                        :+:      :+:    :+:   */
+/*   ft_nbrlen_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emurky <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:17:48 by emurky            #+#    #+#             */
-/*   Updated: 2020/11/16 03:17:51 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/06 00:10:29 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_nbrlen(long int n)
+size_t	ft_nbrlen(long int n)
 {
 	size_t	len;
 
 	len = 1;
-	while (n /= 10)
+	n /= 10;
+	while (n)
+	{
+		n /= 10;
 		len++;
+	}
 	return (len);
 }

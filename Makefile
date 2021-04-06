@@ -6,12 +6,17 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/03/27 20:19:44 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/04 02:01:32 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS				= \
-						cub3d.c
+SRCSDIR				= ./sources
+# OBJSDIR				= objs
+# DEPSDIR				= deps
+
+SRCS				= $(addprefix $(SRCSDIR)/, \
+						cub3d.c \
+						)
 
 OBJS				= $(SRCS:.c=.o)
 
@@ -21,8 +26,8 @@ NAME				= cub3d
 
 CC 					= gcc
 RM 					= rm -f
-CFLAGS				= -Wall -Wextra -Werror -I. -I./includes
-CPPFLAGS			= -MMD
+CFLAGS				= -Wall -Wextra -Werror
+CPPFLAGS			= -MMD -I. -I./includes
 MLX_FLAGS			= -framework OpenGL -framework AppKit
 
 LIBS				= \
