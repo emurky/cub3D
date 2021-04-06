@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 21:05:30 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/06 02:50:02 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/06 04:45:57 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# define FDS 1
-# define BUFFER_SIZE 42
+# define BUFFER_SIZE 42		/* for get_next_line */
 
 typedef struct s_list
 {
@@ -104,7 +103,5 @@ int					ft_charin(char c, const char *str);
 */
 
 int					get_next_line(int fd, char **line);
-int					nl_finder(char **buffer, char **line);
-char				*ft_strjoin_free_line(char *s1, char *s2);
 
 #endif
