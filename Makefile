@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/04/06 04:43:48 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/06 16:57:03 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCSDIR				= ./sources
 
 SRCS				= $(addprefix $(SRCSDIR)/, \
 						cub3d.c \
+						parser.c \
 						)
 
 OBJS				= $(SRCS:.c=.o)
