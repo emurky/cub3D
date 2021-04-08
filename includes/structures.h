@@ -1,29 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/08 03:40:57 by emurky           ###   ########.fr       */
+/*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
+/*   Updated: 2021/04/08 03:40:46 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef STRUCTURES_H
+# define STRUCTURES_H
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <math.h>
+typedef struct	s_pnt
+{
+	int			x;
+	int			y;
+}				t_pnt;
 
-# include "structures.h"
-# include "colors.h"
-# include "../mlx/mlx.h"
-# include "../libft/libft.h"
+typedef struct	s_img
+{
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			linelen;
+	int			endian;
+}				t_img;
 
-#define TEST	"salam aleykum"
+typedef struct	s_plr
+{
+	double		x;
+	double		y;
+	double		dir;
+	double		start;
+	double		end;
+}				t_plr;
+
+typedef struct	s_all
+{
+	void		*mlx;
+	void		*win;
+	t_img		img;
+	t_plr		plr;
+	char		**map;
+}				t_all;
 
 #endif

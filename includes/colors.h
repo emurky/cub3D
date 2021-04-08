@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/08 03:40:57 by emurky           ###   ########.fr       */
+/*   Created: 2021/04/08 03:34:14 by emurky            #+#    #+#             */
+/*   Updated: 2021/04/08 03:40:16 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef COLORS_H
+# define COLORS_H
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <math.h>
-
-# include "structures.h"
-# include "colors.h"
-# include "../mlx/mlx.h"
-# include "../libft/libft.h"
-
-#define TEST	"salam aleykum"
+# define WHITE		0x00FFFFFF
+# define DARK_GREY	0x00111111
+# define YELLOW		0x00FFFF00
+# define RED		0x00FF0000
+# define BLUE		0x000000FF
+# define BLACK		0x00000000
 
 #endif
