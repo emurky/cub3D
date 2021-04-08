@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/08 03:42:26 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/08 16:15:57 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 int		is_player_dir(char c)
 {
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
+int		scaled_down_x(double index)
+{
+	return ((index - MAP_OFFS_X) / SCALE);
+}
+
+int		scaled_down_y(double index)
+{
+	return ((index - MAP_OFFS_Y) / SCALE);
 }
 
 void	gnl_test(void)
@@ -109,6 +119,35 @@ void	draw_square(t_img *img, int width, t_pnt pos, int color)
 	}
 }
 
+void	draw_ray(/*t_all *all, double x, double y*/)
+{
+
+}
+
+void	cast_rays(t_all *all, int raycount)
+{
+	t_plr	ray;
+	double	start;
+	double	end;
+
+	ray = all->plr;
+	start = ray.dir - M_PI_4;
+	end = ray.dir + M_PI_4;
+	raycount--;
+	while (start <= end)
+	{
+		ray.x = all->plr.x;
+		ray.y = all->plr.y;
+		while (all->map[scaled_down_y(ray.y)][scaled_down_x(ray.x)] != '1')
+		{
+			ray.x += cos(start);
+			ray.y -= sin(start);
+			my_mlx_pixel_put(&all->img, ray.x, ray.y, BLUE);
+		}
+		start += M_PI_2 / raycount;
+	}
+}
+
 void	draw_map(t_all *all)
 {
 	int		i;
@@ -123,51 +162,19 @@ void	draw_map(t_all *all)
 		pos.x = MAP_OFFS_X;
 		while (all->map[i][j])
 		{
-			draw_square(&all->img, SCALE, pos, DARK_GREY);
 			if (all->map[i][j] == '1')
 				draw_square(&all->img, SCALE, pos, WHITE);
-			if (is_player_dir(all->map[i][j]))
+			else if (is_player_dir(all->map[i][j]))
 				draw_square(&all->img, SCALE, pos, RED);
+			else
+				draw_square(&all->img, SCALE, pos, DARK_GREY);
 			pos.x += SCALE;
 			j++;
 		}
 		pos.y += SCALE;
 		i++;
 	}
-}
-
-int		scaled_down_x(double index)
-{
-	return ((index - MAP_OFFS_X) / SCALE);
-}
-
-int		scaled_down_y(double index)
-{
-	return ((index - MAP_OFFS_Y) / SCALE);
-}
-
-void	cast_rays(t_all *all, int raycount)
-{
-	t_plr	ray;
-	double	start;
-	double	end;
-
-	ray = all->plr;
-	start = ray.dir - M_PI_4;
-	end = ray.dir + M_PI_4;
-	
-	while (start <= end)
-	{
-		ray.x = all->plr.x;
-		ray.y = all->plr.y;
-		while (all->map[scaled_down_y(ray.y)][scaled_down_x(ray.x)] != '1')
-		{
-			ray.x += cos(start);
-			ray.y -= sin(start);
-			my_mlx_pixel_put(&all->img, ray.x, ray.y, BLUE);
-		}
-		start += M_PI_2 / raycount;
-	}
+	cast_rays(all, 88);
 }
 
 int		main(void)
@@ -188,8 +195,6 @@ int		main(void)
 	all.plr.dir = M_PI_2;
 
 	draw_map(&all);
-
-	cast_rays(&all, 100);
 
 	mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_string_put(all.mlx, all.win, 300, 300, RED, TEST);
