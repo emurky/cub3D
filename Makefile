@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/04/06 16:57:03 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/09 04:49:10 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRCSDIR				= ./sources
 SRCS				= $(addprefix $(SRCSDIR)/, \
 						cub3d.c \
 						parser.c \
+						draw_map.c \
+						utils.c \
 						)
 
 OBJS				= $(SRCS:.c=.o)
@@ -29,7 +31,7 @@ CC 					= gcc
 RM 					= rm -f
 CFLAGS				= -Wall -Wextra -Werror
 CPPFLAGS			= -MMD -I. -I./includes
-MLX_FLAGS			= -framework OpenGL -framework AppKit
+MLX_FLAGS			= -framework OpenGL -framework AppKit -lz
 
 LIBS				= \
 						-L./libft -lft \
