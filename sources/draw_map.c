@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/13 03:36:32 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/13 04:10:10 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,6 @@ void	draw_player(t_all *all)
 	pos.y = all->plr.y - SCALE / 2;
 	draw_map(all);
 	draw_square(&all->img, SCALE, pos, GREEN);
-	cast_rays(all, 100);
+	cast_rays(all, RAYCOUNT);
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 }

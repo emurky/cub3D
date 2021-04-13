@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/13 03:36:52 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/13 04:13:26 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,22 @@
 
 #define TEST	"salam aleykum"
 
+# define TRUE			1
+# define FALSE			0
+
 # define SCRN_W			1200
 # define SCRN_H			900
 
 # define MAP_OFFS_X		100
 # define MAP_OFFS_Y		100
 
-# define GRID			1
+# define GRID			TRUE
 # define FOV			M_PI_2
-# define SCALE			30
+# define SCALE			32
 # define SPRITE_SCALE	2
+# define RAYCOUNT		SCALE * 3
 # define MOVE_SPEED		SCALE / 4
-# define ROTATE_SPEED	M_PI / 15
+# define ROTATE_SPEED	M_PI / 16
 
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			is_player_dir(char c);

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 23:48:29 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/13 00:57:28 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/13 04:03:38 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@
 # define KEY_LEFT	123
 # define KEY_RIGHT	124
 # define KEY_ESC	53
+
+# define KEY_R		15
 
 #endif
