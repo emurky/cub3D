@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.h                                           :+:      :+:    :+:   */
+/*   keys.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/08 03:34:14 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/12 21:22:25 by emurky           ###   ########.fr       */
+/*   Created: 2021/04/12 23:48:29 by emurky            #+#    #+#             */
+/*   Updated: 2021/04/13 00:57:28 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#ifndef KEYS_H
+# define KEYS_H
 
-# define WHITE		0x00FFFFFF
-# define DARK_GREY	0x00222222
-# define YELLOW		0x00FFFF00
-# define RED		0x00FF0000
-# define BLUE		0x000000FF
-# define BLACK		0x00000000
-# define GREEN		0x00008000
+# define KEY_W		13
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
+# define KEY_ESC	53
 
 #endif

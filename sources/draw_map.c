@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/09 04:44:24 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/13 03:36:32 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	draw_square(t_img *img, int width, t_pnt pos, int color)
 	int		j;
 
 	j = pos.y;
-	while (j < width + pos.y)
+	while (j < width + pos.y - GRID)
 	{
 		i = pos.x;
-		while (i < width + pos.x)
+		while (i < width + pos.x - GRID)
 		{
 			my_mlx_pixel_put(img, i, j, color);
 			i++;
@@ -49,34 +49,45 @@ void	draw_square(t_img *img, int width, t_pnt pos, int color)
 	}
 }
 
-void	draw_ray(/*t_all *all, double x, double y*/)
+void	draw_ray(t_plr *ray, t_all *all, int color)
 {
-
+	while (all->map[scaled_down_y(ray->y)][scaled_down_x(ray->x)] != '1')
+	{
+		ray->x += cos(ray->dir);
+		ray->y -= sin(ray->dir);
+		my_mlx_pixel_put(&all->img, ray->x, ray->y, color);
+	}
 }
 
 void	cast_rays(t_all *all, int raycount)
 {
 	t_plr	ray;
-	double	start;
-	double	end;
 
 	ray = all->plr;
-	start = ray.dir - M_PI_4;
-	end = ray.dir + M_PI_4;
 	raycount--;
-	while (start <= end)
+	while (ray.start <= ray.end)
 	{
 		ray.x = all->plr.x;
 		ray.y = all->plr.y;
 		while (all->map[scaled_down_y(ray.y)][scaled_down_x(ray.x)] != '1')
 		{
-			ray.x += cos(start);
-			ray.y -= sin(start);
+			ray.x += cos(ray.start);
+			ray.y -= sin(ray.start);
 			my_mlx_pixel_put(&all->img, ray.x, ray.y, BLUE);
 		}
-		start += M_PI_2 / raycount;
+		ray.start += FOV / raycount;
 	}
 }
+
+// void	draw_sprites(t_all *all, t_pnt *pos)
+// {
+// 	draw_square(&all->img, SCALE, *pos, DARK_GREY);
+// 	pos->x += (SCALE - SCALE / SPRITE_SCALE) / 2;
+// 	pos->y += (SCALE - SCALE / SPRITE_SCALE) / 2;
+// 	draw_square(&all->img, SCALE / SPRITE_SCALE, *pos, RED);
+// 	pos->x -= (SCALE - SCALE / SPRITE_SCALE) / 2;
+// 	pos->y -= (SCALE - SCALE / SPRITE_SCALE) / 2;
+// }
 
 void	draw_map(t_all *all)
 {
@@ -94,8 +105,17 @@ void	draw_map(t_all *all)
 		{
 			if (all->map[i][j] == '1')
 				draw_square(&all->img, SCALE, pos, WHITE);
-			else if (is_player_dir(all->map[i][j]))
-				draw_square(&all->img, SCALE, pos, RED);
+			// else if (is_player_dir(all->map[i][j]))
+			// 	draw_square(&all->img, SCALE, pos, GREEN);
+			else if (all->map[i][j] == '2')
+			{
+				draw_square(&all->img, SCALE, pos, DARK_GREY);
+				pos.x += (SCALE - SCALE / SPRITE_SCALE) / 2;
+				pos.y += (SCALE - SCALE / SPRITE_SCALE) / 2;
+				draw_square(&all->img, SCALE / SPRITE_SCALE, pos, RED);
+				pos.x -= (SCALE - SCALE / SPRITE_SCALE) / 2;
+				pos.y -= (SCALE - SCALE / SPRITE_SCALE) / 2;
+			}
 			else
 				draw_square(&all->img, SCALE, pos, DARK_GREY);
 			pos.x += SCALE;
@@ -104,5 +124,16 @@ void	draw_map(t_all *all)
 		pos.y += SCALE;
 		i++;
 	}
-	cast_rays(all, 88);
+}
+
+void	draw_player(t_all *all)
+{
+	t_pnt	pos;
+
+	pos.x = all->plr.x - SCALE / 2;
+	pos.y = all->plr.y - SCALE / 2;
+	draw_map(all);
+	draw_square(&all->img, SCALE, pos, GREEN);
+	cast_rays(all, 100);
+	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 }
