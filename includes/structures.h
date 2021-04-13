@@ -6,20 +6,20 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/09 04:55:09 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/13 17:21:09 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-typedef struct	s_pnt
+typedef struct s_pnt
 {
 	int			x;
 	int			y;
 }				t_pnt;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void		*img;
 	char		*addr;
@@ -28,7 +28,7 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
-typedef struct	s_plr
+typedef struct s_plr
 {
 	double		x;
 	double		y;
@@ -37,7 +37,7 @@ typedef struct	s_plr
 	double		end;
 }				t_plr;
 
-typedef struct	s_all
+typedef struct s_all
 {
 	void		*mlx;
 	void		*win;

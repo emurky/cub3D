@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/13 16:06:04 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/13 20:05:35 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,11 @@ int		main(void)
 	// mlx_key_hook(all.win, key_press, &all);
 	// mlx_key_hook(all.win, esc_exit, &all);
 	
+	t_pnt screen;
+	
+	mlx_get_screen_size(&screen.x, &screen.y);
+	printf("%d width, %d height\n", screen.x, screen.y);
+
 	mlx_hook(all.win, 2, 1L<<0, renderer, &all);
 	mlx_loop(all.mlx);
 	return (0);

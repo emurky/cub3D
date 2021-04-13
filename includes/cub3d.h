@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/13 16:06:08 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/13 17:23:45 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define FOV			M_PI_2
 # define SCALE			32
 # define SPRITE_SCALE	2
+
 # define RAYCOUNT		SCALE * 3
 # define MOVE_SPEED		SCALE / 4
 # define ROTATE_SPEED	M_PI / 16
