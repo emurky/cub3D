@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/13 04:09:29 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/13 16:06:04 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ void	gnl_test(void)
 	ft_putendl("salam aleykum");
 }
 
-void	set_player_dir(t_plr *plr, double direction)
-{
-	plr->dir = direction;
-	plr->start = direction - FOV / 2;
-	plr->end = direction + FOV / 2;
-}
-
 char	**map_init(void)
 {
 	char	**map;
@@ -63,98 +56,17 @@ char	**map_init(void)
 	return (map);
 }
 
-int		print_key(int key, t_all *all)
-{
-	(void)all;
-	printf("%d was pressed\n", key);
-	return (0);
-}
-
-void	clean_map(char ***map)
+/* void	clean_map(char ***map)
 {
 	while (**map)
 		free((**map)++);
 	free(*map);
-}
+} */
 
-int		esc_exit(int key, t_all *all)
-{
-	(void)all;
-	// mlx_destroy_window(all->mlx, all->win);
-	if (key == KEY_ESC)
-	{
-		// clean_map(&all->map);
-		exit(0);
-	}
-	return (0);
-}
-
-int		close_window(int button, t_all *all)
-{
-	(void)all;
-	printf("%d was pressed\n", button);
-	return (0);
-}
-
-char	map_char(t_all *all)
-{
-	return (all->map[scaled_down_y(all->plr.y)][scaled_down_x(all->plr.x)]);
-}
-
-int		key_press(int key, t_all *all)
+int		renderer(int key, t_all *all)
 {
 	mlx_clear_window(all->mlx, all->win);
-	if (map_char(all) == '1')
-	{
-		// printf("%f is x %f is y\n", all->plr.x, all->plr.y);
-		all->plr.dir += M_PI - 2 * all->plr.dir;
-		all->plr.start = all->plr.dir - FOV / 2;
-		all->plr.end = all->plr.dir + FOV / 2;
-		all->plr.x += cos(all->plr.dir) * SCALE / 4;
-		all->plr.y -= sin(all->plr.dir) * SCALE / 4;
-	}
-	if (map_char(all) != '1')
-	{
-		if (key == KEY_W)
-		{
-			all->plr.x += cos(all->plr.dir) * MOVE_SPEED;
-			all->plr.y -= sin(all->plr.dir) * MOVE_SPEED;
-		}
-		if (key == KEY_S)
-		{
-			all->plr.x -= cos(all->plr.dir) * MOVE_SPEED;
-			all->plr.y += sin(all->plr.dir) * MOVE_SPEED;
-		}
-		if (key == KEY_A)
-		{
-			all->plr.x -= cos(all->plr.dir - M_PI_2) * MOVE_SPEED;
-			all->plr.y += sin(all->plr.dir - M_PI_2) * MOVE_SPEED;
-		}
-		if (key == KEY_D)
-		{
-			all->plr.x -= cos(all->plr.dir + M_PI_2) * MOVE_SPEED;
-			all->plr.y += sin(all->plr.dir + M_PI_2) * MOVE_SPEED;
-		}
-		if (key == KEY_LEFT)
-		{
-			// all->plr.dir += ROTATE_SPEED;
-			// all->plr.start += ROTATE_SPEED;
-			// all->plr.end += ROTATE_SPEED;
-			set_player_dir(&all->plr, all->plr.dir + ROTATE_SPEED);
-		}
-		if (key == KEY_RIGHT)
-		{
-			set_player_dir(&all->plr, all->plr.dir - ROTATE_SPEED);
-		}
-	}
-	if (key == KEY_R)
-	{
-		all->plr.x = 27.0 * SCALE + MAP_OFFS_X - SCALE / 2;
-		all->plr.y = 11.0 * SCALE + MAP_OFFS_Y + SCALE / 2;
-		set_player_dir(&all->plr, M_PI_2);
-	}
-	if (key == KEY_ESC)
-		exit(0);
+	key_press(key, all);
 	draw_player(all);
 	return (0);
 }
@@ -182,11 +94,10 @@ int		main(void)
 	// mlx_string_put(all.mlx, all.win, 300, 300, RED, TEST);
 	// mlx_key_hook(all.win, esc_exit, &all);
 	// mlx_key_hook(all.win, print_key, &all);
-	// mlx_loop(all.mlx);
 	// mlx_key_hook(all.win, key_press, &all);
 	// mlx_key_hook(all.win, esc_exit, &all);
 	
-	mlx_hook(all.win, 2, 1L<<0, key_press, &all);
+	mlx_hook(all.win, 2, 1L<<0, renderer, &all);
 	mlx_loop(all.mlx);
 	return (0);
 }

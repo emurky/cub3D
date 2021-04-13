@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/13 04:13:26 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/13 16:06:08 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,26 @@
 # define MOVE_SPEED		SCALE / 4
 # define ROTATE_SPEED	M_PI / 16
 
+/*			utils.c */
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			is_player_dir(char c);
+void		set_player_dir(t_plr *plr, double dir);
 int			scaled_down_x(double index);
 int			scaled_down_y(double index);
+char		map_char(t_all *all);
+
+/*			draw_map.c */
 void		draw_ray(t_plr *ray, t_all *all, int color);
 void		draw_square(t_img *img, int width, t_pnt pos, int color);
 void		cast_rays(t_all *all, int raycount);
 void		draw_map(t_all *all);
 void		draw_player(t_all *all);
 
-char		map_char(t_all *all);
+/*			key_hooks.c */
+int			print_key(int key, t_all *all);
+int			esc_exit(int key, t_all *all);
+int			close_window(int button, t_all *all);
+void		key_press(int key, t_all *all);
+
 
 #endif
