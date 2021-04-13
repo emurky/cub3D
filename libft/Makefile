@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 18:08:11 by emurky            #+#    #+#              #
-#    Updated: 2021/03/26 17:14:20 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/13 20:45:18 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ NAME 			= libft.a
 CC				= gcc
 RM				= rm -f
 AR				= ar -rcs
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -O2
 CPPFLAGS		= -MMD
 
 all:			$(NAME)

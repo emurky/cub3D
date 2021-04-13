@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/13 04:10:10 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/14 02:41:19 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,21 @@ void	cast_rays(t_all *all, int raycount)
 		{
 			ray.x += cos(ray.start);
 			ray.y -= sin(ray.start);
-			my_mlx_pixel_put(&all->img, ray.x, ray.y, BLUE);
+			my_mlx_pixel_put(&all->img, ray.x, ray.y, MIDORI);
 		}
 		ray.start += FOV / raycount;
 	}
 }
 
-// void	draw_sprites(t_all *all, t_pnt *pos)
-// {
-// 	draw_square(&all->img, SCALE, *pos, DARK_GREY);
-// 	pos->x += (SCALE - SCALE / SPRITE_SCALE) / 2;
-// 	pos->y += (SCALE - SCALE / SPRITE_SCALE) / 2;
-// 	draw_square(&all->img, SCALE / SPRITE_SCALE, *pos, RED);
-// 	pos->x -= (SCALE - SCALE / SPRITE_SCALE) / 2;
-// 	pos->y -= (SCALE - SCALE / SPRITE_SCALE) / 2;
-// }
+void	draw_sprites(t_all *all, t_pnt *pos)
+{
+	draw_square(&all->img, SCALE, *pos, DARK_GREY);
+	pos->x += (SCALE - SCALE / SPRITE_SCALE) / 2;
+	pos->y += (SCALE - SCALE / SPRITE_SCALE) / 2;
+	draw_square(&all->img, SCALE / SPRITE_SCALE, *pos, RED);
+	pos->x -= (SCALE - SCALE / SPRITE_SCALE) / 2;
+	pos->y -= (SCALE - SCALE / SPRITE_SCALE) / 2;
+}
 
 void	draw_map(t_all *all)
 {
@@ -105,17 +105,8 @@ void	draw_map(t_all *all)
 		{
 			if (all->map[i][j] == '1')
 				draw_square(&all->img, SCALE, pos, WHITE);
-			// else if (is_player_dir(all->map[i][j]))
-			// 	draw_square(&all->img, SCALE, pos, GREEN);
 			else if (all->map[i][j] == '2')
-			{
-				draw_square(&all->img, SCALE, pos, DARK_GREY);
-				pos.x += (SCALE - SCALE / SPRITE_SCALE) / 2;
-				pos.y += (SCALE - SCALE / SPRITE_SCALE) / 2;
-				draw_square(&all->img, SCALE / SPRITE_SCALE, pos, RED);
-				pos.x -= (SCALE - SCALE / SPRITE_SCALE) / 2;
-				pos.y -= (SCALE - SCALE / SPRITE_SCALE) / 2;
-			}
+				draw_sprites(all, &pos);
 			else
 				draw_square(&all->img, SCALE, pos, DARK_GREY);
 			pos.x += SCALE;
@@ -133,7 +124,7 @@ void	draw_player(t_all *all)
 	pos.x = all->plr.x - SCALE / 2;
 	pos.y = all->plr.y - SCALE / 2;
 	draw_map(all);
-	draw_square(&all->img, SCALE, pos, GREEN);
+	draw_square(&all->img, SCALE, pos, AMBER);
 	cast_rays(all, RAYCOUNT);
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 }

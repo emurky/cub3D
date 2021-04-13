@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/13 20:05:35 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/14 02:28:44 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ char	**map_init(void)
 	return (map);
 }
 
-/* void	clean_map(char ***map)
+void	clean_map(char **map)
 {
-	while (**map)
-		free((**map)++);
-	free(*map);
-} */
+	while (*map)
+		free(*map++);
+	free(map);
+}
 
 int		renderer(int key, t_all *all)
 {
@@ -83,9 +83,7 @@ int		main(void)
 
 	all.map = map_init();
 
-
-	all.plr.x = 27.0 * SCALE + MAP_OFFS_X - SCALE / 2;
-	all.plr.y = 11.0 * SCALE + MAP_OFFS_Y + SCALE / 2;
+	set_player_pos(&all.plr, 27, 11);
 	set_player_dir(&all.plr, M_PI_2);
 
 	draw_player(&all);

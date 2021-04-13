@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:40:54 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/13 15:47:08 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/14 02:26:14 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 int		is_player_dir(char c)
 {
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
+void	set_player_pos(t_plr *plr, int x, int y)
+{
+	plr->x = x * SCALE + MAP_OFFS_X - SCALE / 2;
+	plr->y = y * SCALE + MAP_OFFS_Y + SCALE / 2;
 }
 
 void	set_player_dir(t_plr *plr, double dir)
@@ -45,4 +51,12 @@ int		scaled_down_y(double index)
 char	map_char(t_all *all)
 {
 	return (all->map[scaled_down_y(all->plr.y)][scaled_down_x(all->plr.x)]);
+}
+
+int		wall_collision(t_all *all, double angle)
+{
+	return (all->map
+		[scaled_down_y(all->plr.y - sin(all->plr.dir + angle) * MOVE_SPEED)]
+		[scaled_down_x(all->plr.x + cos(all->plr.dir + angle) * MOVE_SPEED)]
+		!= '1');
 }
