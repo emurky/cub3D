@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/20 15:06:15 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/20 16:35:26 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_all
 	t_plr		plr;
 	t_plr_init	plr_init;
 	char		**map;
+	t_dda		dda;
 }				t_all;
 
 #endif

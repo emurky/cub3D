@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/20 13:36:52 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/20 22:53:19 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,20 @@
 # define MAP_OFFS_Y		20
 
 # define GRID			TRUE
-# define FOV			M_PI_2
+# define FOV			M_PI / 3
 # define SCALE			10
 # define SPRITE_SCALE	2
 
 # define RAYCOUNT		SCALE * 3
-# define MOVE_SPEED		SCALE / 4
+# define MOVE_SPEED		SCALE / 3
 # define ROTATE_SPEED	M_PI / 16
 
 /*			utils.c */
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			is_player_dir(char c);
-void		set_player_pos(t_plr *plr, int x, int y);
-void		set_player_dir(t_plr *plr, double dir);
-void		move_player(t_plr *plr, double dir);
+void		set_player_pos(t_all *all, int x, int y);
+void		set_player_dir(t_all *all, double dir);
+void		move_player(t_all *all, double dir);
 int			scaled_down_x(double index);
 int			scaled_down_y(double index);
 char		map_char(t_all *all);
@@ -70,7 +70,7 @@ int			esc_exit(int key, t_all *all);
 int			close_window(t_all *all);
 void		key_press(int key, t_all *all);
 
-void		raycaster(t_all *all);
+void		raycaster(t_all *all, t_dda *dda);
 
 void	clean_map(char **map);
 

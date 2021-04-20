@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:50:33 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/19 21:38:52 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/20 21:22:59 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,23 @@ void	key_press(int key, t_all *all)
 	// 	all->plr.y -= sin(all->plr.dir) * SCALE / 4;
 	// }
 	if ((key == KEY_W || key == KEY_UP) && !wall_collision(all, 0))
-		move_player(&all->plr, 0);
+		move_player(all, 0);
 	if ((key == KEY_S || key == KEY_DOWN) && !wall_collision(all, M_PI))
-		move_player(&all->plr, M_PI);
+		move_player(all, M_PI);
 	if (key == KEY_A && !wall_collision(all, M_PI_2))
-		move_player(&all->plr, M_PI_2);
+		move_player(all, M_PI_2);
 	if (key == KEY_D && !wall_collision(all, -M_PI_2))
-		move_player(&all->plr, -M_PI_2);
+		move_player(all, -M_PI_2);
 	if (key == KEY_LEFT)
-		set_player_dir(&all->plr, all->plr.dir + ROTATE_SPEED);
+		set_player_dir(all, all->plr.dir + ROTATE_SPEED);
 	if (key == KEY_RIGHT)
-		set_player_dir(&all->plr, all->plr.dir - ROTATE_SPEED);
+		set_player_dir(all, all->plr.dir - ROTATE_SPEED);
 	if (key == KEY_R)
 	{
-		all->plr.x = 27.0 * SCALE + MAP_OFFS_X - SCALE / 2;
-		all->plr.y = 11.0 * SCALE + MAP_OFFS_Y + SCALE / 2;
-		set_player_dir(&all->plr, M_PI_2);
+		// all->plr.x = 27.0 * SCALE + MAP_OFFS_X - SCALE / 2;
+		// all->plr.y = 11.0 * SCALE + MAP_OFFS_Y + SCALE / 2;
+		set_player_pos(all, 27, 11);
+		set_player_dir(all, M_PI_2);
 	}
 	if (key == KEY_ESC)
 	{

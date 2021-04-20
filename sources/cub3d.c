@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/20 15:25:59 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/20 23:09:51 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,33 @@ void	clean_map(char **map)
 	free(map);
 }
 
+void	clean_win(t_img *img)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	// j = 0;
+	while (i < SCRN_W)
+	{
+		j = 0;
+		while (j < SCRN_H)
+		{
+			my_mlx_pixel_put(img, i, j, BLACK);
+			j++;
+		}
+		i++;
+	}
+}
+
 int		renderer(int key, t_all *all)
 {
-	mlx_clear_window(all->mlx, all->win);
+	// mlx_clear_window(all->mlx, all->win);
+	clean_win(&all->img);
 	key_press(key, all);
+	raycaster(all, &all->dda);
 	draw_player(all);
+	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	return (0);
 }
 
@@ -83,13 +105,15 @@ int		main(void)
 
 	all.map = map_init();
 
-	set_player_pos(&all.plr, 27, 11);
-	set_player_dir(&all.plr, M_PI_2);
+	set_player_pos(&all, 27, 11);
+	printf("%f posx %f posy\n", all.dda.pos_x, all.dda.pos_y);
+	set_player_dir(&all, M_PI_2);
 
-	all.plr_init.x = 27;
-	all.plr_init.y = 11;
-	all.plr_init.dir = M_PI_2;
+	// all.plr_init.x = 27;
+	// all.plr_init.y = 11;
+	// all.plr_init.dir = M_PI;
 
+	raycaster(&all, &all.dda);
 	draw_player(&all);
 	
 	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
@@ -105,7 +129,9 @@ int		main(void)
 	mlx_get_screen_size(&screen.x, &screen.y);
 	printf("%d width, %d height\n", screen.x, screen.y);
 
-
+	// clean_win(&all.img);
+	// draw_square(&all.img, 300, (t_pnt){0, 0}, BLACK);
+	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L<<0, renderer, &all);
 	mlx_hook(all.win, 17, 1, close_window, &all);
 	mlx_loop(all.mlx);

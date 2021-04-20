@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:34:14 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/14 02:41:07 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/20 21:28:50 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@
 # define PLUM		0x00A84C8A
 # define MIDORI		0x00D4FA91
 # define AMBER		0x00FFBF00
+# define SKY_BLUE	0x0080B0FF
 
 #endif
