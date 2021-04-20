@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/13 17:21:09 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/20 15:06:15 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,50 @@ typedef struct s_plr
 	double		end;
 }				t_plr;
 
+typedef struct s_plr_init
+{
+	int			x;
+	int			y;
+	double		dir;
+}				t_plr_init;
+
+typedef struct s_dda
+{
+	int			w;
+	int			h;
+	int			i;
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		pln_x;
+	double		pln_y;
+	double		cam_x;
+	double		raydir_x;
+	double		raydir_y;
+	int			map_x;
+	int			map_y;
+	double		sidedist_x;
+	double		sidedist_y;
+	double		deltadist_x;
+	double		deltadist_y;
+	double		perpwalldist;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	int			line_h;
+	int			draw_start;
+	int			draw_end;
+}				t_dda;
+
 typedef struct s_all
 {
 	void		*mlx;
 	void		*win;
 	t_img		img;
 	t_plr		plr;
+	t_plr_init	plr_init;
 	char		**map;
 }				t_all;
 

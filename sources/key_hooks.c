@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:50:33 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/14 02:07:40 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/19 21:38:52 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ int		esc_exit(int key, t_all *all)
 	return (0);
 }
 
-int		close_window(int button, t_all *all)
+int		close_window(t_all *all)
 {
 	(void)all;
-	printf("%d was pressed\n", button);
-	return (0);
+	printf("Bye-bye\n");
+	exit(0);
+	// return (0);
 }
 
 void	key_press(int key, t_all *all)
@@ -49,26 +50,14 @@ void	key_press(int key, t_all *all)
 	// 	all->plr.x += cos(all->plr.dir) * SCALE / 4;
 	// 	all->plr.y -= sin(all->plr.dir) * SCALE / 4;
 	// }
-	if (key == KEY_W && wall_collision(all, 0))
-	{
-		all->plr.x += cos(all->plr.dir) * MOVE_SPEED;
-		all->plr.y -= sin(all->plr.dir) * MOVE_SPEED;
-	}
-	if (key == KEY_S && wall_collision(all, M_PI))
-	{
-		all->plr.x -= cos(all->plr.dir) * MOVE_SPEED;
-		all->plr.y += sin(all->plr.dir) * MOVE_SPEED;
-	}
-	if (key == KEY_A && wall_collision(all, M_PI_2))
-	{
-		all->plr.x += cos(all->plr.dir + M_PI_2) * MOVE_SPEED;
-		all->plr.y -= sin(all->plr.dir + M_PI_2) * MOVE_SPEED;
-	}
-	if (key == KEY_D && wall_collision(all, -M_PI))
-	{
-		all->plr.x += cos(all->plr.dir - M_PI_2) * MOVE_SPEED;
-		all->plr.y -= sin(all->plr.dir - M_PI_2) * MOVE_SPEED;
-	}
+	if ((key == KEY_W || key == KEY_UP) && !wall_collision(all, 0))
+		move_player(&all->plr, 0);
+	if ((key == KEY_S || key == KEY_DOWN) && !wall_collision(all, M_PI))
+		move_player(&all->plr, M_PI);
+	if (key == KEY_A && !wall_collision(all, M_PI_2))
+		move_player(&all->plr, M_PI_2);
+	if (key == KEY_D && !wall_collision(all, -M_PI_2))
+		move_player(&all->plr, -M_PI_2);
 	if (key == KEY_LEFT)
 		set_player_dir(&all->plr, all->plr.dir + ROTATE_SPEED);
 	if (key == KEY_RIGHT)

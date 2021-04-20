@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/14 02:28:44 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/20 15:25:59 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ int		main(void)
 	set_player_pos(&all.plr, 27, 11);
 	set_player_dir(&all.plr, M_PI_2);
 
+	all.plr_init.x = 27;
+	all.plr_init.y = 11;
+	all.plr_init.dir = M_PI_2;
+
 	draw_player(&all);
 	
 	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
@@ -97,10 +101,13 @@ int		main(void)
 	
 	t_pnt screen;
 	
+	// double scale;
 	mlx_get_screen_size(&screen.x, &screen.y);
 	printf("%d width, %d height\n", screen.x, screen.y);
 
+
 	mlx_hook(all.win, 2, 1L<<0, renderer, &all);
+	mlx_hook(all.win, 17, 1, close_window, &all);
 	mlx_loop(all.mlx);
 	return (0);
 }
