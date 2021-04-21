@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/21 16:35:25 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/21 19:43:26 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	draw_sprites(t_all *all, t_pnt *pos)
 	pos->y -= (SCALE - SCALE / SPRITE_SCALE) / 2;
 }
 
-void	draw_map(t_all *all)
+void	draw_map_squares(t_all *all)
 {
 	int		i;
 	int		j;
@@ -120,15 +120,15 @@ void	draw_map(t_all *all)
 	}
 }
 
-void	draw_player(t_all *all)
+void	draw_map(t_all *all)
 {
 	t_pnt	pos;
 
 	pos.x = all->plr.x - SCALE / 2;
 	pos.y = all->plr.y - SCALE / 2;
-	draw_map(all);
+	draw_map_squares(all);
 	draw_square(&all->img, SCALE, pos, AMBER);
 	cast_rays(all, RAYCOUNT);
 	draw_ray(all, RED);
-	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+	// mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 }

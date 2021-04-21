@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/21 16:51:42 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/21 23:29:07 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define TRUE			1
 # define FALSE			0
 
-# define SCRN_W			1200
+# define SCRN_W			1200 // should to be get from *.cub
 # define SCRN_H			900
 
 # define MAP_OFFS_X		20
@@ -45,14 +45,16 @@
 # define MOVE_SPEED		SCALE / 3
 # define ROTATE_SPEED	M_PI / 16
 
-# define NO		../textures/colorstone.xpm
-# define SO		../textures/greystone.xpm
-# define WE		../textures/redbrick.xpm
-# define EA		../textures/wood.xpm
+# define NO		"textures/colorstone.xpm"
+# define SO		"textures/greystone.xpm"
+# define WE		"textures/redbrick.xpm"
+# define EA		"textures/wood.xpm"
+# define BAR	"textures/barrel.xpm"
 
 
 /*			utils.c */
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+unsigned int	my_mlx_pixel_get(t_img *img, int x, int y);
 int			is_player_dir(char c);
 void		set_player_pos(t_all *all, int x, int y);
 void		set_player_dir(t_all *all, double dir);
@@ -67,8 +69,8 @@ void		draw_square(t_img *img, int width, t_pnt pos, int color);
 void		draw_ray(t_all *all, int color);
 void		cast_rays(t_all *all, int raycount);
 void		draw_sprites(t_all *all, t_pnt *pos);
+void		draw_map_squares(t_all *all);
 void		draw_map(t_all *all);
-void		draw_player(t_all *all);
 
 /*			key_hooks.c */
 int			print_key(int key, t_all *all);
@@ -78,6 +80,8 @@ void		key_press(int key, t_all *all);
 
 void		raycaster(t_all *all, t_ray *ray);
 
-void	clean_map(char **map);
+void		textures_init(t_all *all);
+
+void		clean_map(char **map);
 
 #endif

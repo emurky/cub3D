@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/21 16:36:22 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 01:17:15 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	clean_win(t_img *img)
 	int		j;
 
 	i = 0;
-	// j = 0;
 	while (i < SCRN_W)
 	{
 		j = 0;
@@ -86,65 +85,103 @@ void	clean_win(t_img *img)
 	}
 }
 
-int		renderer(int key, t_all *all)
+void	frames_counter(t_all *all)
 {
 	char *counter;
 
-	counter = ft_itoa(all->frames_counter);
+	counter = ft_itoa(all->frames);
+	all->frames++;
+	mlx_string_put(all->mlx, all->win, SCRN_W - 50, 15, BLACK, counter);
+	free(counter);
+}
+
+int		renderer(int key, t_all *all)
+{
 	mlx_clear_window(all->mlx, all->win);
 	clean_win(&all->img);
 	key_press(key, all);
 	raycaster(all, &all->ray);
-	draw_player(all);
-	all->frames_counter++;
-	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	mlx_string_put(all->mlx, all->win, 1150, 15, BLACK, counter);
-	free(counter);
+	frames_counter(all);
+
 	return (0);
 }
+
+void	mlx_start(t_all *all)
+{
+	all->mlx = mlx_init();
+	all->img.img = mlx_new_image(all->mlx, SCRN_W, SCRN_H);
+	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bpp,
+										&all->img.linelen, &all->img.endian);
+	all->win = mlx_new_window(all->mlx, SCRN_W, SCRN_H, "cub3d");
+}
+
+void	init(t_all *all)
+{
+	all->map = map_init();
+	textures_init(all);
+	set_player_pos(all, 27, 11);
+	set_player_dir(all, M_PI_2);
+
+	// t_tex test;
+	// test.w = 5;
+	// all->tex[0] = test;
+
+	// all->tex[0].img.img = mlx_xpm_file_to_image(all->mlx, NO, &all->tex[0].w, &all->tex[0].h);
+	// all->tex[0].img.addr = mlx_get_data_addr(all->tex[0].img.img, &all->tex[0].img.bpp, &all->tex[0].img.linelen, &all->tex[0].img.endian);
+	// all->tex[1].img.img = mlx_xpm_file_to_image(all->mlx, SO, &all->tex[1].w, &all->tex[1].h);
+	// all->tex[1].img.addr = mlx_get_data_addr(all->tex[1].img.img, &all->tex[1].img.bpp, &all->tex[1].img.linelen, &all->tex[1].img.endian);
+}
+
+// void init(t_all *all)
+// {
+//  t_tex test;
+ 
+//  all->map = map_init();
+//  // textures_init(all);
+//  set_player_pos(all, 27, 11);
+//  set_player_dir(all, M_PI_2);
+
+// // printf("tut\n");
+//   test.img.img = mlx_xpm_file_to_image(all->mlx, NO, &test.w, &test.h);
+//  printf("%d test.w %d test.h\n", test.w, test.h);
+//  test.img.addr = mlx_get_data_addr(test.img.img, &test.img.bpp, &test.img.linelen, &test.img.endian);
+ 
+//   all->tex[0] = test;
+// }
 
 int		main(void)
 {
 	t_all	all;
 
-	all.mlx = mlx_init();
-	all.img.img = mlx_new_image(all.mlx, SCRN_W, SCRN_H);
-	all.img.addr = mlx_get_data_addr(all.img.img, &all.img.bpp,
-										&all.img.linelen, &all.img.endian);
-	all.win = mlx_new_window(all.mlx, SCRN_W, SCRN_H, "cub3d");
-
-	all.map = map_init();
-
-	all.frames_counter = 1;
-	set_player_pos(&all, 27, 11);
-	printf("%f posx %f posy\n", all.ray.pos_x, all.ray.pos_y);
-	set_player_dir(&all, M_PI_2);
-
-	// all.plr_init.x = 27;
-	// all.plr_init.y = 11;
-	// all.plr_init.dir = M_PI;
-
-	raycaster(&all, &all.ray);
-	draw_player(&all);
+	mlx_start(&all);
+	init(&all);
 	
+	all.frames = 1;
+	// printf("%f posx %f posy\n", all.ray.pos_x, all.ray.pos_y);
+
+	// all.tex[0].img.img = mlx_xpm_file_to_image(all.mlx, NO, &all.tex[0].w, &all.tex[0].h);
+	// all.tex[0].img.addr = mlx_get_data_addr(all.tex[0].img.img, &all.tex[0].img.bpp, &all.tex[0].img.linelen, &all.tex[0].img.endian);
+	int pixel = my_mlx_pixel_get(all.tex[3].img.img, 0, 0);
+	printf("%X pixel\n", pixel);
+	
+	raycaster(&all, &all.ray);
+
+	// int color = my_mlx_pixel_get(&all.img, 600, 10);
+	// printf("%X pixel color\n", color);
 	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	// mlx_string_put(all.mlx, all.win, 300, 300, RED, TEST);
 	// mlx_key_hook(all.win, esc_exit, &all);
 	// mlx_key_hook(all.win, print_key, &all);
 	// mlx_key_hook(all.win, key_press, &all);
 	// mlx_key_hook(all.win, esc_exit, &all);
-	
-	t_pnt screen;
-	
+	// t_pnt screen;
 	// double scale;
-	mlx_get_screen_size(&screen.x, &screen.y);
-	printf("%d width, %d height\n", screen.x, screen.y);
+	// mlx_get_screen_size(&screen.x, &screen.y);
+	// printf("%d width, %d height\n", screen.x, screen.y);
 
-	// clean_win(&all.img);
-	// draw_square(&all.img, 300, (t_pnt){0, 0}, BLACK);
-	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L<<0, renderer, &all);
 	mlx_hook(all.win, 17, 1L<<5, close_window, &all);
+	// mlx_put_image_to_window(all.mlx, all.win, &all.tex[0], 0, 0);
 	mlx_loop(all.mlx);
 	return (0);
 }

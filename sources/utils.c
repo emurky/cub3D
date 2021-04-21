@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:40:54 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/21 15:55:07 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/21 18:36:48 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 	dst = img->addr + (y * img->linelen + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
+}
+
+unsigned int	my_mlx_pixel_get(t_img *img, int x, int y)
+{
+	char	*pixel;
+
+	pixel = img->addr + (y * img->linelen + x * (img->bpp / 8));
+	return (*(unsigned int*)pixel);
 }
 
 int		is_player_dir(char c)

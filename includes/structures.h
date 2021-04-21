@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/21 16:15:36 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 00:01:01 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,18 @@ typedef struct s_plr
 	double		end;
 }				t_plr;
 
-typedef struct s_plr_init
-{
-	int			x;
-	int			y;
-	double		dir;
-}				t_plr_init;
+// typedef struct s_plr_init
+// {
+// 	int			x;
+// 	int			y;
+// 	double		dir;
+// }				t_plr_init;
 
 typedef struct s_ray
 {
 	int			w;
 	int			h;
-	int			i;
+	int			x;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -72,7 +72,20 @@ typedef struct s_ray
 	int			line_h;
 	int			draw_start;
 	int			draw_end;
+	double		wall_x;
+	int			tex_x;
+	int			tex_y;
+	double		tex_step;
+	double		tex_pos;
+
 }				t_ray;
+
+typedef struct s_tex
+{
+	t_img		img;
+	int			w;
+	int			h;
+}				t_tex;
 
 typedef struct s_all
 {
@@ -80,10 +93,10 @@ typedef struct s_all
 	void		*win;
 	t_img		img;
 	t_plr		plr;
-	t_plr_init	plr_init;
 	t_ray		ray;
+	t_tex		tex[4];
 	char		**map;
-	int			frames_counter;
+	int			frames;
 }				t_all;
 
 #endif
