@@ -6,11 +6,22 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:50:33 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/21 16:20:59 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 02:23:51 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	clean_map(char **map)
+{
+	int		i;
+
+	i = 0;
+	while (map[i])
+		free(map[i++]);
+	free(map);
+	printf("Map was freed properly\n");
+}
 
 int		print_key(int key, t_all *all)
 {
@@ -19,37 +30,15 @@ int		print_key(int key, t_all *all)
 	return (0);
 }
 
-int		esc_exit(int key, t_all *all)
-{
-	(void)all;
-	// mlx_destroy_window(all->mlx, all->win);
-	if (key == KEY_ESC)
-	{
-		// clean_map(&all->map);
-		exit(0);
-	}
-	return (0);
-}
-
 int		close_window(t_all *all)
 {
 	(void)all;
 	printf("Bye-bye\n");
 	exit(0);
-	// return (0);
 }
 
 void	key_press(int key, t_all *all)
 {
-	// if (map_char(all) == '1')
-	// {
-	// 	// printf("%f is x %f is y\n", all->plr.x, all->plr.y);
-	// 	all->plr.dir += M_PI - 2 * all->plr.dir;
-	// 	all->plr.start = all->plr.dir - FOV / 2;
-	// 	all->plr.end = all->plr.dir + FOV / 2;
-	// 	all->plr.x += cos(all->plr.dir) * SCALE / 4;
-	// 	all->plr.y -= sin(all->plr.dir) * SCALE / 4;
-	// }
 	if ((key == KEY_W || key == KEY_UP) && !wall_collision(all, 0))
 		move_player(all, 0);
 	if ((key == KEY_S || key == KEY_DOWN) && !wall_collision(all, M_PI))
@@ -64,8 +53,6 @@ void	key_press(int key, t_all *all)
 		set_player_dir(all, all->plr.dir - ROTATE_SPEED);
 	if (key == KEY_R)
 	{
-		// all->plr.x = 27.0 * SCALE + MAP_OFFS_X - SCALE / 2;
-		// all->plr.y = 11.0 * SCALE + MAP_OFFS_Y + SCALE / 2;
 		set_player_pos(all, 27, 11);
 		set_player_dir(all, M_PI_2);
 	}

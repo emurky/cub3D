@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 00:01:01 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 02:08:08 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_ray
 	int			w;
 	int			h;
 	int			x;
+	int			y;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -77,7 +78,7 @@ typedef struct s_ray
 	int			tex_y;
 	double		tex_step;
 	double		tex_pos;
-
+	int			pixel;
 }				t_ray;
 
 typedef struct s_tex

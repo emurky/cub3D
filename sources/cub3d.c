@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 01:17:15 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 02:23:39 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,45 +56,6 @@ char	**map_init(void)
 	return (map);
 }
 
-void	clean_map(char **map)
-{
-	int		i;
-
-	i = 0;
-	while (map[i])
-		free(map[i++]);
-	free(map);
-	printf("Map was freed properly\n");
-}
-
-void	clean_win(t_img *img)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (i < SCRN_W)
-	{
-		j = 0;
-		while (j < SCRN_H)
-		{
-			my_mlx_pixel_put(img, i, j, BLACK);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	frames_counter(t_all *all)
-{
-	char *counter;
-
-	counter = ft_itoa(all->frames);
-	all->frames++;
-	mlx_string_put(all->mlx, all->win, SCRN_W - 50, 15, BLACK, counter);
-	free(counter);
-}
-
 int		renderer(int key, t_all *all)
 {
 	mlx_clear_window(all->mlx, all->win);
@@ -121,33 +82,7 @@ void	init(t_all *all)
 	textures_init(all);
 	set_player_pos(all, 27, 11);
 	set_player_dir(all, M_PI_2);
-
-	// t_tex test;
-	// test.w = 5;
-	// all->tex[0] = test;
-
-	// all->tex[0].img.img = mlx_xpm_file_to_image(all->mlx, NO, &all->tex[0].w, &all->tex[0].h);
-	// all->tex[0].img.addr = mlx_get_data_addr(all->tex[0].img.img, &all->tex[0].img.bpp, &all->tex[0].img.linelen, &all->tex[0].img.endian);
-	// all->tex[1].img.img = mlx_xpm_file_to_image(all->mlx, SO, &all->tex[1].w, &all->tex[1].h);
-	// all->tex[1].img.addr = mlx_get_data_addr(all->tex[1].img.img, &all->tex[1].img.bpp, &all->tex[1].img.linelen, &all->tex[1].img.endian);
 }
-
-// void init(t_all *all)
-// {
-//  t_tex test;
- 
-//  all->map = map_init();
-//  // textures_init(all);
-//  set_player_pos(all, 27, 11);
-//  set_player_dir(all, M_PI_2);
-
-// // printf("tut\n");
-//   test.img.img = mlx_xpm_file_to_image(all->mlx, NO, &test.w, &test.h);
-//  printf("%d test.w %d test.h\n", test.w, test.h);
-//  test.img.addr = mlx_get_data_addr(test.img.img, &test.img.bpp, &test.img.linelen, &test.img.endian);
- 
-//   all->tex[0] = test;
-// }
 
 int		main(void)
 {
@@ -159,8 +94,6 @@ int		main(void)
 	all.frames = 1;
 	// printf("%f posx %f posy\n", all.ray.pos_x, all.ray.pos_y);
 
-	// all.tex[0].img.img = mlx_xpm_file_to_image(all.mlx, NO, &all.tex[0].w, &all.tex[0].h);
-	// all.tex[0].img.addr = mlx_get_data_addr(all.tex[0].img.img, &all.tex[0].img.bpp, &all.tex[0].img.linelen, &all.tex[0].img.endian);
 	int pixel = my_mlx_pixel_get(all.tex[3].img.img, 0, 0);
 	printf("%X pixel\n", pixel);
 	
