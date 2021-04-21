@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 02:03:08 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/06 02:42:49 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/21 16:25:33 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,11 @@ static size_t	ft_count_words(char const *s, char c)
 
 static char	**ft_free_splitted(char **splitted)
 {
-	while (*splitted)
-		free(*splitted++);
+	int		i;
+
+	i = 0;
+	while (splitted[i])
+		free(splitted[i++]);
 	free(splitted);
 	return (NULL);
 }

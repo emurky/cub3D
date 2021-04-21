@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:50:33 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/20 21:22:59 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/21 16:20:59 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	key_press(int key, t_all *all)
 	}
 	if (key == KEY_ESC)
 	{
-		// clean_map(all->map);
+		clean_map(all->map);
 		exit(0);
 	}
 }

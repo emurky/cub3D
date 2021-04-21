@@ -6,106 +6,106 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:31:23 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/20 23:06:56 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/21 15:54:39 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	dda_init(t_all *all, t_dda *dda)
+void	ray_init(t_all *all, t_ray *ray)
 {
-	dda->w = SCRN_W;
-	dda->h = SCRN_H;
-	dda->i = dda->w - 1;
-	// dda->pos_x = all->plr_init.x;
-	// dda->pos_y = all->plr_init.y;
-	dda->dir_x = cos(all->plr.dir);
-	dda->dir_y = -sin(all->plr.dir);
-	dda->pln_x = cos(all->plr.dir - M_PI_2) * round(FOV * 180 / M_PI) / 100;
-	dda->pln_y = -sin(all->plr.dir - M_PI_2) * round(FOV * 180 / M_PI) / 100;
+	ray->w = SCRN_W;
+	ray->h = SCRN_H;
+	ray->i = ray->w - 1;
+	// ray->pos_x = all->plr_init.x;
+	// ray->pos_y = all->plr_init.y;
+	ray->dir_x = cos(all->plr.dir);
+	ray->dir_y = -sin(all->plr.dir);
+	ray->pln_x = cos(all->plr.dir - M_PI_2) * round(FOV * 180 / M_PI) / 100;
+	ray->pln_y = -sin(all->plr.dir - M_PI_2) * round(FOV * 180 / M_PI) / 100;
 }
 
-void	steps_increment(t_dda *dda)
+void	steps_increment(t_ray *ray)
 {
-	if (dda->raydir_x < 0)
+	if (ray->raydir_x < 0)
 	{
-		dda->step_x = -1;
-		dda->sidedist_x = (dda->pos_x - dda->map_x) * dda->deltadist_x;
+		ray->step_x = -1;
+		ray->sidedist_x = (ray->pos_x - ray->map_x) * ray->deltadist_x;
 	}
 	else
 	{
-		dda->step_x = 1;
-		dda->sidedist_x = (dda->map_x - dda->pos_x + 1.0) * dda->deltadist_x;
+		ray->step_x = 1;
+		ray->sidedist_x = (ray->map_x - ray->pos_x + 1.0) * ray->deltadist_x;
 	}
-	if (dda->raydir_y < 0)
+	if (ray->raydir_y < 0)
 	{
-		dda->step_y = -1;
-		dda->sidedist_y = (dda->pos_y - dda->map_y) * dda->deltadist_y;
+		ray->step_y = -1;
+		ray->sidedist_y = (ray->pos_y - ray->map_y) * ray->deltadist_y;
 	}
 	else
 	{
-		dda->step_y = 1;
-		dda->sidedist_y = (dda->map_y - dda->pos_y + 1.0) * dda->deltadist_y;
+		ray->step_y = 1;
+		ray->sidedist_y = (ray->map_y - ray->pos_y + 1.0) * ray->deltadist_y;
 	}
 }
 
-void	ray_calc(t_dda *dda)
+void	ray_calc(t_ray *ray)
 {
-	dda->cam_x = 2 * (double)(dda->i) / (double)(dda->w) - 1;
-	dda->raydir_x = dda->dir_x + dda->pln_x * dda->cam_x;
-	dda->raydir_y = dda->dir_y + dda->pln_y * dda->cam_x;
-	dda->map_x = (int)(dda->pos_x);
-	dda->map_y = (int)(dda->pos_y);
-	dda->deltadist_x = fabs(1 / dda->raydir_x);
-	dda->deltadist_y = fabs(1 / dda->raydir_y);
-	dda->hit = 0;
+	ray->cam_x = 2 * (double)(ray->i) / (double)(ray->w) - 1;
+	ray->raydir_x = ray->dir_x + ray->pln_x * ray->cam_x;
+	ray->raydir_y = ray->dir_y + ray->pln_y * ray->cam_x;
+	ray->map_x = (int)(ray->pos_x);
+	ray->map_y = (int)(ray->pos_y);
+	ray->deltadist_x = fabs(1 / ray->raydir_x);
+	ray->deltadist_y = fabs(1 / ray->raydir_y);
+	ray->hit = 0;
 }
 
-void	perform_dda(t_all *all, t_dda *dda)
+void	perform_dda(t_all *all, t_ray *ray)
 {
-	while (dda->hit == 0)
+	while (ray->hit == 0)
 	{
-		if (dda->sidedist_x < dda->sidedist_y)
+		if (ray->sidedist_x < ray->sidedist_y)
 		{
-			dda->sidedist_x += dda->deltadist_x;
-			dda->map_x += dda->step_x;
-			dda->side = 0;
+			ray->sidedist_x += ray->deltadist_x;
+			ray->map_x += ray->step_x;
+			ray->side = 0;
 		}
 		else
 		{
-			dda->sidedist_y += dda->deltadist_y;
-			dda->map_y += dda->step_y;
-			dda->side = 1;
+			ray->sidedist_y += ray->deltadist_y;
+			ray->map_y += ray->step_y;
+			ray->side = 1;
 		}
-		if (all->map[dda->map_y][dda->map_x] == '1')
-			dda->hit = 1;
-		// printf("%c map char\n", all->map[dda->map_y][dda->map_x]);
+		if (all->map[ray->map_y][ray->map_x] == '1')
+			ray->hit = 1;
+		// printf("%c map char\n", all->map[ray->map_y][ray->map_x]);
 	}
 }
 
-void	line_lenth_calc(t_dda *dda)
+void	line_lenth_calc(t_ray *ray)
 {
-	if (dda->side == 0)
-		dda->perpwalldist
-			= (dda->map_x - dda->pos_x + (1 - dda->step_x) / 2) / dda->raydir_x;
+	if (ray->side == 0)
+		ray->perpwalldist
+			= (ray->map_x - ray->pos_x + (1 - ray->step_x) / 2) / ray->raydir_x;
 	else
-		dda->perpwalldist
-			= (dda->map_y - dda->pos_y + (1 - dda->step_y) / 2) / dda->raydir_y;
-	dda->line_h = (int)(dda->h / dda->perpwalldist);
-	dda->draw_start = -dda->line_h / 2 + dda->h / 2;
-	if (dda->draw_start < 0)
-		dda->draw_start = 0;
-	dda->draw_end = dda->line_h / 2 + dda->h / 2;
-	if (dda->draw_end >= dda->h)
-		dda->draw_end = dda->h - 1;
+		ray->perpwalldist
+			= (ray->map_y - ray->pos_y + (1 - ray->step_y) / 2) / ray->raydir_y;
+	ray->line_h = (int)(ray->h / ray->perpwalldist);
+	ray->draw_start = -ray->line_h / 2 + ray->h / 2;
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	ray->draw_end = ray->line_h / 2 + ray->h / 2;
+	if (ray->draw_end >= ray->h)
+		ray->draw_end = ray->h - 1;
 }
 
-void	draw_vertical_line(t_dda *dda, t_img *img, int color)
+void	draw_vertical_line(t_ray *ray, t_img *img, int color)
 {
-	while (dda->draw_start <= dda->draw_end)
+	while (ray->draw_start <= ray->draw_end)
 	{
-		my_mlx_pixel_put(img, dda->i, dda->draw_start, color);
-		dda->draw_start++;
+		my_mlx_pixel_put(img, ray->i, ray->draw_start, color);
+		ray->draw_start++;
 	}
 }
 
@@ -137,27 +137,27 @@ void	draw_floor_ceiling(t_all *all, int col_ceil, int col_floor)
 	}
 }
 
-void	raycaster(t_all *all, t_dda *dda)
+void	raycaster(t_all *all, t_ray *ray)
 {
-	dda_init(all, dda);
+	ray_init(all, ray);
 	draw_floor_ceiling(all, SKY_BLUE, BORDEAUX);
-	while (dda->i >= 0)
+	while (ray->i >= 0)
 	{
-		ray_calc(dda);
-		steps_increment(dda);
-		perform_dda(all, dda);
-		line_lenth_calc(dda);
+		ray_calc(ray);
+		steps_increment(ray);
+		perform_dda(all, ray);
+		line_lenth_calc(ray);
 		int color = RED;
-		if (dda->side == 1)
+		if (ray->side == 1)
 										{color /= 2;}
-		draw_vertical_line(dda, &all->img, color);
-		dda->i--;
+		draw_vertical_line(ray, &all->img, color);
+		ray->i--;
 	}
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	// dda.i = 20;
-	// dda.draw_start = 0;
-	// dda.draw_end = 800;
-	// draw_vertical_line(&dda, &all->img, BLUE);
-	// printf("%f\n", dda->pln_y);
+	// ray.i = 20;
+	// ray.draw_start = 0;
+	// ray.draw_end = 800;
+	// draw_vertical_line(&ray, &all->img, BLUE);
+	// printf("%f\n", ray->pln_y);
 	// printf("%f posx %f posy\n", all->plr.start, all->plr.end);
 }

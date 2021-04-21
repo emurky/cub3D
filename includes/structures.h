@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/20 16:35:26 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/21 16:15:36 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_plr_init
 	double		dir;
 }				t_plr_init;
 
-typedef struct s_dda
+typedef struct s_ray
 {
 	int			w;
 	int			h;
@@ -72,7 +72,7 @@ typedef struct s_dda
 	int			line_h;
 	int			draw_start;
 	int			draw_end;
-}				t_dda;
+}				t_ray;
 
 typedef struct s_all
 {
@@ -81,8 +81,9 @@ typedef struct s_all
 	t_img		img;
 	t_plr		plr;
 	t_plr_init	plr_init;
+	t_ray		ray;
 	char		**map;
-	t_dda		dda;
+	int			frames_counter;
 }				t_all;
 
 #endif

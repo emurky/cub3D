@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:40:54 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/20 23:08:16 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/21 15:55:07 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	set_player_pos(t_all *all, int x, int y)
 {
 	all->plr.x = x * SCALE + MAP_OFFS_X - SCALE / 2.0;
 	all->plr.y = y * SCALE + MAP_OFFS_Y + SCALE / 2.0;
-	all->dda.pos_x = x - 1.0 / 2.0;
-	all->dda.pos_y = y + 1.0 / 2.0;
+	all->ray.pos_x = x - 1.0 / 2.0;
+	all->ray.pos_y = y + 1.0 / 2.0;
 }
 
 void	set_player_dir(t_all *all, double dir)
@@ -45,9 +45,9 @@ void	move_player(t_all *all, double dir)
 	all->plr.x += cos(all->plr.dir + dir) * MOVE_SPEED;
 	all->plr.y -= sin(all->plr.dir + dir) * MOVE_SPEED;
 	// printf("%f posx %f posy map\n", all->plr.x, all->plr.y);
-	all->dda.pos_x += cos(all->plr.dir + dir) * MOVE_SPEED / SCALE;
-	all->dda.pos_y -= sin(all->plr.dir + dir) * MOVE_SPEED / SCALE;
-	// printf("%f posx %f posy DDA\n", all->dda.pos_x, all->dda.pos_y);
+	all->ray.pos_x += cos(all->plr.dir + dir) * MOVE_SPEED / SCALE;
+	all->ray.pos_y -= sin(all->plr.dir + dir) * MOVE_SPEED / SCALE;
+	// printf("%f posx %f posy ray\n", all->ray.pos_x, all->ray.pos_y);
 }
 
 int		scaled_down_x(double index)

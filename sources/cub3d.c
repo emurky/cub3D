@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/20 23:09:51 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/21 16:36:22 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,13 @@ char	**map_init(void)
 
 void	clean_map(char **map)
 {
-	while (*map)
-		free(*map++);
+	int		i;
+
+	i = 0;
+	while (map[i])
+		free(map[i++]);
 	free(map);
+	printf("Map was freed properly\n");
 }
 
 void	clean_win(t_img *img)
@@ -84,12 +88,18 @@ void	clean_win(t_img *img)
 
 int		renderer(int key, t_all *all)
 {
-	// mlx_clear_window(all->mlx, all->win);
+	char *counter;
+
+	counter = ft_itoa(all->frames_counter);
+	mlx_clear_window(all->mlx, all->win);
 	clean_win(&all->img);
 	key_press(key, all);
-	raycaster(all, &all->dda);
+	raycaster(all, &all->ray);
 	draw_player(all);
+	all->frames_counter++;
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+	mlx_string_put(all->mlx, all->win, 1150, 15, BLACK, counter);
+	free(counter);
 	return (0);
 }
 
@@ -105,15 +115,16 @@ int		main(void)
 
 	all.map = map_init();
 
+	all.frames_counter = 1;
 	set_player_pos(&all, 27, 11);
-	printf("%f posx %f posy\n", all.dda.pos_x, all.dda.pos_y);
+	printf("%f posx %f posy\n", all.ray.pos_x, all.ray.pos_y);
 	set_player_dir(&all, M_PI_2);
 
 	// all.plr_init.x = 27;
 	// all.plr_init.y = 11;
 	// all.plr_init.dir = M_PI;
 
-	raycaster(&all, &all.dda);
+	raycaster(&all, &all.ray);
 	draw_player(&all);
 	
 	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
@@ -133,7 +144,7 @@ int		main(void)
 	// draw_square(&all.img, 300, (t_pnt){0, 0}, BLACK);
 	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
 	mlx_hook(all.win, 2, 1L<<0, renderer, &all);
-	mlx_hook(all.win, 17, 1, close_window, &all);
+	mlx_hook(all.win, 17, 1L<<5, close_window, &all);
 	mlx_loop(all.mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/20 22:53:19 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/21 16:51:42 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@
 # define MOVE_SPEED		SCALE / 3
 # define ROTATE_SPEED	M_PI / 16
 
+# define NO		../textures/colorstone.xpm
+# define SO		../textures/greystone.xpm
+# define WE		../textures/redbrick.xpm
+# define EA		../textures/wood.xpm
+
+
 /*			utils.c */
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			is_player_dir(char c);
@@ -70,7 +76,7 @@ int			esc_exit(int key, t_all *all);
 int			close_window(t_all *all);
 void		key_press(int key, t_all *all);
 
-void		raycaster(t_all *all, t_dda *dda);
+void		raycaster(t_all *all, t_ray *ray);
 
 void	clean_map(char **map);
 

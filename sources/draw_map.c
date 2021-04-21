@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/20 17:26:15 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/21 16:35:25 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	cast_rays(t_all *all, int raycount)
 
 void	draw_sprites(t_all *all, t_pnt *pos)
 {
-	draw_square(&all->img, SCALE, *pos, DARK_GREY);
+	draw_square(&all->img, SCALE, *pos, WHITE);
 	pos->x += (SCALE - SCALE / SPRITE_SCALE) / 2;
 	pos->y += (SCALE - SCALE / SPRITE_SCALE) / 2;
 	draw_square(&all->img, SCALE / SPRITE_SCALE, *pos, RED);
@@ -107,11 +107,11 @@ void	draw_map(t_all *all)
 		while (all->map[i][j])
 		{
 			if (all->map[i][j] == '1')
-				draw_square(&all->img, SCALE, pos, WHITE);
+				draw_square(&all->img, SCALE, pos, DARK_GREY);
 			else if (all->map[i][j] == '2')
 				draw_sprites(all, &pos);
 			else
-				draw_square(&all->img, SCALE, pos, DARK_GREY);
+				draw_square(&all->img, SCALE, pos, WHITE);
 			pos.x += SCALE;
 			j++;
 		}
