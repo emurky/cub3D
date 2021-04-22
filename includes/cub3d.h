@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 02:40:04 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 03:31:38 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@
 # define MOVE_SPEED		SCALE / 3
 # define ROTATE_SPEED	M_PI / 16
 
-# define NO		"textures/colorstone.xpm"
+# define NO		"textures/redbrick.xpm"
 # define SO		"textures/greystone.xpm"
-# define WE		"textures/redbrick.xpm"
+# define WE		"textures/colorstone.xpm"
 # define EA		"textures/wood.xpm"
 # define BAR	"textures/barrel.xpm"
 
@@ -53,7 +53,7 @@
 /*			my_mlx_utils.c */
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			my_mlx_pixel_get(t_img *img, int x, int y);
-void		clean_win(t_img *img);
+void		clean_win(t_all *all);
 void		frames_counter(t_all *all);
 
 /*			utils.c */

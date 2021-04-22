@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 02:22:08 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 02:37:08 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 03:31:19 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		my_mlx_pixel_get(t_img *img, int x, int y)
 	return (*(unsigned int *)pixel);
 }
 
-void	clean_win(t_img *img)
+void	clean_win(t_all *all)
 {
 	int		i;
 	int		j;
@@ -39,7 +39,7 @@ void	clean_win(t_img *img)
 		j = 0;
 		while (j < SCRN_H)
 		{
-			my_mlx_pixel_put(img, i, j, BLACK);
+			my_mlx_pixel_put(all->img.img, i, j, BLACK);
 			j++;
 		}
 		i++;

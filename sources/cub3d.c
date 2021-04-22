@@ -6,16 +6,11 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 02:23:39 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 03:35:23 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-int		get_t(int trgb)
-{
-	return (trgb & (0xFF << 24));
-}
 
 void	gnl_test(void)
 {
@@ -59,7 +54,7 @@ char	**map_init(void)
 int		renderer(int key, t_all *all)
 {
 	mlx_clear_window(all->mlx, all->win);
-	clean_win(&all->img);
+	clean_win(all);
 	key_press(key, all);
 	raycaster(all, &all->ray);
 	frames_counter(all);
