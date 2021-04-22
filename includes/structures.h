@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 02:08:08 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 23:13:24 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,24 +79,52 @@ typedef struct s_ray
 	double		tex_step;
 	double		tex_pos;
 	int			pixel;
+	int			num_sprites;
 }				t_ray;
 
 typedef struct s_tex
 {
-	t_img		img;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			linelen;
+	int			endian;
 	int			w;
 	int			h;
 }				t_tex;
+
+typedef struct s_spr
+{
+	double		x;
+	double		y;
+	
+}								t_spr;
+
+typedef struct s_pths
+{
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		*s;
+}				t_pths;
 
 typedef struct s_all
 {
 	void		*mlx;
 	void		*win;
 	t_img		img;
+
+	t_pnt		screen;
+	t_pths		nswes;
+	t_tex		tex[4];
+	t_tex		spr;
+	t_pnt		floor_ceil;
+	char		**map;
+
 	t_plr		plr;
 	t_ray		ray;
-	t_tex		tex[4];
-	char		**map;
+
 	int			frames;
 }				t_all;
 

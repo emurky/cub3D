@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 02:31:45 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 18:57:54 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,25 +98,25 @@ void	draw_map_squares(t_all *all)
 	int		j;
 	t_pnt	pos;
 
-	i = 0;
+	j = 0;
 	pos.y = MAP_OFFS_Y;
-	while (all->map[i])
+	while (all->map[j])
 	{
-		j = 0;
+		i = 0;
 		pos.x = MAP_OFFS_X;
-		while (all->map[i][j])
+		while (all->map[j][i])
 		{
-			if (all->map[i][j] == '1')
+			if (all->map[j][i] == '1')
 				draw_square(&all->img, SCALE, pos, DARK_GREY);
-			else if (all->map[i][j] == '2')
+			else if (all->map[j][i] == '2')
 				draw_map_sprites(all, &pos);
 			else
 				draw_square(&all->img, SCALE, pos, WHITE);
 			pos.x += SCALE;
-			j++;
+			i++;
 		}
 		pos.y += SCALE;
-		i++;
+		j++;
 	}
 }
 

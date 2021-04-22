@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 02:22:08 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 03:31:19 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 22:13:16 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int		my_mlx_pixel_get(t_img *img, int x, int y)
+int		my_mlx_pixel_get(t_tex *img, int x, int y)
 {
 	char	*pixel;
 
@@ -34,10 +34,10 @@ void	clean_win(t_all *all)
 	int		j;
 
 	i = 0;
-	while (i < SCRN_W)
+	while (i < all->screen.x)
 	{
 		j = 0;
-		while (j < SCRN_H)
+		while (j < all->screen.y)
 		{
 			my_mlx_pixel_put(all->img.img, i, j, BLACK);
 			j++;
@@ -52,6 +52,6 @@ void	frames_counter(t_all *all)
 
 	counter = ft_itoa(all->frames);
 	all->frames++;
-	mlx_string_put(all->mlx, all->win, SCRN_W - 50, 15, BLACK, counter);
+	mlx_string_put(all->mlx, all->win, all->screen.x - 50, 15, BLACK, counter);
 	free(counter);
 }

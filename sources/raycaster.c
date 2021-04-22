@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:31:23 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 02:26:47 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 22:42:07 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ray_init(t_all *all, t_ray *ray)
 {
-	ray->w = SCRN_W;
-	ray->h = SCRN_H;
+	ray->w = all->screen.x;
+	ray->h = all->screen.y;
 	ray->x = ray->w - 1;
 	ray->dir_x = cos(all->plr.dir);
 	ray->dir_y = -sin(all->plr.dir);
@@ -115,28 +115,28 @@ void	draw_vertical_line(t_ray *ray, t_img *img)
 	}
 }
 
-void	draw_floor_ceiling(t_all *all, int col_ceil, int col_floor)
+void	draw_floor_ceiling(t_all *all)
 {
 	int		i;
 	int		j;
 
 	j = 0;
-	while (j <= SCRN_H / 2)
+	while (j <= all->screen.y / 2)
 	{
 		i = 0;
-		while (i < SCRN_W)
+		while (i < all->screen.x)
 		{
-			my_mlx_pixel_put(&all->img, i, j, col_ceil);
+			my_mlx_pixel_put(&all->img, i, j, all->floor_ceil.y);
 			i++;
 		}
 		j++;
 	}
-	while (j < SCRN_H)
+	while (j < all->screen.y)
 	{
 		i = 0;
-		while (i < SCRN_W)
+		while (i < all->screen.x)
 		{
-			my_mlx_pixel_put(&all->img, i, j, col_floor);
+			my_mlx_pixel_put(&all->img, i, j, all->floor_ceil.x);
 			i++;
 		}
 		j++;
@@ -146,7 +146,7 @@ void	draw_floor_ceiling(t_all *all, int col_ceil, int col_floor)
 void	raycaster(t_all *all, t_ray *ray)
 {
 	ray_init(all, ray);
-	draw_floor_ceiling(all, SKY_BLUE, BORDEAUX);
+	draw_floor_ceiling(all);
 	while (ray->x >= 0)
 	{
 		ray_calc(ray);
@@ -155,6 +155,7 @@ void	raycaster(t_all *all, t_ray *ray)
 		line_lenth_calc(ray);
 		// draw_vertical_line(ray, &all->img);
 		texturing(all, ray);
+		draw_sprites(all, ray);
 		ray->x--;
 	}
 	draw_map(all);

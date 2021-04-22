@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/04/22 02:25:38 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/22 21:51:39 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS				= $(addprefix $(SRCSDIR)/, \
 						cub3d.c \
 						raycaster.c \
 						texturer.c \
+						draw_sprites.c \
 						draw_map.c \
 						key_hooks.c \
 						my_mlx_utils.c \
@@ -32,7 +33,7 @@ NAME				= cub3d
 
 CC 					= gcc
 RM 					= rm -f
-CFLAGS				= -Wall -Wextra -Werror -O2
+CFLAGS				= -Wall -Wextra -Werror -O2 -fsanitize=address
 CPPFLAGS			= -MMD -I. -I./includes
 MLX_FLAGS			= -framework OpenGL -framework AppKit -lz
 
@@ -45,7 +46,7 @@ all:				$(NAME)
 $(NAME):			$(OBJS)
 					$(MAKE) -C ./libft -j 8
 					$(MAKE) -C ./mlx -j 8
-					$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+					$(CC) $(CFLAGS) $(OBJS) $(LIBS) -g -o $(NAME)
 
 -include			$(DEPS)
 

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:50:33 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 02:23:51 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/22 23:06:34 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,20 @@ void	clean_map(char **map)
 	while (map[i])
 		free(map[i++]);
 	free(map);
-	printf("Map was freed properly\n");
+	printf("Map was freed\n");
+}
+
+void	clean_mlx(t_all *all)
+{
+	int		i;
+
+	i = 0;
+	mlx_destroy_window(all->mlx, all->win);
+	// mlx_destroy_image(all->mlx, all->img.img);
+	// while (i < 4)
+	// 	mlx_destroy_image(all->mlx, all->tex[i].img);
+	mlx_destroy_image(all->mlx, all->spr.img);
+	printf("mlx was freed\n");
 }
 
 int		print_key(int key, t_all *all)
@@ -32,7 +45,8 @@ int		print_key(int key, t_all *all)
 
 int		close_window(t_all *all)
 {
-	(void)all;
+	clean_map(all->map);
+	clean_mlx(all);
 	printf("Bye-bye\n");
 	exit(0);
 }
@@ -58,6 +72,7 @@ void	key_press(int key, t_all *all)
 	}
 	if (key == KEY_ESC)
 	{
+		clean_mlx(all);
 		clean_map(all->map);
 		exit(0);
 	}
