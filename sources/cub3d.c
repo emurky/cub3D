@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 23:43:59 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 03:50:45 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**map_init(void)
 	map[0]	= ft_strdup("        1111111111111111111111111");
 	map[1]	= ft_strdup("        1000000000110000002000001");
 	map[2]	= ft_strdup("        1011000001110000200000201");
-	map[3]	= ft_strdup("        1001020000000000002000001");
+	map[3]	= ft_strdup("        1001020000000000002002001");
 	map[4]	= ft_strdup("111111111011000001110000000000001");
 	map[5]	= ft_strdup("100000000011000001110111110111111");
 	map[6]	= ft_strdup("11110111111111011100000010001");
@@ -78,11 +78,11 @@ void	init(t_all *all)
 	all->map = map_init();
 	all->floor_ceil.x = BORDEAUX;
 	all->floor_ceil.y = SKY_BLUE;
-	wall_textures_init(all);
-	sprites_init(all);
-	set_player_pos(all, 27, 11);
-	set_player_dir(all, M_PI_2);
+	textures_init(all);
 	sprites_counting(all);
+	// sprites_init(all);
+	set_player_pos(all, 26, 11);
+	set_player_dir(all, M_PI_2);
 	all->frames = 1;
 }
 
@@ -110,8 +110,8 @@ int		main(void)
 	// mlx_get_screen_size(&screen.x, &screen.y);
 	// printf("%d width, %d height\n", screen.x, screen.y);
 	// int pixel = 0;
-	// int pixel2 = my_mlx_pixel_get(all.spr.img.img, 5, 5);
-	// printf("%X pixel\n", pixel2);
+	int pixel2 = my_mlx_pixel_get(&all.tex[4], 34, 34);
+	printf("%X pixel\n", pixel2);
 
 	mlx_hook(all.win, 2, 1L<<0, renderer, &all);
 	mlx_hook(all.win, 17, 1L<<5, close_window, &all);

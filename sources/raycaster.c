@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:31:23 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 22:42:07 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 04:15:07 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,21 @@
 
 void	ray_init(t_all *all, t_ray *ray)
 {
+	ray->z_buff = NULL;
+	ray->z_buff = malloc(sizeof(double) * all->screen.x);
+	if (!ray->z_buff)
+		error();
+	ray->sprites = NULL;
+	ray->spr_order = NULL;
+	ray->spr_dist = NULL;
 	ray->w = all->screen.x;
 	ray->h = all->screen.y;
-	ray->x = ray->w - 1;
+	ray->x = 0;
 	ray->dir_x = cos(all->plr.dir);
 	ray->dir_y = -sin(all->plr.dir);
 	ray->pln_x = cos(all->plr.dir - M_PI_2) * round(FOV * 180 / M_PI) / 100;
 	ray->pln_y = -sin(all->plr.dir - M_PI_2) * round(FOV * 180 / M_PI) / 100;
+	// printf("%.2f dirx %.2f diry\n%.2f pnlx %.2f plny\n", ray->dir_x, ray->dir_y, ray->pln_x, ray->pln_y);
 }
 
 void	steps_increment(t_ray *ray)
@@ -147,7 +155,7 @@ void	raycaster(t_all *all, t_ray *ray)
 {
 	ray_init(all, ray);
 	draw_floor_ceiling(all);
-	while (ray->x >= 0)
+	while (ray->x < ray->w)
 	{
 		ray_calc(ray);
 		steps_increment(ray);
@@ -155,9 +163,11 @@ void	raycaster(t_all *all, t_ray *ray)
 		line_lenth_calc(ray);
 		// draw_vertical_line(ray, &all->img);
 		texturing(all, ray);
-		draw_sprites(all, ray);
-		ray->x--;
+		// draw_sprites(all, ray);
+		ray->z_buff[ray->x] = ray->perpwalldist;
+		ray->x++;
 	}
+	draw_sprites(all, ray);
 	draw_map(all);
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 }

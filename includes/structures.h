@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 23:13:24 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 01:23:22 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,33 @@ typedef struct s_plr
 // 	double		dir;
 // }				t_plr_init;
 
+typedef struct s_spr
+{
+	double		x;
+	double		y;
+	
+}				t_spr;
+
+typedef struct s_tex
+{
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			linelen;
+	int			endian;
+	int			w;
+	int			h;
+}				t_tex;
+
+typedef struct s_pths
+{
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		*s;
+}				t_pths;
+
 typedef struct s_ray
 {
 	int			w;
@@ -79,35 +106,12 @@ typedef struct s_ray
 	double		tex_step;
 	double		tex_pos;
 	int			pixel;
-	int			num_sprites;
+	int			num_sprs;
+	double		*z_buff;
+	t_spr		*sprites;
+	int			*spr_order;
+	double		*spr_dist;
 }				t_ray;
-
-typedef struct s_tex
-{
-	void		*img;
-	char		*addr;
-	int			bpp;
-	int			linelen;
-	int			endian;
-	int			w;
-	int			h;
-}				t_tex;
-
-typedef struct s_spr
-{
-	double		x;
-	double		y;
-	
-}								t_spr;
-
-typedef struct s_pths
-{
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
-	char		*s;
-}				t_pths;
 
 typedef struct s_all
 {
@@ -117,8 +121,8 @@ typedef struct s_all
 
 	t_pnt		screen;
 	t_pths		nswes;
-	t_tex		tex[4];
-	t_tex		spr;
+	t_tex		tex[5];
+	// t_tex		spr_tex;
 	t_pnt		floor_ceil;
 	char		**map;
 

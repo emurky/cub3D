@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 23:43:45 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 04:27:09 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,14 @@
 /*			my_mlx_utils.c */
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			my_mlx_pixel_get(t_tex *img, int x, int y);
+void		my_mlx_tex_to_image(t_all *all, t_tex *tex, char *path);
 void		clean_win(t_all *all);
 void		frames_counter(t_all *all);
 
 /*			utils.c */
+void		error();
+void		malloc_with_check(void **ptr, size_t size);
+
 int			is_player_dir(char c);
 void		set_player_pos(t_all *all, int x, int y);
 void		set_player_dir(t_all *all, double dir);
@@ -83,7 +87,7 @@ void		draw_map_squares(t_all *all);
 void		draw_map(t_all *all);
 
 /*			texturer.c */
-void		wall_textures_init(t_all *all);
+void		textures_init(t_all *all);
 void		which_nswe_wall_side(t_all *all, t_ray *ray, t_tex **tex);
 void		textured_vert_line_h_calc(t_all *all, t_ray *ray, t_tex *tex);
 void		texturing(t_all *all, t_ray *ray);

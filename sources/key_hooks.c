@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:50:33 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 23:06:34 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 03:11:23 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	clean_mlx(t_all *all)
 	// mlx_destroy_image(all->mlx, all->img.img);
 	// while (i < 4)
 	// 	mlx_destroy_image(all->mlx, all->tex[i].img);
-	mlx_destroy_image(all->mlx, all->spr.img);
+	// mlx_destroy_image(all->mlx, all->spr_tex.img);
 	printf("mlx was freed\n");
 }
 
@@ -67,7 +67,7 @@ void	key_press(int key, t_all *all)
 		set_player_dir(all, all->plr.dir - ROTATE_SPEED);
 	if (key == KEY_R)
 	{
-		set_player_pos(all, 27, 11);
+		set_player_pos(all, 26, 11);
 		set_player_dir(all, M_PI_2);
 	}
 	if (key == KEY_ESC)

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 18:57:54 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 04:52:39 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	draw_square(t_img *img, int width, t_pnt pos, int color)
 
 void	draw_ray(t_all *all, int color)
 {
-	t_plr ray;
+	t_plr	ray;
 
 	ray = all->plr;
 	while (all->map[scaled_down_y(ray.y)][scaled_down_x(ray.x)] != '1')

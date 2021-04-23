@@ -6,11 +6,24 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:40:54 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/22 18:19:46 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 01:59:27 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	error()
+{
+
+}
+
+void	malloc_with_check(void **ptr, size_t size)
+{
+	*ptr = NULL;
+	*ptr = malloc(size);
+	if (!(*ptr))
+		error();
+}
 
 int		is_player_dir(char c)
 {
@@ -19,9 +32,9 @@ int		is_player_dir(char c)
 
 void	set_player_pos(t_all *all, int x, int y)
 {
-	all->plr.x = x * SCALE + MAP_OFFS_X - SCALE / 2.0;
+	all->plr.x = x * SCALE + MAP_OFFS_X + SCALE / 2.0;
 	all->plr.y = y * SCALE + MAP_OFFS_Y + SCALE / 2.0;
-	all->ray.pos_x = x - 1.0 / 2.0;
+	all->ray.pos_x = x + 1.0 / 2.0;
 	all->ray.pos_y = y + 1.0 / 2.0;
 }
 
