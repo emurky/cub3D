@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:40:54 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 01:59:27 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 12:28:12 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ char	map_char(t_all *all)
 
 int		wall_collision(t_all *all, double angle)
 {
+	// return (all->map
+	// 	[(int)(all->ray.pos_y - sin(all->plr.dir + angle) / 1)]
+	// 	[(int)(all->ray.pos_x + cos(all->plr.dir + angle) / 1)]
+	// 	== '1');
 	return (all->map
 		[scaled_down_y(all->plr.y - sin(all->plr.dir + angle) * (MOVE_SPEED * 1))]
 		[scaled_down_x(all->plr.x + cos(all->plr.dir + angle) * (MOVE_SPEED * 1))]

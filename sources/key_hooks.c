@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:50:33 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 03:11:23 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 13:49:34 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,17 @@ void	clean_map(char **map)
 	while (map[i])
 		free(map[i++]);
 	free(map);
-	printf("Map was freed\n");
+	map = NULL;
+	printf("map was freed\n");
+}
+
+void	free_malloc_pointers(t_all *all)
+{
+	if (all->ray.z_buff)
+		free(all->ray.z_buff);
+	if (all->ray.sprites)
+		free(all->ray.sprites);
+	printf("malloced pointers were freed\n");
 }
 
 void	clean_mlx(t_all *all)
@@ -28,11 +38,16 @@ void	clean_mlx(t_all *all)
 	int		i;
 
 	i = 0;
-	mlx_destroy_window(all->mlx, all->win);
-	// mlx_destroy_image(all->mlx, all->img.img);
-	// while (i < 4)
-	// 	mlx_destroy_image(all->mlx, all->tex[i].img);
-	// mlx_destroy_image(all->mlx, all->spr_tex.img);
+	if (all->mlx && all->win)
+		mlx_destroy_window(all->mlx, all->win);
+	if (all->mlx && all->img.img)
+		mlx_destroy_image(all->mlx, all->img.img);
+	while (i < 5)
+	{
+		if (all->mlx && all->tex[i].img)
+			mlx_destroy_image(all->mlx, all->tex[i].img);
+		i++;
+	}
 	printf("mlx was freed\n");
 }
 
@@ -47,6 +62,7 @@ int		close_window(t_all *all)
 {
 	clean_map(all->map);
 	clean_mlx(all);
+	free_malloc_pointers(all);
 	printf("Bye-bye\n");
 	exit(0);
 }
@@ -74,6 +90,7 @@ void	key_press(int key, t_all *all)
 	{
 		clean_mlx(all);
 		clean_map(all->map);
+		free_malloc_pointers(all);
 		exit(0);
 	}
 }

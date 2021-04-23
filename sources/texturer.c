@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 02:25:39 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 04:43:40 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 13:11:13 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,6 @@ void	textures_init(t_all *all)
 	my_mlx_tex_to_image(all, &all->tex[2], WE);
 	my_mlx_tex_to_image(all, &all->tex[3], EA);
 	my_mlx_tex_to_image(all, &all->tex[4], S);
-	// all->tex[0].img
-	// 	= mlx_xpm_file_to_image(all->mlx, NO, &all->tex[0].w, &all->tex[0].h);
-	// all->tex[0].addr
-	// 	= mlx_get_data_addr(all->tex[0].img, &all->tex[0].bpp,
-	// 		&all->tex[0].linelen, &all->tex[0].endian);
-	// all->tex[1].img
-	// 	= mlx_xpm_file_to_image(all->mlx, SO, &all->tex[1].w, &all->tex[1].h);
-	// all->tex[1].addr
-	// 	= mlx_get_data_addr(all->tex[1].img, &all->tex[1].bpp,
-	// 		&all->tex[1].linelen, &all->tex[1].endian);
-	// all->tex[2].img
-	// 	= mlx_xpm_file_to_image(all->mlx, WE, &all->tex[2].w, &all->tex[2].h);
-	// all->tex[2].addr
-	// 	= mlx_get_data_addr(all->tex[2].img, &all->tex[2].bpp,
-	// 		&all->tex[2].linelen, &all->tex[2].endian);
-	// all->tex[3].img
-	// 	= mlx_xpm_file_to_image(all->mlx, EA, &all->tex[3].w, &all->tex[3].h);
-	// all->tex[3].addr
-	// 	= mlx_get_data_addr(all->tex[3].img, &all->tex[3].bpp,
-	// 		&all->tex[3].linelen, &all->tex[3].endian);
 }
 
 void	which_nswe_wall_side(t_all *all, t_ray *ray, t_tex **tex)

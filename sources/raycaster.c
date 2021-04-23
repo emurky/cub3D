@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:31:23 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 04:15:07 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 13:48:57 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	ray_init(t_all *all, t_ray *ray)
 	if (!ray->z_buff)
 		error();
 	ray->sprites = NULL;
-	ray->spr_order = NULL;
-	ray->spr_dist = NULL;
 	ray->w = all->screen.x;
 	ray->h = all->screen.y;
 	ray->x = 0;
@@ -163,11 +161,13 @@ void	raycaster(t_all *all, t_ray *ray)
 		line_lenth_calc(ray);
 		// draw_vertical_line(ray, &all->img);
 		texturing(all, ray);
-		// draw_sprites(all, ray);
 		ray->z_buff[ray->x] = ray->perpwalldist;
 		ray->x++;
 	}
 	draw_sprites(all, ray);
 	draw_map(all);
 	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+	if (ray->z_buff)
+		free(ray->z_buff);
+	ray->z_buff = NULL;
 }

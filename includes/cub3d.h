@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 04:27:09 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/23 12:24:55 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@
 # define RAYCOUNT		SCALE * 3
 # define MOVE_SPEED		SCALE / 3
 # define ROTATE_SPEED	M_PI / 16
+
+# define UDIV			1
+# define VDIV			1
+# define VMOVE			64.0
 
 # define NO		"textures/redbrick.xpm"
 # define SO		"textures/greystone.xpm"
@@ -94,7 +98,7 @@ void		texturing(t_all *all, t_ray *ray);
 
 /*			draw_sprites.c */
 void		sprites_counting(t_all *all);
-void		sprites_init(t_all *all);
+void		sprites_init(t_all *all, t_ray *ray, t_spr *sprites);
 void		draw_sprites(t_all *all, t_ray *ray);
 
 /*			raycaster.c */
