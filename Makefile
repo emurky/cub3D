@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/04/22 21:51:39 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/24 23:56:28 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJS				= $(SRCS:.c=.o)
 
 DEPS				= $(SRCS:.c=.d)
 
-NAME				= cub3d
+NAME				= cub3D
 
 CC 					= gcc
 RM 					= rm -f
@@ -80,7 +80,7 @@ libft_re:
 # ******************************************** #
 
 sc:
-					rm -rf *.o *.a */*.o */*.a */*.d *.d 'cub3d '* cub3d a.out
+					rm -rf *.o *.a */*.o */*.a */*.d *.d 'cub3D '* cub3D a.out
 
 .PHONY:				all clean fclean re bonus \
 					libft libft_clean libft_fclean libft_re \

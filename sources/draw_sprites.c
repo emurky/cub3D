@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:01:06 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 13:46:29 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/24 23:53:15 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,14 @@ void	sprites_projection(t_ray *ray, t_spr *sprites)
 		* (-ray->pln_y * ray->spr_x + ray->pln_x * ray->spr_y);
 	ray->sprscrn_x = (int)((ray->w / 2) * (1 + ray->transf_x / ray->transf_y));
 	ray->v_move_scrn = (int)(VMOVE / ray->transf_y);
-	ray->spr_h = abs((int)(ray->h / ray->transf_y)) / VDIV;
+	ray->spr_h = (int)fabs(ray->h / ray->transf_y) * VDIV * ray->k;
 	ray->dr_start_y = -ray->spr_h / 2 + ray->h / 2 + ray->v_move_scrn;
 	if (ray->dr_start_y < 0)
 		ray->dr_start_y = 0;
 	ray->dr_end_y = ray->spr_h / 2 + ray->h / 2 + ray->v_move_scrn;
 	if (ray->dr_end_y >= ray->h)
 		ray->dr_end_y = ray->h - 1;
-	ray->spr_w = abs((int)(ray->h / ray->transf_y)) / UDIV;
+	ray->spr_w = (int)fabs(ray->h / ray->transf_y) * UDIV * ray->k;
 	ray->dr_start_x = -ray->spr_w / 2 + ray->sprscrn_x;
 	if (ray->dr_start_x < 0)
 		ray->dr_start_x = 0;
@@ -132,7 +132,8 @@ void	sprites_rendering(t_all *all, t_ray *ray)
 		ray->s_tex_x = (int)(256 * (ray->x - (-ray->spr_w / 2
 						+ ray->sprscrn_x)) * all->tex[4].w / ray->spr_w) / 256;
 		if (ray->transf_y > 0 && ray->x > 0 && ray->x < ray->w
-			&& ray->transf_y < ray->z_buff[ray->x])
+			&& ray->transf_y < ray->z_buff[ray->x]
+			&& ray->sprites[ray->s_i].dist >= 0.5)
 		{
 			ray->y = ray->dr_start_y;
 			while (ray->y < ray->dr_end_y)
@@ -164,10 +165,11 @@ void	draw_sprites(t_all *all, t_ray *ray)
 		sprites_rendering(all, ray);
 		ray->s_i++;
 	}
-	// for (int i = 0; i < ray->num_sprs; i++)
-	// 	printf("%5.1f posx %5.1f posy %2d order %7.2f dist #%2d sprite\n",
-	// 	ray->sprites[i].x, ray->sprites[i].y, ray->sprites[i].order, ray->sprites[i].dist, i + 1);
 	if (ray->sprites)
 		free(ray->sprites);
 	ray->sprites = NULL;
 }
+
+	// for (int i = 0; i < ray->num_sprs; i++)
+	// 	printf("%5.1f posx %5.1f posy %2d order %7.2f dist #%2d sprite\n",
+	// 	ray->sprites[i].x, ray->sprites[i].y, ray->sprites[i].order, ray->sprites[i].dist, i + 1);

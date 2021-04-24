@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 12:24:55 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/24 23:16:18 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define TRUE			1
 # define FALSE			0
 
-# define SCRN_W			1200 // should to be get from *.cub
+# define SCRN_W			1200 // should be get from *.cub
 # define SCRN_H			900
 
 # define MAP_OFFS_X		20
@@ -42,11 +42,11 @@
 # define SPRITE_SCALE	2
 
 # define RAYCOUNT		SCALE * 3
-# define MOVE_SPEED		SCALE / 3
-# define ROTATE_SPEED	M_PI / 16
+# define MOVE_SPEED		0.03
+# define ROTATE_SPEED	M_PI / 256
 
-# define UDIV			1
-# define VDIV			1
+# define UDIV			1.0
+# define VDIV			1.0
 # define VMOVE			64.0
 
 # define NO		"textures/redbrick.xpm"
@@ -80,7 +80,11 @@ int			wall_collision(t_all *all, double angle);
 void		clean_map(char **map);
 int			print_key(int key, t_all *all);
 int			close_window(t_all *all);
-void		key_press(int key, t_all *all);
+void	free_malloc_pointers(t_all *all);
+void	clean_mlx(t_all *all);
+int		key_pressed(int key, t_all *all);
+int		key_released(int key, t_all *all);
+void	keys_handler(t_all *all);
 
 /*			draw_map.c */
 void		draw_square(t_img *img, int width, t_pnt pos, int color);

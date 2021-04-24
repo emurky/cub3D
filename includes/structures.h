@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 13:48:32 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/24 23:05:54 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_ray
 	int			h;
 	int			x;
 	int			y;
+	double		k;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -137,6 +138,7 @@ typedef struct s_all
 	t_plr		plr;
 	t_ray		ray;
 
+	int			keys[8];
 	int			frames; //counter malloced
 }				t_all;
 

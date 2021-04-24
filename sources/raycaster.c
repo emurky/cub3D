@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:31:23 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 13:48:57 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/24 23:53:44 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	ray_init(t_all *all, t_ray *ray)
 	ray->dir_y = -sin(all->plr.dir);
 	ray->pln_x = cos(all->plr.dir - M_PI_2) * round(FOV * 180 / M_PI) / 100;
 	ray->pln_y = -sin(all->plr.dir - M_PI_2) * round(FOV * 180 / M_PI) / 100;
-	// printf("%.2f dirx %.2f diry\n%.2f pnlx %.2f plny\n", ray->dir_x, ray->dir_y, ray->pln_x, ray->pln_y);
+	// printf("%.2f dirx %.2f diry\n%.2f pnlx %.2f plny\n",
+	// ray->dir_x, ray->dir_y, ray->pln_x, ray->pln_y);
 }
 
 void	steps_increment(t_ray *ray)
@@ -98,7 +99,7 @@ void	line_lenth_calc(t_ray *ray)
 		ray->perpwalldist
 			= (ray->map_y - ray->pos_y + (1 - ray->step_y) / 2) / ray->raydir_y;
 	}
-	ray->line_h = (int)(ray->h / ray->perpwalldist);
+	ray->line_h = (int)(ray->h / ray->perpwalldist * ray->k);
 	ray->draw_start = -ray->line_h / 2 + ray->h / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;

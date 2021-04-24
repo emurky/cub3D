@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 02:25:39 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 13:11:13 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/24 23:53:27 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ void	textured_vert_line_h_calc(t_all *all, t_ray *ray, t_tex *tex)
 		ray->tex_y = (int)ray->tex_pos & (tex->h - 1);
 		ray->tex_pos += ray->tex_step;
 		ray->pixel = my_mlx_pixel_get(tex, ray->tex_x, ray->tex_y);
-		// if (ray->side == 0)
-		// 	ray->pixel = (ray->pixel >> 1) & 0x007F7F7F;
 		my_mlx_pixel_put(&all->img, ray->x, ray->y, ray->pixel);
 		ray->y++;
 	}
