@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 02:22:08 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 13:48:21 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 00:37:00 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ void	frames_counter(t_all *all)
 {
 	char	*counter;
 
+	counter = NULL;
 	counter = ft_itoa(all->frames);
 	all->frames++;
 	mlx_string_put(all->mlx, all->win, all->screen.x - 50, 15, BLACK, counter);
-	free(counter);
+	if (counter)
+		free(counter);
 }

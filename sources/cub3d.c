@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/24 23:39:37 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 01:28:10 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,110 @@ void	gnl_test(void)
 	printf("%s\n", line);
 	free(line);
 	ft_putendl("salam aleykum");
+}
+
+char	**map_init(void);
+
+void	fps(t_all *all)
+{
+	int		old_time;
+	double	frame_time;
+	char	*fps;
+
+	fps = NULL;
+	old_time = all->time;
+	all->time = (double)clock();
+	frame_time = (all->time - old_time) / CLOCKS_PER_SEC;
+	fps = ft_itoa((int)round(1 / frame_time));
+	mlx_string_put(all->mlx, all->win, all->screen.x - 50, 15, BLACK, fps);
+	all->move_speed = frame_time * 4.0;
+	all->rotate_speed = frame_time * 1.5;
+	if (fps)
+		free(fps);
+}
+
+int		renderer(t_all *all)
+{
+	mlx_clear_window(all->mlx, all->win);
+	keys_handler(all);
+	raycaster(all, &all->ray);
+	fps(all);
+	// frames_counter(all);
+	return (0);
+}
+
+void	mlx_start(t_all *all)
+{
+	all->screen.x = SCRN_W;
+	all->screen.y = SCRN_H;
+	all->mlx = NULL;
+	all->mlx = mlx_init();
+	all->img.img = NULL;
+	all->img.img = mlx_new_image(all->mlx, all->screen.x, all->screen.y);
+	all->img.addr = mlx_get_data_addr
+		(all->img.img, &all->img.bpp, &all->img.linelen, &all->img.endian);
+	all->win = NULL;
+	all->win = mlx_new_window(all->mlx, all->screen.x, all->screen.y, "cub3D");
+}
+
+void	init(t_all *all)
+{
+	int		i;
+
+	i = 0;
+	all->map = map_init();
+	all->floor_ceil.x = DARK_BROWN;
+	all->floor_ceil.y = SKY_BLUE;
+	textures_init(all);
+	sprites_counting(all);
+	set_player_pos(all, 26, 11);
+	set_player_dir(all, M_PI_2);
+	all->frames = 1;
+	all->time = 0;
+	while (i < 8)
+		all->keys[i++] = 0;
+	all->ray.k = 1.0 / (4.0 / 3.0
+		* (double)all->screen.y / (double)all->screen.x * FOV / (M_PI / 3));
+}
+
+int		main(void)
+{
+	t_all	all;
+
+	mlx_start(&all);
+	init(&all);
+	// printf("%f posx %f posy\n", all.ray.pos_x, all.ray.pos_y);
+	// printf("%lu\n", sizeof(t_all));
+	raycaster(&all, &all.ray);
+
+	// printf("%p in main\n", (void *)all.spr.img);
+	// int color = my_mlx_pixel_get(&all.img, 600, 10);
+	// printf("%X pixel color\n", color);
+	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
+	// mlx_string_put(all.mlx, all.win, 300, 300, RED, TEST);
+	// mlx_key_hook(all.win, esc_exit, &all);
+	// mlx_key_hook(all.win, print_key, &all);
+	// mlx_key_hook(all.win, key_press, &all);
+	// mlx_key_hook(all.win, esc_exit, &all);
+	// t_pnt screen;
+	// double scale;
+	// mlx_get_screen_size(&screen.x, &screen.y);
+	// printf("%d width, %d height\n", screen.x, screen.y);
+	// int pixel = 0;
+	// int pixel2 = my_mlx_pixel_get(&all.tex[4], 34, 34);
+	// printf("%X pixel\n", pixel2);
+
+	mlx_hook(all.win, 2, 1L<<0, key_pressed, &all);
+	mlx_hook(all.win, 3, 1L<<1, key_released, &all);
+	mlx_hook(all.win, 17, 1L<<5, close_window, &all);
+	mlx_loop_hook(all.mlx, renderer, &all);
+	mlx_loop(all.mlx);
+
+	// mlx_hook(all.win, 2, 1L<<0, renderer, &all);
+	// mlx_hook(all.win, 3, 1L<<1, key_released, &all);
+	// mlx_hook(all.win, 17, 1L<<5, close_window, &all);
+	// mlx_loop(all.mlx);
+	return (0);
 }
 
 char	**map_init(void)
@@ -85,85 +189,3 @@ char	**map_init(void)
 // 	map[14]	= NULL;
 // 	return (map);
 // }
-
-int		renderer(t_all *all)
-{
-	mlx_clear_window(all->mlx, all->win);
-	raycaster(all, &all->ray);
-	frames_counter(all);
-	keys_handler(all);
-	return (0);
-}
-
-void	mlx_start(t_all *all)
-{
-	all->screen.x = SCRN_W;
-	all->screen.y = SCRN_H;
-	all->mlx = NULL;
-	all->mlx = mlx_init();
-	all->img.img = NULL;
-	all->img.img = mlx_new_image(all->mlx, all->screen.x, all->screen.y);
-	all->img.addr = mlx_get_data_addr
-		(all->img.img, &all->img.bpp, &all->img.linelen, &all->img.endian);
-	all->win = NULL;
-	all->win = mlx_new_window(all->mlx, all->screen.x, all->screen.y, "cub3D");
-}
-
-void	init(t_all *all)
-{
-	int		i;
-
-	i = 0;
-	all->map = map_init();
-	all->floor_ceil.x = DARK_BROWN;
-	all->floor_ceil.y = SKY_BLUE;
-	textures_init(all);
-	sprites_counting(all);
-	set_player_pos(all, 26, 11);
-	set_player_dir(all, M_PI_2);
-	all->frames = 1;
-	while (i < 8)
-		all->keys[i++] = 0;
-	all->ray.k = 1.0 / (4.0 / 3.0
-		* (double)all->screen.y / (double)all->screen.x * FOV / (M_PI / 3));
-}
-
-int		main(void)
-{
-	t_all	all;
-
-	mlx_start(&all);
-	init(&all);
-	// printf("%f posx %f posy\n", all.ray.pos_x, all.ray.pos_y);
-	// printf("%lu\n", sizeof(t_all));
-	raycaster(&all, &all.ray);
-
-	// printf("%p in main\n", (void *)all.spr.img);
-	// int color = my_mlx_pixel_get(&all.img, 600, 10);
-	// printf("%X pixel color\n", color);
-	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
-	// mlx_string_put(all.mlx, all.win, 300, 300, RED, TEST);
-	// mlx_key_hook(all.win, esc_exit, &all);
-	// mlx_key_hook(all.win, print_key, &all);
-	// mlx_key_hook(all.win, key_press, &all);
-	// mlx_key_hook(all.win, esc_exit, &all);
-	// t_pnt screen;
-	// double scale;
-	// mlx_get_screen_size(&screen.x, &screen.y);
-	// printf("%d width, %d height\n", screen.x, screen.y);
-	// int pixel = 0;
-	// int pixel2 = my_mlx_pixel_get(&all.tex[4], 34, 34);
-	// printf("%X pixel\n", pixel2);
-
-	mlx_hook(all.win, 2, 1L<<0, key_pressed, &all);
-	mlx_hook(all.win, 3, 1L<<1, key_released, &all);
-	mlx_hook(all.win, 17, 1L<<5, close_window, &all);
-	mlx_loop_hook(all.mlx, renderer, &all);
-	mlx_loop(all.mlx);
-
-	// mlx_hook(all.win, 2, 1L<<0, renderer, &all);
-	// mlx_hook(all.win, 3, 1L<<1, key_released, &all);
-	// mlx_hook(all.win, 17, 1L<<5, close_window, &all);
-	// mlx_loop(all.mlx);
-	return (0);
-}

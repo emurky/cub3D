@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/24 23:05:54 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 00:41:10 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,11 @@ typedef struct s_all
 	t_ray		ray;
 
 	int			keys[8];
-	int			frames; //counter malloced
+
+	double		move_speed;
+	double		rotate_speed;
+	double		time;
+	double		frames; //counter malloced
 }				t_all;
 
 #endif

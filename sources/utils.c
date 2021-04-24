@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:40:54 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/24 23:52:39 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 01:23:46 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int		wall_collision_x(t_all *all, double dir)
 		== '1');
 }
 
+int		sprite_collision_x(t_all *all, double dir);
+int		sprite_collision_y(t_all *all, double dir);
+
 void	move_player(t_all *all, double dir)
 {
 	if (!wall_collision_x(all, dir))
@@ -90,6 +93,7 @@ char	map_char(t_all *all)
 	return (all->map[scaled_down_y(all->plr.y)][scaled_down_x(all->plr.x)]);
 }
 
+/* ************************************************************************** */
 // int		wall_collision(t_all *all, double angle)
 // {
 // 	return (all->map
@@ -102,35 +106,34 @@ char	map_char(t_all *all)
 // 	// 	== '1');
 // }
 
-// int		sprite_collision_y(t_all *all, double dir)
-// {
-// 	for (int i = 0; i < all->ray.num_sprs; i++)
-// 		printf("%5.1f posx %5.1f posy %2d order %7.2f dist #%2d sprite\n",
-// 		all->ray.sprites[i].x, all->ray.sprites[i].y, all->ray.sprites[i].order, all->ray.sprites[i].dist, i + 1);
+int		sprite_collision_y(t_all *all, double dir)
+{
+	// for (int i = 0; i < all->ray.num_sprs; i++)
+	// 	printf("%5.1f posx %5.1f posy %2d order %7.2f dist #%2d sprite\n",
+	// 	all->ray.sprites[i].x, all->ray.sprites[i].y, all->ray.sprites[i].order, all->ray.sprites[i].dist, i + 1);
 
-// 	// if (all->ray.sprites[all->ray.num_sprs - 1].y - 0.1 <= all->ray.pos_y - sin(all->plr.dir + dir) * MOVE_SPEED 
-// 	// && all->ray.pos_y - sin(all->plr.dir + dir) * MOVE_SPEED <= all->ray.sprites[all->ray.num_sprs - 1].y + 0.1)
-// 	// 	return (1);
-// 	// (void)dir;
-// 	if (sin(all->ray.sprites[all->ray.num_sprs - 1].dist) + sin(all->plr.dir + dir) <= 0.05)
-// 		return (1);
-// 	else
-// 	//  (void)all;
-// 		return (0);
-// 	// return (all->map
-// 	// 	[(int)(all->ray.pos_y - sin(all->plr.dir + dir) * MOVE_SPEED * 0.5)]
-// 	// 	[(int)(all->ray.pos_x)]
-// 	// 	== '2');
-// }
+	// if (all->ray.sprites[all->ray.num_sprs - 1].y - 0.1 <= all->ray.pos_y - sin(all->plr.dir + dir) * MOVE_SPEED 
+	// && all->ray.pos_y - sin(all->plr.dir + dir) * MOVE_SPEED <= all->ray.sprites[all->ray.num_sprs - 1].y + 0.1)
+	// 	return (1);
+	// (void)dir;
+	printf("%f dist y \n", fabs(sin(all->ray.sprites[all->ray.num_sprs - 1].dist) + sin(all->plr.dir + dir)));
+	if (fabs(sin(all->ray.sprites[all->ray.num_sprs - 1].dist) + sin(all->plr.dir + dir)) <= 0.05)
+		return (1);
+	else
+	//  (void)all;
+		return (0);
+	// return (all->map
+	// 	[(int)(all->ray.pos_y - sin(all->plr.dir + dir) * MOVE_SPEED * 0.5)]
+	// 	[(int)(all->ray.pos_x)]
+	// 	== '2');
+}
 
-// int		sprite_collision_x(t_all *all, double dir)
-// {
-// 	(void)dir;
-// 	if (all->ray.sprites[all->ray.num_sprs - 1].dist + cos(all->plr.dir + dir) <= 0.05)
-// 		return (1);
-// 	else
-// 	//  (void)all;
-// 		return (0);
+int		sprite_collision_x(t_all *all, double dir)
+{
+	if (fabs(cos(all->ray.sprites[all->ray.num_sprs - 1].dist) + cos(all->plr.dir + dir)) <= 0.05)
+		return (1);
+	else
+		return (0);
 
 
 // 	// if (all->ray.sprites[all->ray.num_sprs - 1].x - 0.1 <= all->ray.pos_x + cos(all->plr.dir + dir) * MOVE_SPEED 
@@ -143,7 +146,7 @@ char	map_char(t_all *all)
 // 	// 	[(int)(all->ray.pos_y)]
 // 	// 	[(int)(all->ray.pos_x + cos(all->plr.dir + dir) * MOVE_SPEED * 0.5)]
 // 	// 	== '2');
-// }
+}
 
 
 // void	move_player(t_all *all, double dir)
