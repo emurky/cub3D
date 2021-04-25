@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 01:28:10 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 05:29:00 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,34 +90,25 @@ void	init(t_all *all)
 		all->keys[i++] = 0;
 	all->ray.k = 1.0 / (4.0 / 3.0
 		* (double)all->screen.y / (double)all->screen.x * FOV / (M_PI / 3));
+	raycaster(all, &all->ray);
 }
 
-int		main(void)
+int		main(int argc, char **argv)
 {
 	t_all	all;
 
+	if (argc !=2 && argc != 3)
+		print_error_exit("Wrong number of arguments\n");
+	all.save = 0;
+	if (ft_strcmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub"))
+		print_error_exit("Wrong map extension\n");
+	if (argc == 3 && !ft_strcmp(argv[2], "--save"))
+		all.save = TRUE;
+	else
+		print_error_exit("Wrong second argument\n");
+	// printf("%s %d\n", argv[1], ft_strcmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub"));
 	mlx_start(&all);
 	init(&all);
-	// printf("%f posx %f posy\n", all.ray.pos_x, all.ray.pos_y);
-	// printf("%lu\n", sizeof(t_all));
-	raycaster(&all, &all.ray);
-
-	// printf("%p in main\n", (void *)all.spr.img);
-	// int color = my_mlx_pixel_get(&all.img, 600, 10);
-	// printf("%X pixel color\n", color);
-	// mlx_put_image_to_window(all.mlx, all.win, all.img.img, 0, 0);
-	// mlx_string_put(all.mlx, all.win, 300, 300, RED, TEST);
-	// mlx_key_hook(all.win, esc_exit, &all);
-	// mlx_key_hook(all.win, print_key, &all);
-	// mlx_key_hook(all.win, key_press, &all);
-	// mlx_key_hook(all.win, esc_exit, &all);
-	// t_pnt screen;
-	// double scale;
-	// mlx_get_screen_size(&screen.x, &screen.y);
-	// printf("%d width, %d height\n", screen.x, screen.y);
-	// int pixel = 0;
-	// int pixel2 = my_mlx_pixel_get(&all.tex[4], 34, 34);
-	// printf("%X pixel\n", pixel2);
 
 	mlx_hook(all.win, 2, 1L<<0, key_pressed, &all);
 	mlx_hook(all.win, 3, 1L<<1, key_released, &all);
@@ -125,6 +116,7 @@ int		main(void)
 	mlx_loop_hook(all.mlx, renderer, &all);
 	mlx_loop(all.mlx);
 
+	// printf("%d\n", all.save);
 	// mlx_hook(all.win, 2, 1L<<0, renderer, &all);
 	// mlx_hook(all.win, 3, 1L<<1, key_released, &all);
 	// mlx_hook(all.win, 17, 1L<<5, close_window, &all);
@@ -173,10 +165,10 @@ char	**map_init(void)
 
 // 	map = malloc(sizeof(char *) * 15);
 // 	map[0]	= ft_strdup("        1111111111111111111111111");
-// 	map[1]	= ft_strdup("        1000000000110000000000001");
-// 	map[2]	= ft_strdup("        1011000001110000000000001");
-// 	map[3]	= ft_strdup("        1001000000000000000000001");
-// 	map[4]	= ft_strdup("111111111011000001110000000000001");
+// 	map[1]	= ft_strdup("        1000000000110000002000201");
+// 	map[2]	= ft_strdup("        101100000111000111000001");
+// 	map[3]	= ft_strdup("        1001000000000001 1000201");
+// 	map[4]	= ft_strdup("11111111101100000110000111000001");
 // 	map[5]	= ft_strdup("100000000011000001110111110111111");
 // 	map[6]	= ft_strdup("11110111111111011100000010001");
 // 	map[7]	= ft_strdup("11110111111111011101010010001");

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 02:03:08 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/21 16:25:33 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 02:57:42 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,16 @@ static char	**ft_free_splitted(char **splitted)
 
 static int	malloc_splitted(char ***splitted, size_t words_count, size_t *i)
 {
+	size_t	j;
+
+	j = 0;
 	*i = 0;
+	*splitted = NULL;
 	*splitted = (char **)malloc(sizeof(char *) * (words_count + 1));
 	if (!(*splitted))
 		return (0);
-	(*splitted)[words_count] = NULL;
+	while (j <= words_count)
+		(*splitted)[j++] = NULL;
 	return (1);
 }
 

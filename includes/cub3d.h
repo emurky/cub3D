@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 01:08:56 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 05:27:33 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <time.h> //UDOLITB
 
 # include "structures.h"
+# include "error.h"
 # include "colors.h"
 # include "keys.h"
 # include "../mlx/mlx.h"
@@ -66,24 +67,27 @@ void		clean_win(t_all *all);
 void		frames_counter(t_all *all);
 
 /*			utils.c */
-void		error();
-void		malloc_with_check(void **ptr, size_t size);
+int			ft_strcmp(const char *s1, const char *s2);
 
 int			is_player_dir(char c);
+
+/*			error.c */
+void		clean_map(char **map);
+void		free_malloc_pointers(t_all *all);
+void		clean_mlx(t_all *all);
+void		print_error_exit(char *err_str);
+void		leave(int error, char *err_str, t_all *all);
+
+/*			player_movement.c */
 void		set_player_pos(t_all *all, int x, int y);
 void		set_player_dir(t_all *all, double dir);
 void		move_player(t_all *all, double dir);
 int			scaled_down_x(double index);
 int			scaled_down_y(double index);
-char		map_char(t_all *all);
-int			wall_collision(t_all *all, double angle);
 
 /*			key_hooks.c */
-void		clean_map(char **map);
 int			print_key(int key, t_all *all);
 int			close_window(t_all *all);
-void		free_malloc_pointers(t_all *all);
-void		clean_mlx(t_all *all);
 int			key_pressed(int key, t_all *all);
 int			key_released(int key, t_all *all);
 void		keys_handler(t_all *all);

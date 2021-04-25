@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:01:06 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 01:22:08 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 04:48:06 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void	draw_sprites(t_all *all, t_ray *ray)
 {
 	ray->sprites = malloc(sizeof(t_spr) * ray->num_sprs);
 	if (!ray->sprites)
-		error();
+		leave(ERR, ERR_MALLOC, all);
 	sprites_init(all, ray, ray->sprites);
 	quicksort_sprites(ray->sprites, 0, ray->num_sprs - 1);
 	while (ray->s_i < ray->num_sprs)

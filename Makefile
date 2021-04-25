@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/04/25 00:48:39 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/25 05:26:49 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,10 @@ SRCS				= $(addprefix $(SRCSDIR)/, \
 						draw_sprites.c \
 						draw_map.c \
 						key_hooks.c \
+						player_movement.c \
 						my_mlx_utils.c \
 						utils.c \
+						error.c \
 						)
 
 OBJS				= $(SRCS:.c=.o)
