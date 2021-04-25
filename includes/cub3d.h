@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 05:27:33 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 17:10:06 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@
 # define SPRITE_SCALE	2
 
 # define RAYCOUNT		SCALE * 3
-# define MOVE_SPEED		0.03
-# define ROTATE_SPEED	M_PI / 240
+# define MOVE_SPEED		0.05
+# define ROTATE_SPEED	M_PI / 180
 
 # define UDIV			1.0
 # define VDIV			1.0
@@ -82,8 +82,8 @@ void		leave(int error, char *err_str, t_all *all);
 void		set_player_pos(t_all *all, int x, int y);
 void		set_player_dir(t_all *all, double dir);
 void		move_player(t_all *all, double dir);
-int			scaled_down_x(double index);
-int			scaled_down_y(double index);
+int			scale_x(double index);
+int			scale_y(double index);
 
 /*			key_hooks.c */
 int			print_key(int key, t_all *all);
@@ -95,7 +95,7 @@ void		keys_handler(t_all *all);
 /*			draw_map.c */
 void		draw_square(t_img *img, int width, t_pnt pos, int color);
 void		draw_ray(t_all *all, int color);
-void		cast_rays(t_all *all, int raycount);
+void		cast_rays(t_all *all, int raycount, int color);
 void		draw_map_sprites(t_all *all, t_pnt *pos);
 void		draw_map_squares(t_all *all);
 void		draw_map(t_all *all);

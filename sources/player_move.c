@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 04:39:56 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 04:41:12 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 16:59:01 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,19 @@ void	move_player(t_all *all, double dir)
 	}
 }
 
-int		scaled_down_x(double index)
+int		scale_x(double index)
 {
 	return ((index - MAP_OFFS_X) / SCALE);
 }
 
-int		scaled_down_y(double index)
+int		scale_y(double index)
 {
 	return ((index - MAP_OFFS_Y) / SCALE);
 }
 
 // char	map_char(t_all *all)
 // {
-// 	return (all->map[scaled_down_y(all->plr.y)][scaled_down_x(all->plr.x)]);
+// 	return (all->map[scale_y(all->plr.y)][scale_x(all->plr.x)]);
 // }
 
 /* ************************************************************************** */
@@ -83,8 +83,8 @@ int		scaled_down_y(double index)
 // 		[(int)(all->ray.pos_x + cos(all->plr.dir + angle) / 1)]
 // 		== '1');
 // 	// return (all->map
-// 	// 	[scaled_down_y(all->plr.y - sin(all->plr.dir + angle) * (MOVE_SPEED * 1))]
-// 	// 	[scaled_down_x(all->plr.x + cos(all->plr.dir + angle) * (MOVE_SPEED * 1))]
+// 	// 	[scale_y(all->plr.y - sin(all->plr.dir + angle) * (MOVE_SPEED * 1))]
+// 	// 	[scale_x(all->plr.x + cos(all->plr.dir + angle) * (MOVE_SPEED * 1))]
 // 	// 	== '1');
 // }
 

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:34:14 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 13:59:52 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 16:34:09 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,6 @@
 # define SKY_BLUE		0x0080B0FF
 # define CHOC_BROWN		0x006D2D26
 # define DARK_BROWN		0x004D1C1B
+# define SUNRAY			0x00E6B858
+
 #endif

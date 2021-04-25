@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/23 04:52:39 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 17:06:43 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	draw_ray(t_all *all, int color)
 	t_plr	ray;
 
 	ray = all->plr;
-	while (all->map[scaled_down_y(ray.y)][scaled_down_x(ray.x)] != '1')
+	while (all->map[scale_y(ray.y - sin(ray.start) * 1.1)][scale_x(ray.x)] != '1'
+	&& all->map[scale_y(ray.y)][scale_x(ray.x + cos(ray.start))] != '1')
 	{
 		ray.x += cos(ray.dir);
 		ray.y -= sin(ray.dir);
@@ -62,7 +63,7 @@ void	draw_ray(t_all *all, int color)
 	}
 }
 
-void	cast_rays(t_all *all, int raycount)
+void	cast_rays(t_all *all, int raycount, int color)
 {
 	t_plr	ray;
 
@@ -72,11 +73,12 @@ void	cast_rays(t_all *all, int raycount)
 	{
 		ray.x = all->plr.x;
 		ray.y = all->plr.y;
-		while (all->map[scaled_down_y(ray.y)][scaled_down_x(ray.x)] != '1')
+		while (all->map[scale_y(ray.y - sin(ray.start))][scale_x(ray.x)] != '1'
+		&& all->map[scale_y(ray.y)][scale_x(ray.x + cos(ray.start) * 1.1)] != '1')
 		{
 			ray.x += cos(ray.start);
 			ray.y -= sin(ray.start);
-			my_mlx_pixel_put(&all->img, ray.x, ray.y, MIDORI);
+			my_mlx_pixel_put(&all->img, ray.x, ray.y, color);
 		}
 		ray.start += FOV / raycount;
 	}
@@ -128,6 +130,6 @@ void	draw_map(t_all *all)
 	pos.y = all->plr.y - SCALE / 2;
 	draw_map_squares(all);
 	draw_square(&all->img, SCALE, pos, AMBER);
-	cast_rays(all, RAYCOUNT);
+	cast_rays(all, RAYCOUNT, SUNRAY);
 	draw_ray(all, RED);
 }
