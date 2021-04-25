@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 02:03:08 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 02:57:42 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 23:11:48 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,19 @@ static size_t	ft_count_words(char const *s, char c)
 
 static char	**ft_free_splitted(char **splitted)
 {
-	int		i;
-
-	i = 0;
-	while (splitted[i])
-		free(splitted[i++]);
+	while (*splitted)
+		free(*splitted++);
 	free(splitted);
 	return (NULL);
 }
 
 static int	malloc_splitted(char ***splitted, size_t words_count, size_t *i)
 {
-	size_t	j;
-
-	j = 0;
 	*i = 0;
-	*splitted = NULL;
 	*splitted = (char **)malloc(sizeof(char *) * (words_count + 1));
 	if (!(*splitted))
 		return (0);
-	while (j <= words_count)
-		(*splitted)[j++] = NULL;
+	(*splitted)[words_count] = NULL;
 	return (1);
 }
 
@@ -74,7 +66,7 @@ char	**ft_split(char const *s, char c)
 		word_len = 0;
 		while (*s && *s == c)
 			s++;
-		while (*s && s[word_len] != c)
+		while (s[word_len] && s[word_len] != c)
 			word_len++;
 		splitted[i] = ft_substr(s, 0, word_len);
 		if (!splitted[i])

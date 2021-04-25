@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 17:19:03 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 22:04:22 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int		renderer(t_all *all)
 
 void	mlx_start(t_all *all)
 {
-	all->screen.x = SCRN_W;
-	all->screen.y = SCRN_H;
+	// all->screen.x = SCRN_W;
+	// all->screen.y = SCRN_H;
 	all->mlx = mlx_init();
 	all->img.img = mlx_new_image(all->mlx, all->screen.x, all->screen.y);
 	all->img.addr = mlx_get_data_addr
@@ -89,6 +89,7 @@ void	structure_init(t_all *all)
 
 	i = 0;
 	all->save = 0;
+	all->identifiers = 0;
 	all->frames = 1;
 	all->time = 0;
 	while (i < 8)
@@ -126,12 +127,14 @@ int		main(int argc, char **argv)
 		all.save = TRUE;
 	else if (argv[2])
 		print_error_exit("Wrong second argument\n");
-
+	parser(&all, argv[1]);
 	mlx_start(&all);
 	init(&all);
-
+	// char **test = ft_split("R  123 1345 4 3545 sdgsdgf", ' ');
+	// for (int i = 0; i < 6; i++)
+	// 	printf("%s\n", test[i]);
+	printf("check from main: R %d width R %d height\n", all.screen.x, all.screen.y);
 	hooks_and_loops(&all);
-
 	
 	return (0);
 }
@@ -141,12 +144,12 @@ char	**map_init(void)
 	char	**map;
 
 	map = malloc(sizeof(char *) * 15);
-	map[0]	= ft_strdup("        1111111111101111111111110");
-	map[1]	= ft_strdup("        1000000000110000002000001");
-	map[2]	= ft_strdup("        1011000001110000200000201");
+	map[0]	= ft_strdup(" 111    1111111111111111111111111");
+	map[1]	= ft_strdup(" 101    1000000000110000002000001");
+	map[2]	= ft_strdup(" 111    1011000001110000200000201");
 	map[3]	= ft_strdup("        1001020000000000002002001");
 	map[4]	= ft_strdup("111111111011000001110000000000001");
-	map[5]	= ft_strdup("100000000011000001110111110111110");
+	map[5]	= ft_strdup("100000000011000001110111110111111");
 	map[6]	= ft_strdup("11110111111111011100000012221");
 	map[7]	= ft_strdup("11110111111111011101010010221");
 	map[8]	= ft_strdup("11000000110101011100000012201");
@@ -154,7 +157,7 @@ char	**map_init(void)
 	map[10]	= ft_strdup("10000000002000001101010010001");
 	map[11]	= ft_strdup("11000001110101011111011100N0011");
 	map[12]	= ft_strdup("11110111 1110101 101111010001");
-	map[13]	= ft_strdup("11111111 1111111 111111111110");
+	map[13]	= ft_strdup("11111111 1111111 111111111111");
 	map[14]	= NULL;
 	return (map);
 }

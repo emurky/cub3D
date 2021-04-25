@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 17:10:06 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 23:31:45 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define TRUE			1
 # define FALSE			0
 
-# define SCRN_W			1200 // should be get from *.cub
-# define SCRN_H			900
+# define SCRN_W			500 // should be get from *.cub
+# define SCRN_H			1301
 
 # define MAP_OFFS_X		20
 # define MAP_OFFS_Y		20
@@ -59,6 +59,10 @@
 # define S		"textures/barrel.xpm"
 
 
+/*			parser.c */
+int		array_len(char **array);
+void		parser(t_all *all, char *cub);
+
 /*			my_mlx_utils.c */
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			my_mlx_pixel_get(t_tex *img, int x, int y);
@@ -73,6 +77,7 @@ int			is_player_dir(char c);
 
 /*			error.c */
 void		clean_map(char **map);
+void		free_array(char **array);
 void		free_malloc_pointers(t_all *all);
 void		clean_mlx(t_all *all);
 void		print_error_exit(char *err_str);
@@ -94,10 +99,10 @@ void		keys_handler(t_all *all);
 
 /*			draw_map.c */
 void		draw_square(t_img *img, int width, t_pnt pos, int color);
-void		draw_ray(t_all *all, int color);
-void		cast_rays(t_all *all, int raycount, int color);
+void		draw_ray(t_all *all, char **map, int color);
+void		cast_rays(t_all *all, char **map, int raycount, int color);
 void		draw_map_sprites(t_all *all, t_pnt *pos);
-void		draw_map_squares(t_all *all);
+void		draw_map_squares(t_all *all, char **map);
 void		draw_map(t_all *all);
 
 /*			texturer.c */

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 04:11:02 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 18:06:14 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct s_all
 	t_img		img;
 
 	int			save;
+	int			identifiers;
 	t_pnt		screen;
 	t_pths		nswes; //malloced
 	t_tex		tex[5]; //malloced, NULLed

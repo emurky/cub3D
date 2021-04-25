@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 03:24:43 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 05:20:15 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 19:26:29 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@ void	clean_map(char **map)
 	free(map);
 	map = NULL;
 	printf("Map was freed\n");
+}
+
+void	free_array(char **array)
+{
+	int		i;
+
+	i = 0;
+	if (array)
+	{
+		while (array[i])
+			free(array[i++]);
+		free(array);
+		array = NULL;
+	}
 }
 
 void	free_malloc_pointers(t_all *all)
@@ -74,7 +88,7 @@ void	leave(int error, char *err_str, t_all *all)
 		clean_all(all);
 		exit(EXIT_FAILURE);
 	}
-	clean_all(all);;
+	clean_all(all);
 	printf("Bye-bye\n");
 	exit(EXIT_SUCCESS);
 }

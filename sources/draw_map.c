@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 17:06:43 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/25 18:24:22 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ void	draw_square(t_img *img, int width, t_pnt pos, int color)
 	}
 }
 
-void	draw_ray(t_all *all, int color)
+void	draw_ray(t_all *all, char **map, int color)
 {
 	t_plr	ray;
 
 	ray = all->plr;
-	while (all->map[scale_y(ray.y - sin(ray.start) * 1.1)][scale_x(ray.x)] != '1'
-	&& all->map[scale_y(ray.y)][scale_x(ray.x + cos(ray.start))] != '1')
+	while (map[scale_y(ray.y - sin(ray.start) * 1.2)][scale_x(ray.x)] != '1'
+	&& map[scale_y(ray.y)][scale_x(ray.x + cos(ray.start) * 1.2)] != '1')
 	{
 		ray.x += cos(ray.dir);
 		ray.y -= sin(ray.dir);
@@ -63,7 +63,7 @@ void	draw_ray(t_all *all, int color)
 	}
 }
 
-void	cast_rays(t_all *all, int raycount, int color)
+void	cast_rays(t_all *all, char **map, int raycount, int color)
 {
 	t_plr	ray;
 
@@ -73,8 +73,8 @@ void	cast_rays(t_all *all, int raycount, int color)
 	{
 		ray.x = all->plr.x;
 		ray.y = all->plr.y;
-		while (all->map[scale_y(ray.y - sin(ray.start))][scale_x(ray.x)] != '1'
-		&& all->map[scale_y(ray.y)][scale_x(ray.x + cos(ray.start) * 1.1)] != '1')
+		while (map[scale_y(ray.y - sin(ray.start) * 1.2)][scale_x(ray.x)] != '1'
+		&& map[scale_y(ray.y)][scale_x(ray.x + cos(ray.start) * 1.2)] != '1')
 		{
 			ray.x += cos(ray.start);
 			ray.y -= sin(ray.start);
@@ -94,7 +94,7 @@ void	draw_map_sprites(t_all *all, t_pnt *pos)
 	pos->y -= (SCALE - SCALE / SPRITE_SCALE) / 2;
 }
 
-void	draw_map_squares(t_all *all)
+void	draw_map_squares(t_all *all, char **map)
 {
 	int		i;
 	int		j;
@@ -102,15 +102,15 @@ void	draw_map_squares(t_all *all)
 
 	j = 0;
 	pos.y = MAP_OFFS_Y;
-	while (all->map[j])
+	while (map[j])
 	{
 		i = 0;
 		pos.x = MAP_OFFS_X;
-		while (all->map[j][i])
+		while (map[j][i])
 		{
-			if (all->map[j][i] == '1')
+			if (map[j][i] == '1')
 				draw_square(&all->img, SCALE, pos, DARK_GREY);
-			else if (all->map[j][i] == '2')
+			else if (map[j][i] == '2')
 				draw_map_sprites(all, &pos);
 			else
 				draw_square(&all->img, SCALE, pos, WHITE);
@@ -128,8 +128,8 @@ void	draw_map(t_all *all)
 
 	pos.x = all->plr.x - SCALE / 2;
 	pos.y = all->plr.y - SCALE / 2;
-	draw_map_squares(all);
+	draw_map_squares(all, all->map);
 	draw_square(&all->img, SCALE, pos, AMBER);
-	cast_rays(all, RAYCOUNT, SUNRAY);
-	draw_ray(all, RED);
+	cast_rays(all, all->map, RAYCOUNT, SUNRAY);
+	draw_ray(all, all->map, RED);
 }
