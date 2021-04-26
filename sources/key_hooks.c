@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:50:33 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 03:44:35 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 01:02:24 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		print_key(int key, t_all *all)
 
 int		close_window(t_all *all)
 {
-	leave(NO_ERR, NULL, all);
+	leave(NO_ERR, NULL, all, NULL);
 	return (0);
 }
 
@@ -87,5 +87,5 @@ void	keys_handler(t_all *all)
 		set_player_dir(all, M_PI_2);
 	}
 	if (all->keys[7])
-		leave(NO_ERR, NULL, all);
+		leave(NO_ERR, NULL, all, NULL);
 }

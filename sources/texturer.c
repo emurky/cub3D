@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 02:25:39 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/24 23:53:27 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 02:08:07 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@
 
 void	textures_init(t_all *all)
 {
-	my_mlx_tex_to_image(all, &all->tex[0], NO);
-	my_mlx_tex_to_image(all, &all->tex[1], SO);
-	my_mlx_tex_to_image(all, &all->tex[2], WE);
-	my_mlx_tex_to_image(all, &all->tex[3], EA);
-	my_mlx_tex_to_image(all, &all->tex[4], S);
+	my_mlx_tex_to_image(all, &all->tex[0], &all->nswes.no);
+	my_mlx_tex_to_image(all, &all->tex[1], &all->nswes.so);
+	my_mlx_tex_to_image(all, &all->tex[2], &all->nswes.we);
+	my_mlx_tex_to_image(all, &all->tex[3], &all->nswes.ea);
+	my_mlx_tex_to_image(all, &all->tex[4], &all->nswes.s);
 }
 
 void	which_nswe_wall_side(t_all *all, t_ray *ray, t_tex **tex)

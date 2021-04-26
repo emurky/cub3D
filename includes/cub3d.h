@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 23:31:45 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 03:33:56 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define TRUE			1
 # define FALSE			0
 
-# define SCRN_W			500 // should be get from *.cub
-# define SCRN_H			1301
+// # define SCRN_W			500 // should be get from *.cub
+// # define SCRN_H			1301
 
 # define MAP_OFFS_X		20
 # define MAP_OFFS_Y		20
@@ -45,34 +45,36 @@
 # define SPRITE_SCALE	2
 
 # define RAYCOUNT		SCALE * 3
-# define MOVE_SPEED		0.05
-# define ROTATE_SPEED	M_PI / 180
+# define MOVE_SPEED		0.1
+# define ROTATE_SPEED	M_PI / 90
 
 # define UDIV			1.0
 # define VDIV			1.0
 # define VMOVE			64.0
 
-# define NO		"textures/redbrick.xpm"
-# define SO		"textures/greystone.xpm"
-# define WE		"textures/colorstone.xpm"
-# define EA		"textures/wood.xpm"
-# define S		"textures/barrel.xpm"
-
+# define NO		1 //"textures/redbrick.xpm"
+# define SO		2 //"textures/greystone.xpm"
+# define WE		3 //"textures/colorstone.xpm"
+# define EA		4 //"textures/wood.xpm"
+# define S		5 //"textures/barrel.xpm"
+# define F		6
+# define C		7
 
 /*			parser.c */
 int		array_len(char **array);
+int		isvalid_extension(char *file, const char *ext);
 void		parser(t_all *all, char *cub);
 
 /*			my_mlx_utils.c */
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			my_mlx_pixel_get(t_tex *img, int x, int y);
-void		my_mlx_tex_to_image(t_all *all, t_tex *tex, char *path);
+void		my_mlx_tex_to_image(t_all *all, t_tex *tex, char **path);
 void		clean_win(t_all *all);
 void		frames_counter(t_all *all);
 
 /*			utils.c */
 int			ft_strcmp(const char *s1, const char *s2);
-
+int			create_rgb(int r, int g, int b);
 int			is_player_dir(char c);
 
 /*			error.c */
@@ -81,7 +83,7 @@ void		free_array(char **array);
 void		free_malloc_pointers(t_all *all);
 void		clean_mlx(t_all *all);
 void		print_error_exit(char *err_str);
-void		leave(int error, char *err_str, t_all *all);
+void		leave(int error, char *err_str, t_all *all, char **array);
 
 /*			player_movement.c */
 void		set_player_pos(t_all *all, int x, int y);

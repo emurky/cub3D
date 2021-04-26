@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:19:10 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 00:09:28 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 03:36:29 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ int		str_isnum(char *str)
 	return (TRUE);
 }
 
+int		isvalid_extension(char *file, const char *ext)
+{
+	int		ext_len;
+	int		file_len;
+
+	ext_len = ft_strlen(ext);
+	file_len = ft_strlen(file);
+	if (ft_strncmp(file + file_len - ext_len, ext, ext_len + 1))
+		return (FALSE);
+	return (TRUE);
+}
+
 void	print_error_free_exit(char *err_str, char **array)
 {
 	free_array(array);
@@ -45,19 +57,19 @@ void	parse_resolution(t_all *all, char **tokens)
 	int		height;
 
 	if (array_len(tokens) != 3)
-		print_error_free_exit(ERR_NUM_RES_IDS, tokens);
+		leave(ERR, ERR_NUM_RES_IDS, all, tokens);
 	if (!str_isnum(tokens[1]) || !str_isnum(tokens[2]))
-		print_error_free_exit(ERR_INV_RES_ARG, tokens);
+		leave(ERR, ERR_INV_RES_ARG, all, tokens);
 	width = ft_atoi(tokens[1]);
 	height = ft_atoi(tokens[2]);
 	if (width <= 0 || height <= 0)
 		// || ft_nbrlen(width) != ft_strlen(tokens[1])
 		// || ft_nbrlen(height) != ft_strlen(tokens[2]))
-		print_error_free_exit(ERR_INV_RES, tokens);
+		leave(ERR, ERR_INV_RES, all, tokens);
 	if (all->save)
 	{
 		if (width > 16384 || height > 16384)
-			print_error_free_exit(ERR_SCRNSH, tokens);
+			leave(ERR, ERR_SCRNSH, all, tokens);
 		else
 			all->screen = (t_pnt){width, height};
 	}
@@ -72,22 +84,90 @@ void	parse_resolution(t_all *all, char **tokens)
 	all->identifiers++;
 }
 
+void	parse_texture(t_all *all, char **tokens, int dir)
+{
+	int		fd;
+
+	if (array_len(tokens) != 2)
+		leave(ERR, ERR_NUM_TEX, all, tokens);
+	if (!isvalid_extension(tokens[1], ".xpm"))
+		leave(ERR, ERR_TEX_EXT, all, tokens);
+	fd = open(tokens[1], O_RDONLY);
+	if (fd < 0)
+		leave(ERR, ERR_TEX_FD, all, tokens);
+	close(fd);
+	if (dir == NO)
+		all->nswes.no = ft_strdup(tokens[1]);
+	else if (dir == SO)
+		all->nswes.so = ft_strdup(tokens[1]);
+	else if (dir == WE)
+		all->nswes.we = ft_strdup(tokens[1]);
+	else if (dir == EA)
+		all->nswes.ea = ft_strdup(tokens[1]);
+	else if (dir == S)
+		all->nswes.s = ft_strdup(tokens[1]);
+	all->identifiers++;
+}
+
+void	parse_floor_ceil(t_all *all, char **tokens, int fc)
+{
+	int		r;
+	int		g;
+	int		b;
+	size_t	i;
+
+	i = 0;
+	if (array_len(tokens) != 2)
+		leave(ERR, ERR_INV_FC, all, tokens);
+	r = ft_atoi(&(tokens[1][i]));
+	i += ft_nbrlen(r);
+	if (tokens[1][i++] != ',')
+		leave(ERR, ERR_FC, all, tokens);
+	g = ft_atoi(&(tokens[1][i]));
+	i += ft_nbrlen(g);
+	if (tokens[1][i++] != ',')
+		leave(ERR, ERR_FC, all, tokens);
+	b = ft_atoi(&(tokens[1][i]));
+	i += ft_nbrlen(b);
+	if (i != ft_strlen(tokens[1]))
+		leave(ERR, ERR_FC, all, tokens);
+	if (!(0 <= r && r <= 255) || !(0 <= g && g <= 255) || !(0 <= b && b <= 255))
+		leave(ERR, ERR_FC_RNG, all, tokens);
+	if (fc == F)
+		all->floor_ceil.x = create_rgb(r, g, b);
+	if (fc == C)
+		all->floor_ceil.y = create_rgb(r, g, b);
+	all->identifiers++;
+	printf("%d r %d g %d b %zu i\n", r, g ,b, i);
+}
+
 void	parse_line(t_all *all, char *line)
 {
 	char	**tokens;
-// (void)all;
+
 	tokens = NULL;
-	printf("%s - line\n", line);
 	tokens = ft_split(line, ' ');
-	// for (int i = 0; i < 3; i++)
-		printf("%s identifier\n", tokens[0]);
-	if (!ft_strncmp(tokens[0], "R", 2)) {
-		parse_resolution(all, tokens);}
+	printf("%s - line\n", line);
+	if (!ft_strncmp(tokens[0], "R", 2))
+		parse_resolution(all, tokens);
+	else if (!ft_strncmp(tokens[0], "NO", 3))
+		parse_texture(all, tokens, NO);
+	else if (!ft_strncmp(tokens[0], "SO", 3))
+		parse_texture(all, tokens, SO);
+	else if (!ft_strncmp(tokens[0], "WE", 3))
+		parse_texture(all, tokens, WE);
+	else if (!ft_strncmp(tokens[0], "EA", 3))
+		parse_texture(all, tokens, EA);
+	else if (!ft_strncmp(tokens[0], "S", 2))
+		parse_texture(all, tokens, S);
+	else if (!ft_strncmp(tokens[0], "F", 2))
+		parse_floor_ceil(all, tokens, F);
+	else if (!ft_strncmp(tokens[0], "C", 2))
+		parse_floor_ceil(all, tokens, C);
 	else
 	{
 		free_array(tokens);
 		tokens = NULL;
-		all->identifiers++;
 		return ;
 	}
 	
@@ -104,7 +184,7 @@ void	parser(t_all *all, char *file_cub)
 	if (fd < 0)
 		print_error_exit("Can't open .cub file\n");
 	line_read = get_next_line(fd, &line);
-	while (line_read && all->identifiers < 1)
+	while (line_read && all->identifiers < 8)
 	{
 		// printf("%s\n", line);
 		parse_line(all, line);

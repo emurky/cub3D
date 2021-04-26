@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:40:54 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 04:51:52 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 03:33:38 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 int		is_player_dir(char c)
 {
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
+int		create_rgb(int r, int g, int b)
+{
+	return(r << 16 | g << 8 | b);
 }
 
 int		ft_strcmp(const char *s1, const char *s2)

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 18:24:22 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 01:54:47 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void	draw_ray(t_all *all, char **map, int color)
 	{
 		ray.x += cos(ray.dir);
 		ray.y -= sin(ray.dir);
-		my_mlx_pixel_put(&all->img, ray.x, ray.y, color);
+		if (0 < ray.x && ray.x < all->screen.x
+			&& 0 < ray.y && ray.y < all->screen.y)
+			my_mlx_pixel_put(&all->img, ray.x, ray.y, color);
 	}
 }
 
@@ -78,7 +80,9 @@ void	cast_rays(t_all *all, char **map, int raycount, int color)
 		{
 			ray.x += cos(ray.start);
 			ray.y -= sin(ray.start);
-			my_mlx_pixel_put(&all->img, ray.x, ray.y, color);
+			if (0 < ray.x && ray.x < all->screen.x
+				&& 0 < ray.y && ray.y < all->screen.y)
+				my_mlx_pixel_put(&all->img, ray.x, ray.y, color);
 		}
 		ray.start += FOV / raycount;
 	}

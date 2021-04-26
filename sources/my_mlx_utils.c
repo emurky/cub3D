@@ -6,13 +6,13 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 02:22:08 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 00:37:00 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 01:57:33 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color) /* maybe some tweaking to get safer */
 {
 	char	*dst;
 
@@ -28,13 +28,15 @@ int		my_mlx_pixel_get(t_tex *tex, int x, int y)
 	return (*(unsigned int *)pixel);
 }
 
-void	my_mlx_tex_to_image(t_all *all, t_tex *tex, char *path)
+void	my_mlx_tex_to_image(t_all *all, t_tex *tex, char **path)
 {
 	tex->img = NULL;
 	tex->img
-		= mlx_xpm_file_to_image(all->mlx, path, &tex->w, &tex->h);
+		= mlx_xpm_file_to_image(all->mlx, *path, &tex->w, &tex->h);
 	tex->addr
 		= mlx_get_data_addr(tex->img, &tex->bpp, &tex->linelen, &tex->endian);
+	free(*path);
+	*path = NULL;
 }
 
 void	clean_win(t_all *all)

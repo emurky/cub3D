@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 03:24:43 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 19:26:29 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 03:26:24 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,51 @@ void	free_malloc_pointers(t_all *all)
 		free(all->ray.z_buff);
 	if (all->ray.sprites)
 		free(all->ray.sprites);
+	if (all->nswes.no)
+		free(all->nswes.no);
+	if (all->nswes.so)
+		free(all->nswes.so);
+	if (all->nswes.we)
+		free(all->nswes.we);
+	if (all->nswes.ea)
+		free(all->nswes.ea);
+	if (all->nswes.s)
+		free(all->nswes.s);
 	printf("Allocated memory were freed\n");
 }
+
+// void	free_malloc_pointers(t_all *all)
+// {
+// 	if (all->ray.z_buff)
+// 	{
+// 		free(all->ray.z_buff);
+// 		all->ray.z_buff == NULL;
+// 	}
+// 	if (all->ray.sprites)
+// 	{
+// 		free(all->ray.sprites);
+// 		all->ray.sprites = NULL;
+// 	}
+// 	if (all->nswes.no)
+// 	{
+// 		free(all->nswes.no);
+// 		all->nswes.no = NULL;
+// 	}
+// 	if (all->nswes.so)
+// 	{
+// 		free(all->nswes.so);
+// 		all->nswes.so = NULL;
+// 	}
+// 	if (all->nswes.we)
+// 		free(all->nswes.no);
+// 		all->nswes.we = NULL;
+// 	}
+// 	if (all->nswes.ea)
+// 		free(all->nswes.ea);
+// 	if (all->nswes.s)
+// 		free(all->nswes.s);
+// 	printf("Allocated memory were freed\n");
+// }
 
 void	clean_mlx(t_all *all)
 {
@@ -67,9 +110,9 @@ void	clean_mlx(t_all *all)
 
 void	clean_all(t_all *all)
 {
-		clean_map(all->map);
-		free_malloc_pointers(all);
+		// clean_map(all->map);
 		clean_mlx(all);
+		free_malloc_pointers(all);
 }
 
 void	print_error_exit(char *err_str)
@@ -79,8 +122,10 @@ void	print_error_exit(char *err_str)
 	exit(EXIT_FAILURE);
 }
 
-void	leave(int error, char *err_str, t_all *all)
+void	leave(int error, char *err_str, t_all *all, char **array)
 {
+	if (array)
+		free_array(array);
 	if (error)
 	{
 		write(2, "Error\n", 6);

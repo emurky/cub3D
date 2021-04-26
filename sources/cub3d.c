@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 22:04:22 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 03:35:48 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	mlx_start(t_all *all)
 void	init(t_all *all)
 {
 	all->map = map_init();
-	all->floor_ceil.x = DARK_BROWN;
-	all->floor_ceil.y = SKY_BLUE;
+	// all->floor_ceil.x = DARK_BROWN;
+	// all->floor_ceil.y = SKY_BLUE;
 	textures_init(all);
 	sprites_counting(all);
 	set_player_pos(all, 26, 11);
@@ -103,6 +103,11 @@ void	structure_init(t_all *all)
 	all->win = NULL;
 	all->ray.z_buff = NULL;
 	all->ray.sprites = NULL;
+	all->nswes.no = NULL;
+	all->nswes.so = NULL;
+	all->nswes.we = NULL;
+	all->nswes.ea = NULL;
+	all->nswes.s = NULL;
 }
 
 void	hooks_and_loops(t_all *all)
@@ -121,8 +126,8 @@ int		main(int argc, char **argv)
 	structure_init(&all);
 	if (argc !=2 && argc != 3)
 		print_error_exit("Wrong number of arguments\n");
-	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 5))
-		print_error_exit("Wrong map extension\n");
+	if (!isvalid_extension(argv[1], ".cub"))
+		print_error_exit("Invalid map extension\n");
 	if (argc == 3 && !ft_strncmp(argv[2], "--save", 7))
 		all.save = TRUE;
 	else if (argv[2])
