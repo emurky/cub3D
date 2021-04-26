@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:19:10 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 03:36:29 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 08:34:12 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@ int		str_isnum(char *str)
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
+			return (FALSE);
+		str++;
+	}
+	return (TRUE);
+}
+
+int		str_isspace(char *str)
+{
+	while (*str)
+	{
+		if (*str != ' ')
 			return (FALSE);
 		str++;
 	}
@@ -56,32 +67,38 @@ void	parse_resolution(t_all *all, char **tokens)
 	int		width;
 	int		height;
 
-	if (array_len(tokens) != 3)
-		leave(ERR, ERR_NUM_RES_IDS, all, tokens);
-	if (!str_isnum(tokens[1]) || !str_isnum(tokens[2]))
-		leave(ERR, ERR_INV_RES_ARG, all, tokens);
-	width = ft_atoi(tokens[1]);
-	height = ft_atoi(tokens[2]);
-	if (width <= 0 || height <= 0)
-		// || ft_nbrlen(width) != ft_strlen(tokens[1])
-		// || ft_nbrlen(height) != ft_strlen(tokens[2]))
-		leave(ERR, ERR_INV_RES, all, tokens);
-	if (all->save)
+	if (!all->flags[R])
 	{
-		if (width > 16384 || height > 16384)
-			leave(ERR, ERR_SCRNSH, all, tokens);
+		if (array_len(tokens) != 3)
+			leave(ERR, ERR_NUM_RES_IDS, all, tokens);
+		if (!str_isnum(tokens[1]) || !str_isnum(tokens[2]))
+			leave(ERR, ERR_INV_RES_ARG, all, tokens);
+		width = ft_atoi(tokens[1]);
+		height = ft_atoi(tokens[2]);
+		if (width <= 0 || height <= 0)
+			// || ft_nbrlen(width) != ft_strlen(tokens[1])
+			// || ft_nbrlen(height) != ft_strlen(tokens[2]))
+			leave(ERR, ERR_INV_RES, all, tokens);
+		if (all->save)
+		{
+			if (width > 16384 || height > 16384)
+				leave(ERR, ERR_SCRNSH, all, tokens);
+			else
+				all->screen = (t_pnt){width, height};
+		}
 		else
-			all->screen = (t_pnt){width, height};
+		{
+			mlx_get_screen_size(&all->screen.x, &all->screen.y);
+			if (width < all->screen.x)
+				all->screen.x = width;
+			if (height < all->screen.y)
+				all->screen.y = height;
+		}
+		all->identifiers++;
+		all->flags[R] = TRUE;
 	}
 	else
-	{
-		mlx_get_screen_size(&all->screen.x, &all->screen.y);
-		if (width < all->screen.x)
-			all->screen.x = width;
-		if (height < all->screen.y)
-			all->screen.y = height;
-	}
-	all->identifiers++;
+		leave(ERR, ERR_DBL, all, tokens);
 }
 
 void	parse_texture(t_all *all, char **tokens, int dir)
@@ -96,17 +113,50 @@ void	parse_texture(t_all *all, char **tokens, int dir)
 	if (fd < 0)
 		leave(ERR, ERR_TEX_FD, all, tokens);
 	close(fd);
-	if (dir == NO)
+	if (dir == NO && !all->flags[NO])
+	{
 		all->nswes.no = ft_strdup(tokens[1]);
-	else if (dir == SO)
+		all->flags[NO] = TRUE;
+	}
+	else if (dir == SO && !all->flags[SO])
+	{
 		all->nswes.so = ft_strdup(tokens[1]);
-	else if (dir == WE)
+		all->flags[SO] = TRUE;
+	}
+	else if (dir == WE && !all->flags[WE])
+	{
 		all->nswes.we = ft_strdup(tokens[1]);
-	else if (dir == EA)
+		all->flags[WE] = TRUE;
+	}
+	else if (dir == EA && !all->flags[EA])
+	{
 		all->nswes.ea = ft_strdup(tokens[1]);
-	else if (dir == S)
+		all->flags[EA] = TRUE;
+	}
+	else if (dir == S && !all->flags[S])
+	{
 		all->nswes.s = ft_strdup(tokens[1]);
+		all->flags[S] = TRUE;
+	}
+	else
+		leave(ERR, ERR_DBL, all, tokens);
 	all->identifiers++;
+}
+
+void	init_floor_ceil(t_all *all, char **tokens, int fc, int color)
+{
+	if (fc == F && !all->flags[F])
+	{
+		all->floor_ceil.x = color;
+		all->flags[F] = TRUE;
+	}
+	else if (fc == C && !all->flags[C])
+	{
+		all->floor_ceil.y = color;
+		all->flags[C] = TRUE;
+	}
+	else
+		leave(ERR, ERR_DBL, all, tokens);
 }
 
 void	parse_floor_ceil(t_all *all, char **tokens, int fc)
@@ -133,21 +183,13 @@ void	parse_floor_ceil(t_all *all, char **tokens, int fc)
 		leave(ERR, ERR_FC, all, tokens);
 	if (!(0 <= r && r <= 255) || !(0 <= g && g <= 255) || !(0 <= b && b <= 255))
 		leave(ERR, ERR_FC_RNG, all, tokens);
-	if (fc == F)
-		all->floor_ceil.x = create_rgb(r, g, b);
-	if (fc == C)
-		all->floor_ceil.y = create_rgb(r, g, b);
+	init_floor_ceil(all, tokens, fc, create_rgb(r, g, b));
 	all->identifiers++;
-	printf("%d r %d g %d b %zu i\n", r, g ,b, i);
+	// printf("%d r %d g %d b %zu i\n", r, g ,b, i);
 }
 
-void	parse_line(t_all *all, char *line)
+void	parse_identifiers(t_all *all, char **tokens)
 {
-	char	**tokens;
-
-	tokens = NULL;
-	tokens = ft_split(line, ' ');
-	printf("%s - line\n", line);
 	if (!ft_strncmp(tokens[0], "R", 2))
 		parse_resolution(all, tokens);
 	else if (!ft_strncmp(tokens[0], "NO", 3))
@@ -164,13 +206,25 @@ void	parse_line(t_all *all, char *line)
 		parse_floor_ceil(all, tokens, F);
 	else if (!ft_strncmp(tokens[0], "C", 2))
 		parse_floor_ceil(all, tokens, C);
-	else
-	{
-		free_array(tokens);
-		tokens = NULL;
+	else if (tokens[0])
+		leave(ERR, ERR_LINE, all, tokens);
+	free_array(tokens);
+}
+
+void	parse_line(t_all *all, char *line)
+{
+	char	**tokens;
+
+	if (line[0] == '\0')
 		return ;
+	tokens = NULL;
+	tokens = ft_split(line, ' ');
+	if (tokens[0])
+	{
+		parse_identifiers(all, tokens);
 	}
-	
+	else if (str_isspace(line))
+		leave(ERR, ERR_LINE, all, tokens);
 }
 
 void	parser(t_all *all, char *file_cub)
@@ -179,11 +233,12 @@ void	parser(t_all *all, char *file_cub)
 	char	*line;
 	int		line_read;
 
-// (void)all;
 	fd = open(file_cub, O_RDONLY);
 	if (fd < 0)
 		print_error_exit("Can't open .cub file\n");
 	line_read = get_next_line(fd, &line);
+	if (!line_read)
+		leave(ERR, ERR_EMPTY, all, NULL);
 	while (line_read && all->identifiers < 8)
 	{
 		// printf("%s\n", line);
@@ -193,5 +248,5 @@ void	parser(t_all *all, char *file_cub)
 		line_read = get_next_line(fd, &line);
 	}
 	free(line);
-	
+	close(fd);
 }

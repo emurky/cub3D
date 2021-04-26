@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 03:33:56 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 08:04:40 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 #include <time.h> //UDOLITB
 
+# include "defines.h"
 # include "structures.h"
 # include "error.h"
 # include "colors.h"
@@ -30,39 +31,9 @@
 
 #define	DB printf("tut\n");
 
-# define TRUE			1
-# define FALSE			0
-
-// # define SCRN_W			500 // should be get from *.cub
-// # define SCRN_H			1301
-
-# define MAP_OFFS_X		20
-# define MAP_OFFS_Y		20
-
-# define GRID			TRUE
-# define FOV			M_PI / 3
-# define SCALE			10
-# define SPRITE_SCALE	2
-
-# define RAYCOUNT		SCALE * 3
-# define MOVE_SPEED		0.1
-# define ROTATE_SPEED	M_PI / 90
-
-# define UDIV			1.0
-# define VDIV			1.0
-# define VMOVE			64.0
-
-# define NO		1 //"textures/redbrick.xpm"
-# define SO		2 //"textures/greystone.xpm"
-# define WE		3 //"textures/colorstone.xpm"
-# define EA		4 //"textures/wood.xpm"
-# define S		5 //"textures/barrel.xpm"
-# define F		6
-# define C		7
-
 /*			parser.c */
-int		array_len(char **array);
-int		isvalid_extension(char *file, const char *ext);
+int			array_len(char **array);
+int			isvalid_extension(char *file, const char *ext);
 void		parser(t_all *all, char *cub);
 
 /*			my_mlx_utils.c */

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:31:23 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 01:01:27 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 07:16:58 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,8 @@ void	raycaster(t_all *all, t_ray *ray)
 		ray->x++;
 	}
 	draw_sprites(all, ray);
-	draw_map(all);
-	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+	// draw_map(all);
+	// mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	if (ray->z_buff)
 		free(ray->z_buff);
 	ray->z_buff = NULL;

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/25 18:06:14 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 08:06:07 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_pnt
 typedef struct s_img
 {
 	void		*img; //malloced, NULLed
-	char		*addr; //?
+	char		*addr;
 	int			bpp;
 	int			linelen;
 	int			endian;
@@ -48,7 +48,7 @@ typedef struct s_spr
 typedef struct s_tex
 {
 	void		*img; //malloced
-	char		*addr; //?
+	char		*addr;
 	int			bpp;
 	int			linelen;
 	int			endian;
@@ -135,17 +135,17 @@ typedef struct s_all
 	t_pths		nswes; //malloced
 	t_tex		tex[5]; //malloced, NULLed
 	t_pnt		floor_ceil;
+	int			flags[9];
 	char		**map;
 
 	t_plr		plr;
 	t_ray		ray;
 
 	int			keys[8];
-
 	double		move_speed;
 	double		rotate_speed;
-	double		time;
-	double		frames; //counter malloced
+	double		time; //delete
+	double		frames; //counter malloced delete
 }				t_all;
 
 #endif

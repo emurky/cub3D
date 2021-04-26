@@ -1,13 +1,12 @@
-R    1200     900   
-NO textures/redbrick.xpm
-F 0,0,0
-C 0,0,0
-SO   ./textures/greystone.xpm
-WE   textures/colorstone.xpm
-EA      ./textures/wood.xpm 
+R     1200 900
+NO    ./textures/redbrick.xpm
+SO    ./textures/greystone.xpm
+EA    ./textures/wood.xpm
+WE    ./textures/colorstone.xpm
 S     ./textures/barrel.xpm
-F 77,28,27 
-C 128,176,255
+
+F     77,28,27
+C     128,176,255
 
         1111111111111111111111111
         1000000000110000000000001

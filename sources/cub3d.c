@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 03:35:48 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 08:12:19 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,42 @@ void	fps(t_all *all)
 		free(fps);
 }
 
+void	is_enough_space_for_map(t_all *all, char **map)
+{
+	int		i;
+	int		j;
+	t_pnt	max;
+
+	j = 0;
+	max.x = 0;
+	max.y = 0;
+	while (map[j])
+	{
+		i = 0;
+		while (map[j][i])
+		{
+			i++;
+			if (max.x < i)
+				max.x = i;
+		}
+		j++;
+		if (max.y < j)
+			max.y = j;
+	}
+	max.x = max.x * SCALE + MAP_OFFS_X * 2;
+	max.y = max.y * SCALE + MAP_OFFS_Y * 2;
+	if (max.x < all->screen.x && max.y < all->screen.y)
+		all->flags[ISMAP_OK] = TRUE;
+}
+
 int		renderer(t_all *all)
 {
 	mlx_clear_window(all->mlx, all->win);
 	keys_handler(all);
 	raycaster(all, &all->ray);
+	if (all->flags[ISMAP_OK])
+		draw_map(all);
+	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
 	fps(all);
 	// frames_counter(all);
 	return (0);
@@ -72,6 +103,7 @@ void	mlx_start(t_all *all)
 void	init(t_all *all)
 {
 	all->map = map_init();
+	is_enough_space_for_map(all, all->map);
 	// all->floor_ceil.x = DARK_BROWN;
 	// all->floor_ceil.y = SKY_BLUE;
 	textures_init(all);
@@ -79,7 +111,7 @@ void	init(t_all *all)
 	set_player_pos(all, 26, 11);
 	set_player_dir(all, M_PI_2);
 	all->ray.k = 1.0 / (4.0 / 3.0
-		* (double)all->screen.y / (double)all->screen.x * FOV / (M_PI / 3));
+			* (double)all->screen.y / (double)all->screen.x * FOV / (M_PI / 3));
 	raycaster(all, &all->ray);
 }
 
@@ -97,6 +129,9 @@ void	structure_init(t_all *all)
 	i = 0;
 	while (i < 5)
 		all->tex[i++].img = NULL;
+	i = 0;
+	while (i < 9)
+		all->flags[i++] = FALSE;
 	all->map = NULL;
 	all->mlx = NULL;
 	all->img.img = NULL;
@@ -112,9 +147,9 @@ void	structure_init(t_all *all)
 
 void	hooks_and_loops(t_all *all)
 {
-	mlx_hook(all->win, 2, 1L<<0, key_pressed, all);
-	mlx_hook(all->win, 3, 1L<<1, key_released, all);
-	mlx_hook(all->win, 17, 1L<<5, close_window, all);
+	mlx_hook(all->win, 2, 1L <<0, key_pressed, all);
+	mlx_hook(all->win, 3, 1L <<1, key_released, all);
+	mlx_hook(all->win, 17, 1L <<5, close_window, all);
 	mlx_loop_hook(all->mlx, renderer, all);
 	mlx_loop(all->mlx);
 }
@@ -138,9 +173,9 @@ int		main(int argc, char **argv)
 	// char **test = ft_split("R  123 1345 4 3545 sdgsdgf", ' ');
 	// for (int i = 0; i < 6; i++)
 	// 	printf("%s\n", test[i]);
-	printf("check from main: R %d width R %d height\n", all.screen.x, all.screen.y);
+	// printf("check from main: R %d width R %d height\n", all.screen.x, all.screen.y);
 	hooks_and_loops(&all);
-	
+
 	return (0);
 }
 

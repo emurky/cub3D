@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 04:44:52 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 03:31:44 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 08:29:29 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,9 @@
 # define ERR_INV_FC			"Invalid color argument\n"
 # define ERR_FC				"Wrong color format\n"
 # define ERR_FC_RNG			"R G B must be in range from 0 to 255\n"
+# define ERR_NL				"Should be no characters on empty line(s)\n"
+# define ERR_LINE			"Incorrect identifier line\n"
+# define ERR_DBL			"One of arguments is doubled\n"
+# define ERR_EMPTY			".cub file is empty\n"
 
 #endif

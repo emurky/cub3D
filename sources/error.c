@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 03:24:43 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 03:26:24 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 08:10:17 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,39 +57,6 @@ void	free_malloc_pointers(t_all *all)
 	printf("Allocated memory were freed\n");
 }
 
-// void	free_malloc_pointers(t_all *all)
-// {
-// 	if (all->ray.z_buff)
-// 	{
-// 		free(all->ray.z_buff);
-// 		all->ray.z_buff == NULL;
-// 	}
-// 	if (all->ray.sprites)
-// 	{
-// 		free(all->ray.sprites);
-// 		all->ray.sprites = NULL;
-// 	}
-// 	if (all->nswes.no)
-// 	{
-// 		free(all->nswes.no);
-// 		all->nswes.no = NULL;
-// 	}
-// 	if (all->nswes.so)
-// 	{
-// 		free(all->nswes.so);
-// 		all->nswes.so = NULL;
-// 	}
-// 	if (all->nswes.we)
-// 		free(all->nswes.no);
-// 		all->nswes.we = NULL;
-// 	}
-// 	if (all->nswes.ea)
-// 		free(all->nswes.ea);
-// 	if (all->nswes.s)
-// 		free(all->nswes.s);
-// 	printf("Allocated memory were freed\n");
-// }
-
 void	clean_mlx(t_all *all)
 {
 	int		i;
@@ -111,8 +78,8 @@ void	clean_mlx(t_all *all)
 void	clean_all(t_all *all)
 {
 		// clean_map(all->map);
-		clean_mlx(all);
-		free_malloc_pointers(all);
+	clean_mlx(all);
+	free_malloc_pointers(all);
 }
 
 void	print_error_exit(char *err_str)
@@ -131,6 +98,7 @@ void	leave(int error, char *err_str, t_all *all, char **array)
 		write(2, "Error\n", 6);
 		write(2, err_str, ft_strlen(err_str));
 		clean_all(all);
+		write(2, "Exiting cub3D...\n", 17);
 		exit(EXIT_FAILURE);
 	}
 	clean_all(all);
