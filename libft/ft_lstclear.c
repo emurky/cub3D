@@ -6,13 +6,13 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 18:27:54 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/05 22:26:52 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 23:34:14 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_lstclear(t_list **lst)
 {
 	t_list	*clear;
 
@@ -20,7 +20,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	{
 		clear = *lst;
 		*lst = (*lst)->next;
-		ft_lstdelone(clear, del);
+		ft_lstdelone(clear);
 	}
 	*lst = NULL;
 }

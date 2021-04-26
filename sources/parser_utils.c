@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 18:15:01 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 18:16:34 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 22:29:37 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ int		str_isspace(char *str)
 	return (TRUE);
 }
 
-void	set_nswes(char **nswes, int flag, char *token)
+void	set_nswes(char **nswes, int *flag, char *token)
 {
 	*nswes = ft_strdup(token);
-	flag = TRUE;
+	*flag = TRUE;
 }
 
 int		isvalid_extension(char *file, const char *ext)

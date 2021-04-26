@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 18:21:28 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 00:50:21 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	is_enough_space_for_map(t_all *all, char **map)
 		if (max.y < j)
 			max.y = j;
 	}
+	all->max_map = (t_pnt){max.x, max.y};
 	max.x = max.x * SCALE + MAP_OFFS_X * 2;
 	max.y = max.y * SCALE + MAP_OFFS_Y * 2;
 	if (max.x < all->screen.x && max.y < all->screen.y)
@@ -75,8 +76,6 @@ int		renderer(t_all *all)
 
 void	mlx_start(t_all *all)
 {
-	// all->screen.x = SCRN_W;
-	// all->screen.y = SCRN_H;
 	all->mlx = mlx_init();
 	all->img.img = mlx_new_image(all->mlx, all->screen.x, all->screen.y);
 	all->img.addr = mlx_get_data_addr
@@ -86,10 +85,8 @@ void	mlx_start(t_all *all)
 
 void	init(t_all *all)
 {
-	all->map = map_init();
+	// all->map = map_init();
 	is_enough_space_for_map(all, all->map);
-	// all->floor_ceil.x = DARK_BROWN;
-	// all->floor_ceil.y = SKY_BLUE;
 	textures_init(all);
 	sprites_counting(all);
 	set_player_pos(all, 26, 11);
@@ -117,6 +114,7 @@ void	structure_init(t_all *all)
 	while (i < 9)
 		all->flags[i++] = FALSE;
 	all->map = NULL;
+	all->line = NULL;
 	all->mlx = NULL;
 	all->img.img = NULL;
 	all->win = NULL;

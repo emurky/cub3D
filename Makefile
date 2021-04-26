@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/04/26 18:15:39 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/27 01:18:44 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ NAME				= cub3D
 
 CC 					= gcc
 RM 					= rm -f
-CFLAGS				= -Wall -Wextra -Werror #-fsanitize=address #-O2
+CFLAGS				= -Wall -Wextra -Werror -fsanitize=address #-O2
 CPPFLAGS			= -MMD -I. -I./includes
 MLX_FLAGS			= -framework OpenGL -framework AppKit -lz
 
@@ -88,5 +88,5 @@ sc:
 
 .PHONY:				all clean fclean re bonus \
 					libft libft_clean libft_fclean libft_re \
-					superclean
+					sc
 #.SILENT:

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:01:06 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 08:37:34 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 18:41:43 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,3 @@ void	draw_sprites(t_all *all, t_ray *ray)
 		free(all->ray.z_buff);
 	all->ray.z_buff = NULL;
 }
-
-	// for (int i = 0; i < ray->num_sprs; i++)
-	// 	printf("%5.1f posx %5.1f posy %2d order %7.2f dist #%2d sprite\n",
-	// 	ray->sprites[i].x, ray->sprites[i].y, ray->sprites[i].order, ray->sprites[i].dist, i + 1);

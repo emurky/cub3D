@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 08:02:05 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 08:03:53 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 19:05:12 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # define TRUE			1
 # define FALSE			0
-
-// # define SCRN_W			500 // should be get from *.cub
-// # define SCRN_H			1301
 
 # define R				0
 # define NO				1
@@ -28,17 +25,17 @@
 # define F				6
 # define C				7
 # define ISMAP_OK		8
-# define MAP_OFFS_X		10
-# define MAP_OFFS_Y		10
 
-# define GRID			TRUE
 # define FOV			M_PI / 3
-# define SCALE			10
-# define SPRITE_SCALE	2
-
-# define RAYCOUNT		SCALE * 3
 # define MOVE_SPEED		0.05
 # define ROTATE_SPEED	M_PI / 90
+
+# define MAP_OFFS_X		10
+# define MAP_OFFS_Y		10
+# define GRID			TRUE
+# define SCALE			10
+# define SPRITE_SCALE	2
+# define RAYCOUNT		SCALE * 3
 
 # define UDIV			1.0
 # define VDIV			1.0

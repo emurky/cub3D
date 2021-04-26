@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 18:33:45 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 22:30:01 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void		init(t_all *all);
 void		structure_init(t_all *all);
 void		hooks_and_loops(t_all *all);
 
-
 /*			parser.c */
 void		set_screen_size(t_all *all, char **tokens, int width, int height);
 void		parse_resolution(t_all *all, char **tokens);
@@ -55,7 +54,7 @@ void		parser(t_all *all, char *cub);
 int			array_len(char **array);
 int			str_isnum(char *str);
 int			str_isspace(char *str);
-void		set_nswes(char **nswes, int flag, char *token);
+void		set_nswes(char **nswes, int *flag, char *token);
 int			isvalid_extension(char *file, const char *ext);
 
 /*			my_mlx_utils.c */

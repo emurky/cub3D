@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 04:44:52 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 09:01:06 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 22:18:13 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 # define ERR_FC_RNG			"R G B must be in range from 0 to 255\n"
 # define ERR_NL				"Should be no characters on empty line(s)\n"
 # define ERR_LINE			"Incorrect identifier line\n"
-# define ERR_DBL			"One of arguments is doubled\n"
+# define ERR_DBL			"One of identifiers is doubled\n"
 # define ERR_EMPTY			".cub file is empty\n"
+# define ERR_INV			"Invalid file .cub configuration\n"
 
 #endif

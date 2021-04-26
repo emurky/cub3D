@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:19:10 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 18:16:22 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 01:21:54 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,15 @@ void	parse_texture(t_all *all, char **tokens, int dir)
 		leave(ERR, ERR_TEX_FD, all, tokens);
 	close(fd);
 	if (dir == NO && !all->flags[NO])
-		set_nswes(&all->nswes.no, all->flags[NO], tokens[1]);
+		set_nswes(&all->nswes.no, &all->flags[NO], tokens[1]);
 	else if (dir == SO && !all->flags[SO])
-		set_nswes(&all->nswes.so, all->flags[SO], tokens[1]);
+		set_nswes(&all->nswes.so, &all->flags[SO], tokens[1]);
 	else if (dir == WE && !all->flags[WE])
-		set_nswes(&all->nswes.we, all->flags[WE], tokens[1]);
+		set_nswes(&all->nswes.we, &all->flags[WE], tokens[1]);
 	else if (dir == EA && !all->flags[EA])
-		set_nswes(&all->nswes.ea, all->flags[EA], tokens[1]);
+		set_nswes(&all->nswes.ea, &all->flags[EA], tokens[1]);
 	else if (dir == S && !all->flags[S])
-		set_nswes(&all->nswes.s, all->flags[S], tokens[1]);
+		set_nswes(&all->nswes.s, &all->flags[S], tokens[1]);
 	else
 		leave(ERR, ERR_DBL, all, tokens);
 	all->identifiers++;
@@ -126,6 +126,12 @@ void	parse_floor_ceil(t_all *all, char **tokens, int fc)
 	// printf("%d r %d g %d b %zu i\n", r, g ,b, i);
 }
 
+int		check_all_identifiers(int *flags)
+{
+	return ((flags[R] + flags[NO] + flags[SO] + flags[WE] + flags[EA]
+		+ flags[S] + flags[F] + flags[C]) < 8);
+}
+
 void	parse_identifiers(t_all *all, char **tokens)
 {
 	if (!ft_strncmp(tokens[0], "R", 2))
@@ -158,33 +164,74 @@ void	parse_line(t_all *all, char *line)
 	tokens = NULL;
 	tokens = ft_split(line, ' ');
 	if (tokens[0])
-	{
 		parse_identifiers(all, tokens);
-	}
 	else if (str_isspace(line))
 		leave(ERR, ERR_LINE, all, tokens);
+}
+
+void	make_map(t_all *all, t_list **head, int size)
+{
+	int		i;
+	t_list	*temp;
+
+	i = 0;
+	temp = *head;
+	all->map = ft_calloc(size + 1, sizeof(char *));
+	if (!all->map)
+		leave(ERR, ERR_MALLOC, all, NULL);
+	while (temp)
+	{
+		all->map[i++] = ft_strdup(temp->content);
+		temp = temp->next;
+	}
+	ft_lstclear(head);
+	i = 0;
+	while (all->map[i])
+		ft_putendl(all->map[i++]);
+	
+}
+
+void	parse_map(t_all *all, int fd, int line_read)
+{
+	t_list	*head;
+
+	head = NULL;
+	while (line_read && !ft_strncmp(all->line, "", 1))
+	{
+		free(all->line);
+		all->line = NULL;
+		line_read = get_next_line(fd, &all->line);
+	}
+	while (line_read)
+	{
+		ft_lstadd_back(&head, (ft_lstnew(ft_strdup(all->line))));
+		free(all->line);
+		all->line = NULL;
+		line_read = get_next_line(fd, &all->line);
+	}
+	make_map(all, &head, ft_lstsize(head));
 }
 
 void	parser(t_all *all, char *file_cub)
 {
 	int		fd;
-	char	*line;
 	int		line_read;
 
 	fd = open(file_cub, O_RDONLY);
 	if (fd < 0)
 		print_error_exit("Can't open .cub file\n");
-	line_read = get_next_line(fd, &line);
+	line_read = get_next_line(fd, &all->line);
 	if (!line_read)
 		leave(ERR, ERR_EMPTY, all, NULL);
 	while (line_read && all->identifiers < 8)
 	{
-		// printf("%s\n", line);
-		parse_line(all, line);
-		free(line);
-		// all->identifiers++;
-		line_read = get_next_line(fd, &line);
+		parse_line(all, all->line);
+		free(all->line);
+		all->line = NULL;
+		line_read = get_next_line(fd, &all->line);
 	}
-	free(line);
+	if (check_all_identifiers(all->flags))
+		leave(ERR, ERR_INV, all, NULL);
+	parse_map(all, fd, line_read);
 	close(fd);
 }

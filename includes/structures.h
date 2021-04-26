@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 08:06:07 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 21:56:34 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,14 @@ typedef struct s_all
 
 	int			save;
 	int			identifiers;
+	char		*line; // for gnl
 	t_pnt		screen;
 	t_pths		nswes; //malloced
 	t_tex		tex[5]; //malloced, NULLed
 	t_pnt		floor_ceil;
 	int			flags[9];
 	char		**map;
+	t_pnt		max_map;
 
 	t_plr		plr;
 	t_ray		ray;

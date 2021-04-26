@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 03:24:43 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 08:10:17 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 23:23:53 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	clean_map(char **map)
 	int		i;
 
 	i = 0;
+	if (map)
 	while (map[i])
 		free(map[i++]);
 	free(map);
@@ -32,7 +33,11 @@ void	free_array(char **array)
 	if (array)
 	{
 		while (array[i])
-			free(array[i++]);
+		{
+			free(array[i]);
+			array[i] = NULL;
+			i++;
+		}
 		free(array);
 		array = NULL;
 	}
@@ -40,6 +45,8 @@ void	free_array(char **array)
 
 void	free_malloc_pointers(t_all *all)
 {
+	if (all->line)
+		free(all->line);
 	if (all->ray.z_buff)
 		free(all->ray.z_buff);
 	if (all->ray.sprites)
