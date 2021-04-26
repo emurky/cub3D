@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:19:10 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 08:34:12 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 08:54:08 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,12 @@ void	parse_resolution(t_all *all, char **tokens)
 		leave(ERR, ERR_DBL, all, tokens);
 }
 
+void	set_nswes(char **nswes, int flag, char *token)
+{
+	*nswes = ft_strdup(token);
+	flag = TRUE;
+}
+
 void	parse_texture(t_all *all, char **tokens, int dir)
 {
 	int		fd;
@@ -114,30 +120,15 @@ void	parse_texture(t_all *all, char **tokens, int dir)
 		leave(ERR, ERR_TEX_FD, all, tokens);
 	close(fd);
 	if (dir == NO && !all->flags[NO])
-	{
-		all->nswes.no = ft_strdup(tokens[1]);
-		all->flags[NO] = TRUE;
-	}
+		set_nswes(&all->nswes.no, all->flags[NO], tokens[1]);
 	else if (dir == SO && !all->flags[SO])
-	{
-		all->nswes.so = ft_strdup(tokens[1]);
-		all->flags[SO] = TRUE;
-	}
+		set_nswes(&all->nswes.so, all->flags[SO], tokens[1]);
 	else if (dir == WE && !all->flags[WE])
-	{
-		all->nswes.we = ft_strdup(tokens[1]);
-		all->flags[WE] = TRUE;
-	}
+		set_nswes(&all->nswes.we, all->flags[WE], tokens[1]);
 	else if (dir == EA && !all->flags[EA])
-	{
-		all->nswes.ea = ft_strdup(tokens[1]);
-		all->flags[EA] = TRUE;
-	}
+		set_nswes(&all->nswes.ea, all->flags[EA], tokens[1]);
 	else if (dir == S && !all->flags[S])
-	{
-		all->nswes.s = ft_strdup(tokens[1]);
-		all->flags[S] = TRUE;
-	}
+		set_nswes(&all->nswes.s, all->flags[S], tokens[1]);
 	else
 		leave(ERR, ERR_DBL, all, tokens);
 	all->identifiers++;

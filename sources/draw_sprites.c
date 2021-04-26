@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:01:06 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 08:07:29 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 08:37:34 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,15 +139,8 @@ void	sprites_rendering(t_all *all, t_ray *ray)
 			while (ray->y < ray->dr_end_y)
 			{
 				ray->d = (int)fabs((double)((ray->y - ray->v_move_scrn) * 256
-						- ray->h * 128 + ray->spr_h * 128));
+							- ray->h * 128 + ray->spr_h * 128));
 				ray->s_tex_y = ((ray->d * all->tex[4].h) / ray->spr_h) / 256;
-
-// if (ray->s_tex_x < 0 || ray->s_tex_y < 0)		
-// printf("%3d s_tex_x %3d s_tex_y %3d d %3d tex.h %3d spr_h\n", ray->s_tex_x, 
-// ray->s_tex_y, ray->d, all->tex[4].h, ray->spr_h);
-// printf("%3d s_tex_y %3d ray.y %3d vmovescrn %3d ray.h %3d ray->d %3d tex.h %3d spr_h\n", 
-// ray->s_tex_y, ray->y, ray->v_move_scrn, ray->h, ray->d, all->tex[4].h, ray->spr_h);
-
 				ray->pixel = my_mlx_pixel_get
 					(&all->tex[4], ray->s_tex_x, ray->s_tex_y);
 				if ((ray->pixel & 0x00FFFFFF) != 0)
