@@ -6,27 +6,11 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 08:12:19 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 18:21:28 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void	gnl_test(void)
-{
-	char	*line;
-	int		fd;
-
-	fd = open("map.cub", O_RDONLY);
-	while (get_next_line(fd, &line))
-	{
-		printf("%s\n", line);
-		free(line);
-	}
-	printf("%s\n", line);
-	free(line);
-	ft_putendl("salam aleykum");
-}
 
 char	**map_init(void);
 
@@ -170,10 +154,6 @@ int		main(int argc, char **argv)
 	parser(&all, argv[1]);
 	mlx_start(&all);
 	init(&all);
-	// char **test = ft_split("R  123 1345 4 3545 sdgsdgf", ' ');
-	// for (int i = 0; i < 6; i++)
-	// 	printf("%s\n", test[i]);
-	// printf("check from main: R %d width R %d height\n", all.screen.x, all.screen.y);
 	hooks_and_loops(&all);
 
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 02:22:08 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 06:19:18 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 18:25:58 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,23 @@ void	my_mlx_tex_to_image(t_all *all, t_tex *tex, char **path)
 	*path = NULL;
 }
 
-void	clean_win(t_all *all)
-{
-	int		i;
-	int		j;
+// void	clean_win(t_all *all)
+// {
+// 	int		i;
+// 	int		j;
 
-	i = 0;
-	while (i < all->screen.x)
-	{
-		j = 0;
-		while (j < all->screen.y)
-		{
-			my_mlx_pixel_put(all->img.img, i, j, BLACK);
-			j++;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < all->screen.x)
+// 	{
+// 		j = 0;
+// 		while (j < all->screen.y)
+// 		{
+// 			my_mlx_pixel_put(all->img.img, i, j, BLACK);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
 void	frames_counter(t_all *all)
 {

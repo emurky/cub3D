@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/04/26 08:32:42 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/26 18:15:39 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCSDIR				= ./sources
 SRCS				= $(addprefix $(SRCSDIR)/, \
 						cub3d.c \
 						parser.c \
+						parser_utils.c \
 						raycaster.c \
 						texturer.c \
 						draw_sprites.c \

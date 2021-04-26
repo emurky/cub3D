@@ -6,60 +6,29 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:19:10 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 08:54:08 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/26 18:16:22 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int		array_len(char **array)
+void	set_screen_size(t_all *all, char **tokens, int width, int height)
 {
-	int		i;
-
-	i = 0;
-	while (array[i])
-		i++;
-	return (i);
-}
-
-int		str_isnum(char *str)
-{
-	while (*str)
+	if (all->save == TRUE)
 	{
-		if (!ft_isdigit(*str))
-			return (FALSE);
-		str++;
+		if (width > 16384 || height > 16384)
+			leave(ERR, ERR_SCRNSH, all, tokens);
+		else
+			all->screen = (t_pnt){width, height};
 	}
-	return (TRUE);
-}
-
-int		str_isspace(char *str)
-{
-	while (*str)
+	else
 	{
-		if (*str != ' ')
-			return (FALSE);
-		str++;
+		mlx_get_screen_size(&all->screen.x, &all->screen.y);
+		if (width < all->screen.x)
+			all->screen.x = width;
+		if (height < all->screen.y)
+			all->screen.y = height;
 	}
-	return (TRUE);
-}
-
-int		isvalid_extension(char *file, const char *ext)
-{
-	int		ext_len;
-	int		file_len;
-
-	ext_len = ft_strlen(ext);
-	file_len = ft_strlen(file);
-	if (ft_strncmp(file + file_len - ext_len, ext, ext_len + 1))
-		return (FALSE);
-	return (TRUE);
-}
-
-void	print_error_free_exit(char *err_str, char **array)
-{
-	free_array(array);
-	print_error_exit(err_str);
 }
 
 void	parse_resolution(t_all *all, char **tokens)
@@ -76,35 +45,13 @@ void	parse_resolution(t_all *all, char **tokens)
 		width = ft_atoi(tokens[1]);
 		height = ft_atoi(tokens[2]);
 		if (width <= 0 || height <= 0)
-			// || ft_nbrlen(width) != ft_strlen(tokens[1])
-			// || ft_nbrlen(height) != ft_strlen(tokens[2]))
 			leave(ERR, ERR_INV_RES, all, tokens);
-		if (all->save)
-		{
-			if (width > 16384 || height > 16384)
-				leave(ERR, ERR_SCRNSH, all, tokens);
-			else
-				all->screen = (t_pnt){width, height};
-		}
-		else
-		{
-			mlx_get_screen_size(&all->screen.x, &all->screen.y);
-			if (width < all->screen.x)
-				all->screen.x = width;
-			if (height < all->screen.y)
-				all->screen.y = height;
-		}
+		set_screen_size(all, tokens, width, height);
 		all->identifiers++;
 		all->flags[R] = TRUE;
 	}
 	else
 		leave(ERR, ERR_DBL, all, tokens);
-}
-
-void	set_nswes(char **nswes, int flag, char *token)
-{
-	*nswes = ft_strdup(token);
-	flag = TRUE;
 }
 
 void	parse_texture(t_all *all, char **tokens, int dir)
