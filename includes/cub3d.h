@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 00:32:15 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 01:38:27 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 # include "keys.h"
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
-
-#define	DB printf("tut\n");
 
 /*			cub3d.c */
 void		fps(t_all *all);
@@ -122,5 +120,8 @@ void		line_lenth_calc(t_ray *ray);
 void		draw_vertical_line(t_ray *ray, t_img *img);
 void		draw_floor_ceiling(t_all *all);
 void		raycaster(t_all *all, t_ray *ray);
+
+/*			screenshot.c */
+void		save_screenshot(t_all *all);
 
 #endif

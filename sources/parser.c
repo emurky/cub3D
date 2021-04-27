@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:19:10 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 00:14:33 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 01:00:42 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	set_screen_size(t_all *all, char **tokens, int width, int height)
 	if (all->save == TRUE)
 	{
 		if (width > 16384 || height > 16384)
-			leave(ERR, ERR_SCRNSH, all, tokens);
+			leave(ERR, ERR_SCRNSH_RES, all, tokens);
 		else
 			all->screen = (t_pnt){width, height};
 	}

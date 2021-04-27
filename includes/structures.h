@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 21:09:29 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 01:36:54 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_map
 
 typedef struct s_img
 {
-	void		*img; //malloced, NULLed
+	void		*img;
 	char		*addr;
 	int			bpp;
 	int			linelen;
@@ -61,7 +61,7 @@ typedef struct s_spr
 
 typedef struct s_tex
 {
-	void		*img; //malloced
+	void		*img;
 	char		*addr;
 	int			bpp;
 	int			linelen;
@@ -77,7 +77,7 @@ typedef struct s_pths
 	char		*we;
 	char		*ea;
 	char		*s;
-}				t_pths; //malloced
+}				t_pths;
 
 typedef struct s_ray
 {
@@ -116,8 +116,8 @@ typedef struct s_ray
 	double		tex_pos;
 	int			pixel;
 	int			num_sprs;
-	double		*z_buff; //malloced, NULLed
-	t_spr		*sprites; //malloced, NULLed
+	double		*z_buff;
+	t_spr		*sprites;
 	int			s_i;
 	double		spr_x;
 	double		spr_y;
@@ -139,16 +139,16 @@ typedef struct s_ray
 
 typedef struct s_all
 {
-	void		*mlx; //malloced, NULLed
-	void		*win; //malloced, NULLed
+	void		*mlx;
+	void		*win;
 	t_img		img;
 
 	int			save;
 	int			identifiers;
-	char		*line; // for gnl
+	char		*line;
 	t_pnt		screen;
-	t_pths		nswes; //malloced
-	t_tex		tex[5]; //malloced, NULLed
+	t_pths		nswes;
+	t_tex		tex[5];
 	t_pnt		floor_ceil;
 	int			flags[13];
 	char		**map;
@@ -162,8 +162,8 @@ typedef struct s_all
 	int			keys[8];
 	double		move_speed;
 	double		rotate_speed;
-	double		time; //delete
-	double		frames; //counter malloced delete
+	double		time;
+	double		frames;
 }				t_all;
 
 #endif

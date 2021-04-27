@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 00:29:15 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 01:38:04 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void	mlx_start(t_all *all)
 	all->img.img = mlx_new_image(all->mlx, all->screen.x, all->screen.y);
 	all->img.addr = mlx_get_data_addr
 		(all->img.img, &all->img.bpp, &all->img.linelen, &all->img.endian);
-	all->win = mlx_new_window(all->mlx, all->screen.x, all->screen.y, "cub3D");
+	if (!all->save)
+		all->win
+			= mlx_new_window(all->mlx, all->screen.x, all->screen.y, "cub3D");
 }
 
 void	frame_init(t_all *all)
@@ -75,6 +77,8 @@ void	frame_init(t_all *all)
 	all->ray.k = 1.0 / (4.0 / 3.0
 			* (double)all->screen.y / (double)all->screen.x * FOV / (M_PI / 3));
 	raycaster(all, &all->ray);
+	if (all->flags[ISMAP_OK])
+		draw_map(all);
 }
 
 void	structure_init(t_all *all)
@@ -130,7 +134,8 @@ int	main(int argc, char **argv)
 	parser(&all, argv[1]);
 	mlx_start(&all);
 	frame_init(&all);
+	if (all.save)
+		save_screenshot(&all);
 	hooks_and_loops(&all);
-
 	return (0);
 }

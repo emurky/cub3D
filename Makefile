@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/04/28 00:32:43 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/28 01:41:43 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS				= $(addprefix $(SRCSDIR)/, \
 						my_mlx_utils.c \
 						utils.c \
 						error.c \
+						screenshot.c \
 						)
 
 OBJS				= $(SRCS:.c=.o)
@@ -37,7 +38,7 @@ NAME				= cub3D
 
 CC 					= gcc
 RM 					= rm -f
-CFLAGS				= -Wall -Wextra -Werror #-fsanitize=address #-O2 
+CFLAGS				= -Wall -Wextra -Werror -O2 #-fsanitize=address #-O2 
 CPPFLAGS			= -MMD -I. -I./includes
 MLX_FLAGS			= -framework OpenGL -framework AppKit -lz
 
@@ -61,7 +62,7 @@ bonus:				all
 clean:
 					$(MAKE) clean -C ./libft
 					$(MAKE) clean -C ./mlx
-					$(RM) $(OBJS) $(DEPS)
+					$(RM) $(OBJS) $(DEPS) screenshot.bmp
 
 fclean:				clean
 					$(RM) ./libft/libft.a
