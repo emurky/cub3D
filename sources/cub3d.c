@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 06:12:57 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 06:25:22 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	structure_init(t_all *all)
 	while (i < 5)
 		all->tex[i++].img = NULL;
 	i = 0;
-	while (i < 10)
+	while (i < 12)
 		all->flags[i++] = FALSE;
 	all->map = NULL;
 	all->line = NULL;

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:19:10 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 06:05:04 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 07:18:36 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,16 @@ void	init_floor_ceil(t_all *all, char **tokens, int fc, int color)
 		leave(ERR, ERR_DBL, all, tokens);
 }
 
-void	color_to_str(int *rgb, int *i, char **tokens)
+void	color_to_str(int *rgb, int *i, t_all *all, char **tokens)
 {
-	*rgb = ft_atoi(&(tokens[1][*i]));
-	while (ft_isdigit(tokens[1][*i]))
-		(*i)++;
+	if (ft_isdigit(tokens[1][*i]))
+	{
+		*rgb = ft_atoi(&(tokens[1][*i]));
+		while (ft_isdigit(tokens[1][*i]))
+			(*i)++;
+	}
+	else
+		leave(ERR, ERR_FC, all, tokens);
 }
 
 void	parse_floor_ceil(t_all *all, char **tokens, int fc)
@@ -114,13 +119,13 @@ void	parse_floor_ceil(t_all *all, char **tokens, int fc)
 	i = 0;
 	if (array_len(tokens) != 2)
 		leave(ERR, ERR_INV_FC, all, tokens);
-	color_to_str(&r, &i, tokens);
+	color_to_str(&r, &i, all, tokens);
 	if (tokens[1][i++] != ',')
 		leave(ERR, ERR_FC, all, tokens);
-	color_to_str(&g, &i, tokens);
+	color_to_str(&g, &i, all, tokens);
 	if (tokens[1][i++] != ',')
 		leave(ERR, ERR_FC, all, tokens);
-	color_to_str(&b, &i, tokens);
+	color_to_str(&b, &i, all, tokens);
 	if (i != (int)ft_strlen(tokens[1]))
 		leave(ERR, ERR_FC, all, tokens);
 	if (!(0 <= r && r <= 255) || !(0 <= g && g <= 255) || !(0 <= b && b <= 255))
@@ -249,7 +254,7 @@ void	parse_map(t_all *all, int fd, int line_read)
 	}
 	all->max_map.y = ft_lstsize(head);
 	make_map(all, &head, all->max_map.y);
-	printf("%d max width %d max height\n", all->max_map.x, all->max_map.y);
+	// printf("%d max width %d max height\n", all->max_map.x, all->max_map.y);
 }
 
 void	parser(t_all *all, char *file_cub)
