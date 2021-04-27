@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 04:44:52 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 22:18:13 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 05:00:25 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@
 # define ERR_DBL			"One of identifiers is doubled\n"
 # define ERR_EMPTY			".cub file is empty\n"
 # define ERR_INV			"Invalid file .cub configuration\n"
+# define ERR_MAP_LST		"Map must be the last argument\n"
+# define ERR_MAP_CHR		"Invalid chars in the map\n"
 
 #endif

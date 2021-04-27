@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 00:50:21 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 06:12:57 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ void	is_enough_space_for_map(t_all *all, char **map)
 			max.y = j;
 	}
 	all->max_map = (t_pnt){max.x, max.y};
+	printf("%d max x %d max y\n", all->max_map.x, all->max_map.y);
 	max.x = max.x * SCALE + MAP_OFFS_X * 2;
 	max.y = max.y * SCALE + MAP_OFFS_Y * 2;
-	if (max.x < all->screen.x && max.y < all->screen.y)
+	if (max.x < all->screen.x && max.y < all->screen.y && DRAW_MAP)
 		all->flags[ISMAP_OK] = TRUE;
 }
 
@@ -86,7 +87,7 @@ void	mlx_start(t_all *all)
 void	init(t_all *all)
 {
 	// all->map = map_init();
-	is_enough_space_for_map(all, all->map);
+	// is_enough_space_for_map(all, all->map);
 	textures_init(all);
 	sprites_counting(all);
 	set_player_pos(all, 26, 11);
@@ -111,7 +112,7 @@ void	structure_init(t_all *all)
 	while (i < 5)
 		all->tex[i++].img = NULL;
 	i = 0;
-	while (i < 9)
+	while (i < 10)
 		all->flags[i++] = FALSE;
 	all->map = NULL;
 	all->line = NULL;
@@ -120,11 +121,8 @@ void	structure_init(t_all *all)
 	all->win = NULL;
 	all->ray.z_buff = NULL;
 	all->ray.sprites = NULL;
-	all->nswes.no = NULL;
-	all->nswes.so = NULL;
-	all->nswes.we = NULL;
-	all->nswes.ea = NULL;
-	all->nswes.s = NULL;
+	all->nswes = (t_pths){NULL, NULL, NULL, NULL, NULL};
+	all->max_map = (t_pnt){0, 0};
 }
 
 void	hooks_and_loops(t_all *all)

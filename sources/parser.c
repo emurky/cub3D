@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:19:10 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 01:21:54 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 06:05:04 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,39 +97,42 @@ void	init_floor_ceil(t_all *all, char **tokens, int fc, int color)
 		leave(ERR, ERR_DBL, all, tokens);
 }
 
+void	color_to_str(int *rgb, int *i, char **tokens)
+{
+	*rgb = ft_atoi(&(tokens[1][*i]));
+	while (ft_isdigit(tokens[1][*i]))
+		(*i)++;
+}
+
 void	parse_floor_ceil(t_all *all, char **tokens, int fc)
 {
 	int		r;
 	int		g;
 	int		b;
-	size_t	i;
+	int		i;
 
 	i = 0;
 	if (array_len(tokens) != 2)
 		leave(ERR, ERR_INV_FC, all, tokens);
-	r = ft_atoi(&(tokens[1][i]));
-	i += ft_nbrlen(r);
+	color_to_str(&r, &i, tokens);
 	if (tokens[1][i++] != ',')
 		leave(ERR, ERR_FC, all, tokens);
-	g = ft_atoi(&(tokens[1][i]));
-	i += ft_nbrlen(g);
+	color_to_str(&g, &i, tokens);
 	if (tokens[1][i++] != ',')
 		leave(ERR, ERR_FC, all, tokens);
-	b = ft_atoi(&(tokens[1][i]));
-	i += ft_nbrlen(b);
-	if (i != ft_strlen(tokens[1]))
+	color_to_str(&b, &i, tokens);
+	if (i != (int)ft_strlen(tokens[1]))
 		leave(ERR, ERR_FC, all, tokens);
 	if (!(0 <= r && r <= 255) || !(0 <= g && g <= 255) || !(0 <= b && b <= 255))
 		leave(ERR, ERR_FC_RNG, all, tokens);
 	init_floor_ceil(all, tokens, fc, create_rgb(r, g, b));
 	all->identifiers++;
-	// printf("%d r %d g %d b %zu i\n", r, g ,b, i);
 }
 
 int		check_all_identifiers(int *flags)
 {
 	return ((flags[R] + flags[NO] + flags[SO] + flags[WE] + flags[EA]
-		+ flags[S] + flags[F] + flags[C]) < 8);
+			+ flags[S] + flags[F] + flags[C]) < 8);
 }
 
 void	parse_identifiers(t_all *all, char **tokens)
@@ -188,7 +191,37 @@ void	make_map(t_all *all, t_list **head, int size)
 	i = 0;
 	while (all->map[i])
 		ft_putendl(all->map[i++]);
-	
+}
+
+int		is_interior(char c)
+{
+	return (c == '0' || c == '2'
+		|| c == 'N' || c == 'W' || c == 'S' || c == 'E');
+}
+
+int		check_map_line(t_all *all, char *line)
+{
+	char	*head;
+	char	*last_wall;
+
+	head = line;
+	if (!(*line))
+	{
+		if (!all->flags[EOM])
+			all->flags[EOM] = TRUE;
+		return (0);
+	}
+	while (*line)
+	{
+		if (!(is_interior(*line) || *line == '1' || *line == ' '))
+			return (-1);
+		line++;
+	}
+	last_wall = ft_strrchr(head, '1');
+	if (last_wall)
+		if (last_wall - head + 1 > all->max_map.x)
+			all->max_map.x = last_wall - head + 1;
+	return (1);
 }
 
 void	parse_map(t_all *all, int fd, int line_read)
@@ -204,12 +237,19 @@ void	parse_map(t_all *all, int fd, int line_read)
 	}
 	while (line_read)
 	{
-		ft_lstadd_back(&head, (ft_lstnew(ft_strdup(all->line))));
+		if (all->flags[EOM] && line_read && *all->line)
+			leave(ERR, ERR_MAP_LST, all, NULL);
+		if (check_map_line(all, all->line) > 0)
+			ft_lstadd_back(&head, (ft_lstnew(ft_strdup(all->line))));
+		else if (check_map_line(all, all->line) < 0)
+			leave(ERR, ERR_MAP_CHR, all, NULL);
 		free(all->line);
 		all->line = NULL;
 		line_read = get_next_line(fd, &all->line);
 	}
-	make_map(all, &head, ft_lstsize(head));
+	all->max_map.y = ft_lstsize(head);
+	make_map(all, &head, all->max_map.y);
+	printf("%d max width %d max height\n", all->max_map.x, all->max_map.y);
 }
 
 void	parser(t_all *all, char *file_cub)

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 01:54:47 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 02:40:07 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	draw_map_squares(t_all *all, char **map)
 				draw_square(&all->img, SCALE, pos, DARK_GREY);
 			else if (map[j][i] == '2')
 				draw_map_sprites(all, &pos);
-			else
+			else if (map[j][i] == '0' || is_player_dir(map[j][i]))
 				draw_square(&all->img, SCALE, pos, WHITE);
 			pos.x += SCALE;
 			i++;

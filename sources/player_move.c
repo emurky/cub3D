@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 04:39:56 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 18:43:52 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 02:45:53 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	set_player_dir(t_all *all, double dir)
 int		wall_collision_y(t_all *all, double dir)
 {
 	return (all->map
-		[(int)(all->ray.pos_y - sin(all->plr.dir + dir) * MOVE_SPEED * 10.0)]
+		[(int)(all->ray.pos_y - sin(all->plr.dir + dir) * MOVE_SPEED * 5.0)]
 		[(int)(all->ray.pos_x)]
 		== '1');
 }
@@ -39,7 +39,7 @@ int		wall_collision_x(t_all *all, double dir)
 {
 	return (all->map
 		[(int)(all->ray.pos_y)]
-		[(int)(all->ray.pos_x + cos(all->plr.dir + dir) * MOVE_SPEED * 10.0)]
+		[(int)(all->ray.pos_x + cos(all->plr.dir + dir) * MOVE_SPEED * 5.0)]
 		== '1');
 }
 
