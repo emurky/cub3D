@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 12:31:23 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 19:30:28 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 20:23:55 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ void	ray_calc(t_ray *ray)
 
 void	perform_dda(t_all *all, t_ray *ray)
 {
+	// int i =0;
+	// while (all->map[i])
+	// 	ft_putendl(all->map[i++]);
 	while (ray->hit == 0)
 	{
 		if (ray->sidedist_x < ray->sidedist_y)

@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 03:31:47 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 06:25:08 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 21:09:29 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ typedef struct s_rgb
 	int			g;
 	int			b;
 }				t_rgb;
+
+typedef struct s_map
+{
+	char		**map;
+	int			width;
+	int			height;
+}				t_map;
 
 typedef struct s_img
 {
@@ -143,9 +150,11 @@ typedef struct s_all
 	t_pths		nswes; //malloced
 	t_tex		tex[5]; //malloced, NULLed
 	t_pnt		floor_ceil;
-	int			flags[12];
+	int			flags[13];
 	char		**map;
 	t_pnt		max_map;
+	t_pnt		plr_init_pos;
+	double		plr_init_dir;
 
 	t_plr		plr;
 	t_ray		ray;

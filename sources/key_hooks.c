@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:50:33 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 01:02:24 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 21:10:16 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	keys_handler(t_all *all)
 		set_player_dir(all, all->plr.dir - ROTATE_SPEED);
 	if (all->keys[6])
 	{
-		set_player_pos(all, 26, 11);
-		set_player_dir(all, M_PI_2);
+		set_player_pos(all, all->plr_init_pos.x, all->plr_init_pos.y);
+		set_player_dir(all, all->plr_init_dir);
 	}
 	if (all->keys[7])
 		leave(NO_ERR, NULL, all, NULL);

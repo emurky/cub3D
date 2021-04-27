@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/04/27 06:11:58 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/27 22:37:10 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ NAME				= cub3D
 
 CC 					= gcc
 RM 					= rm -f
-CFLAGS				= -Wall -Wextra -Werror -fsanitize=address #-O2 
+CFLAGS				= -Wall -Wextra -Werror -O2 #-fsanitize=address #-O2 
 CPPFLAGS			= -MMD -I. -I./includes
 MLX_FLAGS			= -framework OpenGL -framework AppKit -lz
 
@@ -46,6 +46,8 @@ LIBS				= \
 						-L./mlx -lmlx $(MLX_FLAGS)
 
 all:				$(NAME)
+
+# gcc -Wall -Wextra -Werror -framework OpenGL -framework AppKit -lz -L./libft -lft -L./mlx -lmlx -g sources/*.c -o cub3D
 
 $(NAME):			$(OBJS)
 					$(MAKE) -C ./libft -j4

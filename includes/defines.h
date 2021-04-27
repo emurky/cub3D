@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 08:02:05 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 06:24:55 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 22:38:03 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@
 # define F				6
 # define C				7
 # define ISMAP_OK		8
-# define EOM			9 /* end of map */
-# define XPM			10
-# define PNG			11
+# define EOM			9	/* end of map */
+# define PLR			10
+# define XPM			11
+# define PNG			12
 
 # define FOV			M_PI / 3
-# define MOVE_SPEED		0.05
-# define ROTATE_SPEED	M_PI / 90
+# define MOVE_SPEED		0.03
+# define ROTATE_SPEED	M_PI / 180
 
 # define DRAW_MAP		TRUE
 # define MAP_OFFS_X		10

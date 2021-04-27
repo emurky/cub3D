@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 04:44:52 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 07:19:05 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 22:33:08 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,14 @@
 # define ERR_FC_RNG			"R G B must be in range from 0 to 255\n"
 # define ERR_NL				"Should be no characters on empty line(s)\n"
 # define ERR_LINE			"Incorrect identifier line\n"
+# define ERR_SPCS			"Spaces on empty line\n"
 # define ERR_DBL			"One of identifiers is doubled\n"
 # define ERR_EMPTY			".cub file is empty\n"
 # define ERR_INV			"Invalid file .cub configuration\n"
-# define ERR_MAP_LST		"Map must be the last argument\n"
+# define ERR_MAP_LST		"Map cannot be separated by empty lines\n"
 # define ERR_MAP_CHR		"Invalid chars in the map\n"
+# define ERR_MAP_CLSD		"Map must be closed/surrounded by walls\n"
+# define ERR_PLR_DBL		"Only one player could exist on the map\n"
+# define ERR_PLR_NON		"No player on the map\n"
 
 #endif

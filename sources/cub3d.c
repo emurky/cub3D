@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 06:25:22 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/27 21:15:05 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,30 @@ void	fps(t_all *all)
 
 void	is_enough_space_for_map(t_all *all, char **map)
 {
-	int		i;
-	int		j;
+	// int		i; 
+	// int		j;
 	t_pnt	max;
-
-	j = 0;
+(void)map;
+	// j = 0;
 	max.x = 0;
 	max.y = 0;
-	while (map[j])
-	{
-		i = 0;
-		while (map[j][i])
-		{
-			i++;
-			if (max.x < i)
-				max.x = i;
-		}
-		j++;
-		if (max.y < j)
-			max.y = j;
-	}
-	all->max_map = (t_pnt){max.x, max.y};
-	printf("%d max x %d max y\n", all->max_map.x, all->max_map.y);
-	max.x = max.x * SCALE + MAP_OFFS_X * 2;
-	max.y = max.y * SCALE + MAP_OFFS_Y * 2;
+	// while (map[j])
+	// {
+	// 	i = 0;
+	// 	while (map[j][i])
+	// 	{
+	// 		i++;
+	// 		if (max.x < i)
+	// 			max.x = i;
+	// 	}
+	// 	j++;
+	// 	if (max.y < j)
+	// 		max.y = j;
+	// }
+	// all->max_map = (t_pnt){max.x, max.y};
+	// printf("%d max x %d max y\n", all->max_map.x, all->max_map.y);
+	max.x = all->max_map.x * SCALE + MAP_OFFS_X * 2;
+	max.y = all->max_map.y * SCALE + MAP_OFFS_Y * 2;
 	if (max.x < all->screen.x && max.y < all->screen.y && DRAW_MAP)
 		all->flags[ISMAP_OK] = TRUE;
 }
@@ -87,11 +87,11 @@ void	mlx_start(t_all *all)
 void	init(t_all *all)
 {
 	// all->map = map_init();
-	// is_enough_space_for_map(all, all->map);
+	is_enough_space_for_map(all, all->map);
 	textures_init(all);
 	sprites_counting(all);
-	set_player_pos(all, 26, 11);
-	set_player_dir(all, M_PI_2);
+	all->plr_init_pos = (t_pnt){all->ray.pos_x, all->ray.pos_y};
+	all->plr_init_dir = all->plr.dir;
 	all->ray.k = 1.0 / (4.0 / 3.0
 			* (double)all->screen.y / (double)all->screen.x * FOV / (M_PI / 3));
 	raycaster(all, &all->ray);
@@ -112,7 +112,7 @@ void	structure_init(t_all *all)
 	while (i < 5)
 		all->tex[i++].img = NULL;
 	i = 0;
-	while (i < 12)
+	while (i < 13)
 		all->flags[i++] = FALSE;
 	all->map = NULL;
 	all->line = NULL;
@@ -155,28 +155,28 @@ int		main(int argc, char **argv)
 	return (0);
 }
 
-char	**map_init(void)
-{
-	char	**map;
+// char	**map_init(void)
+// {
+// 	char	**map;
 
-	map = malloc(sizeof(char *) * 15);
-	map[0]	= ft_strdup(" 111    1111111111111111111111111");
-	map[1]	= ft_strdup(" 101    1000000000110000002000001");
-	map[2]	= ft_strdup(" 111    1011000001110000200000201");
-	map[3]	= ft_strdup("        1001020000000000002002001");
-	map[4]	= ft_strdup("111111111011000001110000000000001");
-	map[5]	= ft_strdup("100000000011000001110111110111111");
-	map[6]	= ft_strdup("11110111111111011100000012221");
-	map[7]	= ft_strdup("11110111111111011101010010221");
-	map[8]	= ft_strdup("11000000110101011100000012201");
-	map[9]	= ft_strdup("10202020200000000000000000201");
-	map[10]	= ft_strdup("10000000002000001101010010001");
-	map[11]	= ft_strdup("11000001110101011111011100N0011");
-	map[12]	= ft_strdup("11110111 1110101 101111010001");
-	map[13]	= ft_strdup("11111111 1111111 111111111111");
-	map[14]	= NULL;
-	return (map);
-}
+// 	map = malloc(sizeof(char *) * 15);
+// 	map[0]	= ft_strdup(" 111    1111111111111111111111111");
+// 	map[1]	= ft_strdup(" 101    1000000000110000002000001");
+// 	map[2]	= ft_strdup(" 111    1011000001110000200000201");
+// 	map[3]	= ft_strdup("        1001020000000000002002001");
+// 	map[4]	= ft_strdup("111111111011000001110000000000001");
+// 	map[5]	= ft_strdup("100000000011000001110111110111111");
+// 	map[6]	= ft_strdup("11110111111111011100000012221");
+// 	map[7]	= ft_strdup("11110111111111011101010010221");
+// 	map[8]	= ft_strdup("11000000110101011100000012201");
+// 	map[9]	= ft_strdup("10202020200000000000000000201");
+// 	map[10]	= ft_strdup("10000000002000001101010010001");
+// 	map[11]	= ft_strdup("11000001110101011111011100N0011");
+// 	map[12]	= ft_strdup("11110111 1110101 101111010001");
+// 	map[13]	= ft_strdup("11111111 1111111 111111111111");
+// 	map[14]	= NULL;
+// 	return (map);
+// }
 
 // char	**map_init(void)
 // {
