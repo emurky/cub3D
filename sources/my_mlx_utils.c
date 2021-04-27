@@ -6,24 +6,21 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 02:22:08 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 07:17:43 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 00:16:34 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color) /* maybe some tweaking to get safer */
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (img->addr + (y * img->linelen + x * (img->bpp / 8)))
-	{
-		dst = img->addr + (y * img->linelen + x * (img->bpp / 8));
-		*(unsigned int *)dst = color;
-	}
+	dst = img->addr + (y * img->linelen + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
 }
 
-int		my_mlx_pixel_get(t_tex *tex, int x, int y)
+int	my_mlx_pixel_get(t_tex *tex, int x, int y)
 {
 	char	*pixel;
 

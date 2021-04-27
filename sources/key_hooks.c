@@ -6,26 +6,26 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:50:33 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 21:10:16 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 00:28:08 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int		print_key(int key, t_all *all)
+int	print_key(int key, t_all *all)
 {
 	(void)all;
 	printf("%d was pressed\n", key);
 	return (0);
 }
 
-int		close_window(t_all *all)
+int	close_window(t_all *all)
 {
 	leave(NO_ERR, NULL, all, NULL);
 	return (0);
 }
 
-int		key_pressed(int key, t_all *all)
+int	key_pressed(int key, t_all *all)
 {
 	if (key == KEY_W || key == KEY_UP)
 		all->keys[0] = TRUE;
@@ -46,7 +46,7 @@ int		key_pressed(int key, t_all *all)
 	return (0);
 }
 
-int		key_released(int key, t_all *all)
+int	key_released(int key, t_all *all)
 {
 	if (key == KEY_W || key == KEY_UP)
 		all->keys[0] = FALSE;

@@ -6,13 +6,13 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 18:15:01 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 22:29:37 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 00:17:30 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int		array_len(char **array)
+int	array_len(char **array)
 {
 	int		i;
 
@@ -22,7 +22,7 @@ int		array_len(char **array)
 	return (i);
 }
 
-int		str_isnum(char *str)
+int	str_isnum(char *str)
 {
 	while (*str)
 	{
@@ -33,7 +33,7 @@ int		str_isnum(char *str)
 	return (TRUE);
 }
 
-int		str_isspace(char *str)
+int	str_isspace(char *str)
 {
 	while (*str)
 	{
@@ -50,7 +50,7 @@ void	set_nswes(char **nswes, int *flag, char *token)
 	*flag = TRUE;
 }
 
-int		isvalid_extension(char *file, const char *ext)
+int	isvalid_extension(char *file, const char *ext)
 {
 	int		ext_len;
 	int		file_len;

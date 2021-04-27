@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 04:39:56 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 17:53:07 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 00:16:53 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_player_dir(t_all *all, double dir)
 	all->plr.end = dir + FOV / 2;
 }
 
-int		wall_collision_y(t_all *all, double dir)
+int	wall_collision_y(t_all *all, double dir)
 {
 	return (all->map
 		[(int)(all->ray.pos_y - sin(all->plr.dir + dir) * MOVE_SPEED * 7.0)]
@@ -35,7 +35,7 @@ int		wall_collision_y(t_all *all, double dir)
 		== '1');
 }
 
-int		wall_collision_x(t_all *all, double dir)
+int	wall_collision_x(t_all *all, double dir)
 {
 	return (all->map
 		[(int)(all->ray.pos_y)]
@@ -57,12 +57,12 @@ void	move_player(t_all *all, double dir)
 	}
 }
 
-int		scale_x(double index)
+int	scale_x(double index)
 {
 	return ((index - MAP_OFFS_X) / SCALE);
 }
 
-int		scale_y(double index)
+int	scale_y(double index)
 {
 	return ((index - MAP_OFFS_Y) / SCALE);
 }

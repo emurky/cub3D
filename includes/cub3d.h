@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 22:30:01 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 00:32:15 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
-
-#include <time.h> //UDOLITB
 
 # include "defines.h"
 # include "structures.h"
@@ -33,10 +31,10 @@
 
 /*			cub3d.c */
 void		fps(t_all *all);
-void		is_enough_space_for_map(t_all *all, char **map);
+void		is_enough_space_for_map(t_all *all);
 int			renderer(t_all *all);
 void		mlx_start(t_all *all);
-void		init(t_all *all);
+void		frame_init(t_all *all);
 void		structure_init(t_all *all);
 void		hooks_and_loops(t_all *all);
 
@@ -61,11 +59,9 @@ int			isvalid_extension(char *file, const char *ext);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			my_mlx_pixel_get(t_tex *img, int x, int y);
 void		my_mlx_tex_to_image(t_all *all, t_tex *tex, char **path);
-// void		clean_win(t_all *all);
 void		frames_counter(t_all *all);
 
 /*			utils.c */
-// int		ft_strcmp(const char *s1, const char *s2);
 int			create_rgb(int r, int g, int b);
 int			is_player_dir(char c);
 

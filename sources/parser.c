@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:19:10 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 22:27:07 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 00:14:33 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	parse_floor_ceil(t_all *all, char **tokens, int fc)
 	all->identifiers++;
 }
 
-int		check_all_identifiers(int *flags)
+int	check_all_identifiers(int *flags)
 {
 	return ((flags[R] + flags[NO] + flags[SO] + flags[WE] + flags[EA]
 			+ flags[S] + flags[F] + flags[C]) < 8);
@@ -177,47 +177,40 @@ void	parse_line(t_all *all, char *line)
 		leave(ERR, ERR_SPCS, all, tokens);
 }
 
-int		is_interior(char c)
+int	is_interior(char c)
 {
 	return (c == '0' || c == '2'
 		|| c == 'N' || c == 'W' || c == 'S' || c == 'E');
 }
 
-int	check_neighbours2(t_map map, int row, int col)
-{
-	if (row == 0 || row == map.height - 1 || col == 0 || col == map.width - 1
-		|| map.map[row-1][col-1] == ' ' || map.map[row-1][col] == ' ' || map.map[row-1][col+1] == ' '
-		|| map.map[row][col-1] == ' ' || map.map[row][col+1] == ' '
-		|| map.map[row+1][col-1] == ' ' || map.map[row+1][col] == ' ' || map.map[row+1][col+1] == ' ')
-		return FALSE;
-	return TRUE;
-}
-
-
 int	check_neighbours(t_map map, int row, int col)
 {
-	if (row == 0 || row == map.height - 1 || col == 0 || col == map.width - 1)
+	if (row == 0 || row == map.height - 1 || col == 0 || col == map.width - 1
+		|| map.map[row - 1][col - 1] == ' ' || map.map[row - 1][col] == ' '
+		|| map.map[row - 1][col + 1] == ' ' || map.map[row][col - 1] == ' '
+		|| map.map[row][col + 1] == ' '
+		|| map.map[row + 1][col - 1] == ' ' || map.map[row + 1][col] == ' '
+		|| map.map[row + 1][col + 1] == ' ')
 		return (FALSE);
-		for (int i = row - 1; i <= row + 1; i++)
-			for (int j = col - 1; j <= col + 1; j++)
-				if (!(i == row && j == col) && map.map[i][j] == ' ')
-					return FALSE;
-	return TRUE;
+	return (TRUE);
 }
 
 int	check_continuity(t_map map)
 {
-	int i = 0;
-	while (i < map.height)
+	int		i;
+	int		j;
+
+	j = 0;
+	while (j < map.height)
 	{
-		int j = 0;
-		while (j < map.width)
+		i = 0;
+		while (i < map.width)
 		{
-			if (is_interior(map.map[i][j]) && !check_neighbours2(map, i, j))
+			if (is_interior(map.map[j][i]) && !check_neighbours(map, j, i))
 				return (FALSE);
-			j++;
+			i++;
 		}
-		i++;
+		j++;
 	}
 	return (TRUE);
 }
@@ -260,16 +253,14 @@ void	set_player(t_all *all, char **map)
 	}
 }
 
-void	make_map(t_all *all, t_list **head, int size)
+void	malloc_map(t_all *all, t_list **head)
 {
-	int		i;
 	int		j;
 	t_list	*temp;
-	t_map map;
 
 	j = 0;
 	temp = *head;
-	all->map = malloc((size + 1) * sizeof(char *));
+	all->map = malloc((all->max_map.y + 1) * sizeof(char *));
 	if (!all->map)
 		leave(ERR, ERR_MALLOC, all, NULL);
 	while (temp && j < all->max_map.y)
@@ -285,22 +276,25 @@ void	make_map(t_all *all, t_list **head, int size)
 		j++;
 	}
 	all->map[j] = NULL;
+}
+
+void	make_map(t_all *all, t_list **head)
+{
+	t_map	map;
+
+	malloc_map(all, head);
 	ft_lstclear(head);
-	i = 0;
 	map = (t_map){all->map, all->max_map.x, all->max_map.y};
 	set_player(all, all->map);
 	if (!all->flags[PLR])
 		leave(ERR, ERR_PLR_NON, all, NULL);
 	if (!check_continuity(map))
 		leave(ERR, ERR_MAP_CLSD, all, NULL);
-	while (all->map[i])
-		ft_putendl(all->map[i++]);
 }
 
-int		check_map_line(t_all *all, char *line)
+int	check_map_line(t_all *all, char *line)
 {
 	char	*head;
-	// char	*last_wall;
 	int		line_len;
 
 	head = line;
@@ -316,16 +310,22 @@ int		check_map_line(t_all *all, char *line)
 			return (-1);
 		line++;
 	}
-	// last_wall = ft_strrchr(head, '1');
 	line_len = ft_strlen(head);
 	if (line_len > all->max_map.x)
 		all->max_map.x = line_len;
-	// if (last_wall && last_wall < ft_strrchr(head, *line))// && *line != ' ')
-	// 	leave(ERR, "Map must be surrounded by walls\n", all, NULL);
-	// if (last_wall)
-	// 	if (last_wall - head + 1 > all->max_map.x)
-	// 		all->max_map.x = last_wall - head + 1;
 	return (1);
+}
+
+void	get_map_line(t_all *all, t_list **head, int line_read)
+{
+	if (all->flags[EOM] && line_read && *all->line)
+		leave(ERR, ERR_MAP_LST, all, NULL);
+	if (check_map_line(all, all->line) > 0)
+		ft_lstadd_back(head, (ft_lstnew(ft_strdup(all->line))));
+	else if (check_map_line(all, all->line) < 0)
+		leave(ERR, ERR_MAP_CHR, all, NULL);
+	free(all->line);
+	all->line = NULL;
 }
 
 void	parse_map(t_all *all, int fd, int line_read)
@@ -341,19 +341,12 @@ void	parse_map(t_all *all, int fd, int line_read)
 	}
 	while (line_read)
 	{
-		if (all->flags[EOM] && line_read && *all->line)
-			leave(ERR, ERR_MAP_LST, all, NULL);
-		if (check_map_line(all, all->line) > 0)
-			ft_lstadd_back(&head, (ft_lstnew(ft_strdup(all->line))));
-		else if (check_map_line(all, all->line) < 0)
-			leave(ERR, ERR_MAP_CHR, all, NULL);
-		free(all->line);
-		all->line = NULL;
+		get_map_line(all, &head, line_read);
 		line_read = get_next_line(fd, &all->line);
 	}
+	get_map_line(all, &head, line_read);
 	all->max_map.y = ft_lstsize(head);
-	make_map(all, &head, all->max_map.y);
-	printf("%d max width %d max height\n", all->max_map.x, all->max_map.y);
+	make_map(all, &head);
 }
 
 void	parser(t_all *all, char *file_cub)
