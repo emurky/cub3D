@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 17:19:10 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 02:59:56 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 10:34:48 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	parser(t_all *all, char *file_cub)
 	int		fd;
 	int		line_read;
 
-	fd = open(file_cub, O_RDONLY);
+	fd = open(file_cub, O_RDWR);
 	if (fd < 0)
-		print_error_exit("Can't open .cub file\n");
+		print_error_exit("Cannot open .cub file\n");
 	line_read = get_next_line(fd, &all->line);
 	if (!line_read)
 		leave(ERR, ERR_EMPTY, all, NULL);

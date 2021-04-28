@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 02:53:24 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 07:43:17 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 10:34:29 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	parse_texture(t_all *all, char **tokens, int dir)
 		leave(ERR, ERR_NUM_TEX, all, tokens);
 	if (!isvalid_extension(tokens[1], ".xpm"))
 		leave(ERR, ERR_TEX_EXT, all, tokens);
-	fd = open(tokens[1], O_RDONLY);
+	fd = open(tokens[1], O_RDWR);
 	if (fd < 0)
 		leave(ERR, ERR_TEX_FD, all, tokens);
 	close(fd);
