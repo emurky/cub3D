@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 00:55:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 01:32:52 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 09:49:56 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	save_screenshot(t_all *all)
 
 	fd = open("screenshot.bmp", O_CREAT | O_WRONLY | O_TRUNC,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (!fd)
+	if (fd < 0)
 		leave(ERR, ERR_SCRNSH, all, NULL);
 	write_headers(all, fd);
 	write_pixel_data(all, fd);
