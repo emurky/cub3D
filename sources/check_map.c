@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 02:57:53 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 02:58:59 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 05:21:40 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ int	check_neighbours(t_map map, int row, int col)
 	if (row == 0 || row == map.height - 1 || col == 0 || col == map.width - 1
 		|| map.map[row - 1][col - 1] == ' ' || map.map[row - 1][col] == ' '
 		|| map.map[row - 1][col + 1] == ' ' || map.map[row][col - 1] == ' '
-		|| map.map[row][col + 1] == ' '
-		|| map.map[row + 1][col - 1] == ' ' || map.map[row + 1][col] == ' '
-		|| map.map[row + 1][col + 1] == ' ')
+		|| map.map[row][col + 1] == ' ' || map.map[row + 1][col - 1] == ' '
+		|| map.map[row + 1][col] == ' ' || map.map[row + 1][col + 1] == ' ')
 		return (FALSE);
 	return (TRUE);
 }
