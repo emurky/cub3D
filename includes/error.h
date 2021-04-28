@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 04:44:52 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 00:59:52 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 05:04:51 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define ERR_NUM_RES_IDS	"Wrong number of resolution identifiers\n"
 # define ERR_INV_RES_ARG	"Invalid resolution arguments\n"
 # define ERR_INV_RES		"Invalid resolution\n"
-# define ERR_SCRNSH_RES		"Resolution for screenshot is too big\n"
+# define ERR_SCRNSH_RES		"Resolution for screenshot is too big (16384 max)\n"
 # define ERR_NUM_TEX		"Wrong number of texture identifiers\n"
 # define ERR_TEX_EXT		"Invalid texture extension (must be .xpm)\n"
 # define ERR_TEX_FD			"Incorrect path to the texture\n"
