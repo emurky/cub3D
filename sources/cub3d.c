@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 02:51:30 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 11:06:00 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	hooks_and_loops(t_all *all)
 {
 	mlx_hook(all->win, 2, 1L <<0, key_pressed, all);
 	mlx_hook(all->win, 3, 1L <<1, key_released, all);
-	mlx_hook(all->win, 17, 1L <<5, close_window, all);
+	mlx_hook(all->win, 17, 1L <<17, close_window, all);
 	mlx_loop_hook(all->mlx, renderer, all);
 	mlx_loop(all->mlx);
 }
