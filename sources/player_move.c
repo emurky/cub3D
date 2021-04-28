@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 04:39:56 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 00:16:53 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 03:05:33 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,4 @@ void	move_player(t_all *all, double dir)
 		all->plr.y -= sin(all->plr.dir + dir) * MOVE_SPEED * SCALE;
 		all->ray.pos_y -= sin(all->plr.dir + dir) * MOVE_SPEED;
 	}
-}
-
-int	scale_x(double index)
-{
-	return ((index - MAP_OFFS_X) / SCALE);
-}
-
-int	scale_y(double index)
-{
-	return ((index - MAP_OFFS_Y) / SCALE);
 }

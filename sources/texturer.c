@@ -6,35 +6,11 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 02:25:39 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/26 02:08:07 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 02:12:06 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-// void	test_tex(t_all *all)
-// {
-// 	t_img	tex;
-// 	int		i;
-// 	int		j;
-// 	int		w;
-// 	int		h;
-// 	int		color;
-// 	i = 0;
-// 	tex.img = mlx_xpm_file_to_image(all->mlx, NO, &w, &h);
-// 	tex.addr = mlx_get_data_addr(tex.img, &tex.bpp, &tex.linelen, &tex.endian);
-// 	while (i < h)
-// 	{
-// 		j = 0;
-// 		while (j < w)
-// 		{
-// 			color = my_mlx_pixel_get(&tex, i, j);
-// 			my_mlx_pixel_put(&all->img, i, j, color);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
 
 void	textures_init(t_all *all)
 {

@@ -6,30 +6,11 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:43:36 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/27 02:40:07 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 03:08:30 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void	draw_rectangle(t_img *img, int width, int height, int color)
-{
-	int		i;
-	int		j;
-
-	i = MAP_OFFS_X;
-	j = MAP_OFFS_Y;
-	while (j <= height + MAP_OFFS_Y)
-	{
-		i = MAP_OFFS_X;
-		while (i <= width + MAP_OFFS_X)
-		{
-			my_mlx_pixel_put(img, i, j, color);
-			i++;
-		}
-		j++;
-	}
-}
 
 void	draw_square(t_img *img, int width, t_pnt pos, int color)
 {
@@ -124,16 +105,4 @@ void	draw_map_squares(t_all *all, char **map)
 		pos.y += SCALE;
 		j++;
 	}
-}
-
-void	draw_map(t_all *all)
-{
-	t_pnt	pos;
-
-	pos.x = all->plr.x - SCALE / 2;
-	pos.y = all->plr.y - SCALE / 2;
-	draw_map_squares(all, all->map);
-	draw_square(&all->img, SCALE, pos, AMBER);
-	cast_rays(all, all->map, RAYCOUNT, SUNRAY);
-	draw_ray(all, all->map, RED);
 }

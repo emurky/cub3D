@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 02:22:08 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 00:44:23 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 03:03:02 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,31 @@ void	my_mlx_tex_to_image(t_all *all, t_tex *tex, char **path)
 	*path = NULL;
 }
 
-void	frames_counter(t_all *all)
+void	mlx_start(t_all *all)
 {
-	char	*counter;
+	all->mlx = mlx_init();
+	all->img.img = mlx_new_image(all->mlx, all->screen.x, all->screen.y);
+	all->img.addr = mlx_get_data_addr
+		(all->img.img, &all->img.bpp, &all->img.linelen, &all->img.endian);
+	if (!all->save)
+		all->win
+			= mlx_new_window(all->mlx, all->screen.x, all->screen.y, "cub3D");
+}
 
-	counter = NULL;
-	counter = ft_itoa(all->frames);
-	all->frames++;
-	mlx_string_put(all->mlx, all->win, all->screen.x - 50, 15, BLACK, counter);
-	if (counter)
-		free(counter);
+void	clean_mlx(t_all *all)
+{
+	int		i;
+
+	i = 0;
+	if (all->mlx && all->win)
+		mlx_destroy_window(all->mlx, all->win);
+	if (all->mlx && all->img.img)
+		mlx_destroy_image(all->mlx, all->img.img);
+	while (i < 5)
+	{
+		if (all->mlx && all->tex[i].img)
+			mlx_destroy_image(all->mlx, all->tex[i].img);
+		i++;
+	}
+	printf("MiniLibX items were freed\n");
 }

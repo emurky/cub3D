@@ -6,65 +6,38 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:40:55 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 01:38:04 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 02:51:30 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/* from <time.h> clock(), frame_time should be divided by CLOCK_PER_SEC */
-void	fps(t_all *all)
+void	structure_init(t_all *all)
 {
-	int		old_time;
-	double	frame_time;
-	char	*fps;
-	int		clock;
+	int		i;
 
-	clock = 0;
-	fps = NULL;
-	old_time = all->time;
-	all->time = (double)clock;
-	frame_time = (all->time - old_time) / 1;
-	fps = ft_itoa((int)round(1 / frame_time));
-	mlx_string_put(all->mlx, all->win, all->screen.x - 50, 15, BLACK, fps);
-	all->move_speed = frame_time * 4.0;
-	all->rotate_speed = frame_time * 1.5;
-	if (fps)
-		free(fps);
-}
-
-void	is_enough_space_for_map(t_all *all)
-{
-	t_pnt	max;
-
-	max.x = 0;
-	max.y = 0;
-	max.x = all->max_map.x * SCALE + MAP_OFFS_X * 2;
-	max.y = all->max_map.y * SCALE + MAP_OFFS_Y * 2;
-	if (max.x < all->screen.x && max.y < all->screen.y && DRAW_MAP)
-		all->flags[ISMAP_OK] = TRUE;
-}
-
-int	renderer(t_all *all)
-{
-	mlx_clear_window(all->mlx, all->win);
-	keys_handler(all);
-	raycaster(all, &all->ray);
-	if (all->flags[ISMAP_OK])
-		draw_map(all);
-	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
-	return (0);
-}
-
-void	mlx_start(t_all *all)
-{
-	all->mlx = mlx_init();
-	all->img.img = mlx_new_image(all->mlx, all->screen.x, all->screen.y);
-	all->img.addr = mlx_get_data_addr
-		(all->img.img, &all->img.bpp, &all->img.linelen, &all->img.endian);
-	if (!all->save)
-		all->win
-			= mlx_new_window(all->mlx, all->screen.x, all->screen.y, "cub3D");
+	i = 0;
+	while (i < 8)
+		all->keys[i++] = 0;
+	i = 0;
+	while (i < 5)
+		all->tex[i++].img = NULL;
+	i = 0;
+	while (i < 13)
+		all->flags[i++] = FALSE;
+	all->save = 0;
+	all->identifiers = 0;
+	all->frames = 1;
+	all->time = 0;
+	all->map = NULL;
+	all->line = NULL;
+	all->mlx = NULL;
+	all->img.img = NULL;
+	all->win = NULL;
+	all->ray.z_buff = NULL;
+	all->ray.sprites = NULL;
+	all->nswes = (t_pths){NULL, NULL, NULL, NULL, NULL};
+	all->max_map = (t_pnt){0, 0};
 }
 
 void	frame_init(t_all *all)
@@ -81,32 +54,15 @@ void	frame_init(t_all *all)
 		draw_map(all);
 }
 
-void	structure_init(t_all *all)
+int	renderer(t_all *all)
 {
-	int		i;
-
-	i = 0;
-	all->save = 0;
-	all->identifiers = 0;
-	all->frames = 1;
-	all->time = 0;
-	while (i < 8)
-		all->keys[i++] = 0;
-	i = 0;
-	while (i < 5)
-		all->tex[i++].img = NULL;
-	i = 0;
-	while (i < 13)
-		all->flags[i++] = FALSE;
-	all->map = NULL;
-	all->line = NULL;
-	all->mlx = NULL;
-	all->img.img = NULL;
-	all->win = NULL;
-	all->ray.z_buff = NULL;
-	all->ray.sprites = NULL;
-	all->nswes = (t_pths){NULL, NULL, NULL, NULL, NULL};
-	all->max_map = (t_pnt){0, 0};
+	mlx_clear_window(all->mlx, all->win);
+	keys_handler(all);
+	raycaster(all, &all->ray);
+	if (all->flags[ISMAP_OK])
+		draw_map(all);
+	mlx_put_image_to_window(all->mlx, all->win, all->img.img, 0, 0);
+	return (0);
 }
 
 void	hooks_and_loops(t_all *all)
