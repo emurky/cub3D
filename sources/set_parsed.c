@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 02:55:04 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 02:56:54 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 07:07:25 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,10 @@ void	set_screen_size(t_all *all, char **tokens, int width, int height)
 	}
 }
 
-void	color_to_str(int *rgb, int *i, t_all *all, char **tokens)
+void	set_nswes(char **nswes, int *flag, char *token)
 {
-	if (ft_isdigit(tokens[1][*i]))
-	{
-		*rgb = ft_atoi(&(tokens[1][*i]));
-		while (ft_isdigit(tokens[1][*i]))
-			(*i)++;
-	}
-	else
-		leave(ERR, ERR_FC, all, tokens);
+	*nswes = ft_strdup(token);
+	*flag = TRUE;
 }
 
 void	set_floor_ceil(t_all *all, char **tokens, int fc, int color)

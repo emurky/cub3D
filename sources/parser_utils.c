@@ -6,11 +6,17 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 18:15:01 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 00:17:30 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 07:08:08 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	skip_spaces(int *i, t_all *all)
+{
+	while (all->line[*i] == ' ')
+		(*i)++;
+}
 
 int	array_len(char **array)
 {
@@ -42,12 +48,6 @@ int	str_isspace(char *str)
 		str++;
 	}
 	return (TRUE);
-}
-
-void	set_nswes(char **nswes, int *flag, char *token)
-{
-	*nswes = ft_strdup(token);
-	*flag = TRUE;
 }
 
 int	isvalid_extension(char *file, const char *ext)

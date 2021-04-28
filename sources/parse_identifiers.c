@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 02:53:24 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 02:54:29 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 07:43:17 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,27 @@ void	parse_texture(t_all *all, char **tokens, int dir)
 	all->identifiers++;
 }
 
+void	check_and_skip_digits(int *rgb, int *i, t_all *all, char **tokens)
+{
+	if (!ft_isdigit(all->line[*i]))
+		leave(ERR, ERR_FC, all, tokens);
+	*rgb = ft_atoi(&all->line[*i]);
+	while (ft_isdigit(all->line[*i]))
+		(*i)++;
+}
+
+void	check_and_skip_spaces_and_comma(int *i, t_all *all, char **tokens)
+{
+	if (all->line[*i] != ' ' && all->line[*i] != ',')
+		leave(ERR, ERR_FC, all, tokens);
+	while (all->line[*i] == ' ')
+		(*i)++;
+	if (all->line[(*i)++] != ',')
+		leave(ERR, ERR_FC, all, tokens);
+	while (all->line[*i] == ' ')
+		(*i)++;
+}
+
 void	parse_floor_ceil(t_all *all, char **tokens, int fc)
 {
 	int		r;
@@ -70,16 +91,20 @@ void	parse_floor_ceil(t_all *all, char **tokens, int fc)
 	int		i;
 
 	i = 0;
-	if (array_len(tokens) != 2)
-		leave(ERR, ERR_INV_FC, all, tokens);
-	color_to_str(&r, &i, all, tokens);
-	if (tokens[1][i++] != ',')
+	skip_spaces(&i, all);
+	if (all->line[i] != 'F' && all->line[i] != 'C')
 		leave(ERR, ERR_FC, all, tokens);
-	color_to_str(&g, &i, all, tokens);
-	if (tokens[1][i++] != ',')
+	i++;
+	skip_spaces(&i, all);
+	check_and_skip_digits(&r, &i, all, tokens);
+	check_and_skip_spaces_and_comma(&i, all, tokens);
+	check_and_skip_digits(&g, &i, all, tokens);
+	check_and_skip_spaces_and_comma(&i, all, tokens);
+	check_and_skip_digits(&b, &i, all, tokens);
+	if (all->line[i] != ' ' && all->line[i])
 		leave(ERR, ERR_FC, all, tokens);
-	color_to_str(&b, &i, all, tokens);
-	if (i != (int)ft_strlen(tokens[1]))
+	skip_spaces(&i, all);
+	if (all->line[i])
 		leave(ERR, ERR_FC, all, tokens);
 	if (!(0 <= r && r <= 255) || !(0 <= g && g <= 255) || !(0 <= b && b <= 255))
 		leave(ERR, ERR_FC_RNG, all, tokens);

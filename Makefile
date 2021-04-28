@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/23 17:48:52 by emurky            #+#    #+#              #
-#    Updated: 2021/04/28 03:34:24 by emurky           ###   ########.fr        #
+#    Updated: 2021/04/28 07:55:59 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,7 @@ sc:
 .PHONY:				all clean fclean re bonus \
 					libft libft_clean libft_fclean libft_re \
 					sc
+
 #.SILENT:
-# gcc -Wall -Wextra -Werror -framework OpenGL -framework AppKit
-#-lz -L./libft -lft -L./mlx -lmlx -g sources/*.c -o cub3D
+# gcc -Wall -Wextra -Werror -framework OpenGL -framework AppKit -lz 
+# -L./libft -lft -L./mlx -lmlx -g sources/*.c -o cub3D

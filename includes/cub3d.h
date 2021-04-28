@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 22:42:02 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 03:18:24 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 07:08:17 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ void		parser(t_all *all, char *cub);
 /*			parse_identifiers.c */
 void		parse_resolution(t_all *all, char **tokens);
 void		parse_texture(t_all *all, char **tokens, int dir);
+void		check_and_skip_digits(int *rgb, int *i, t_all *all, char **tokens);
+void		check_and_skip_spaces_and_comma(int *i, t_all *all, char **tokens);
 void		parse_floor_ceil(t_all *all, char **tokens, int fc);
 
 /*			set_parsed.c */
 void		set_screen_size(t_all *all, char **tokens, int width, int height);
-void		color_to_str(int *rgb, int *i, t_all *all, char **tokens);
+void		set_nswes(char **nswes, int *flag, char *token);
 void		set_floor_ceil(t_all *all, char **tokens, int fc, int color);
 void		init_player(t_all *all, char **map, int i, int j);
 void		set_player(t_all *all, char **map);
@@ -71,10 +73,10 @@ int			check_continuity(t_map map);
 int			check_map_line(t_all *all, char *line);
 
 /*			parser_utils.c */
+void		skip_spaces(int *i, t_all *all);
 int			array_len(char **array);
 int			str_isnum(char *str);
 int			str_isspace(char *str);
-void		set_nswes(char **nswes, int *flag, char *token);
 int			isvalid_extension(char *file, const char *ext);
 
 /*			player_move.c */

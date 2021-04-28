@@ -6,20 +6,20 @@
 /*   By: emurky <emurky@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 04:40:54 by emurky            #+#    #+#             */
-/*   Updated: 2021/04/28 03:05:39 by emurky           ###   ########.fr       */
+/*   Updated: 2021/04/28 07:53:05 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	is_player_dir(char c)
-{
-	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
-
 int	create_rgb(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
+}
+
+int	is_player_dir(char c)
+{
+	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
 int	scale_x(double index)
