@@ -16,3 +16,4 @@ a.out
 *.png
 *.dSYM
 cub3d_destroyer
+git_pull.sh
